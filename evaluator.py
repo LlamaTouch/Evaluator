@@ -13,15 +13,18 @@ class BaseEvaluator(ABC):
             self.epi_to_category_file
         ), f"The file {self.epi_to_category_file} does not exist"
 
-        self.epi_to_category = {}
+        self.epi_metadata_dict = {}
         self.init_epi_to_category()
 
     def init_epi_to_category(self):
         with open(self.epi_to_category_file, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
-                epi, category = line.strip().split(",")
-                self.epi_to_category[epi] = category
+                epi, category, task_description = line.strip().split(",", maxsplit=2)
+                self.epi_metadata_dict[epi] = {
+                    "category": category,
+                    "task_description": task_description,
+                }
 
     @abstractmethod
     def run_evaluation(self):
@@ -31,5 +34,8 @@ class BaseEvaluator(ABC):
     def report_stats(self):
         pass
 
+    def query_task_decsription_by_episode(self, episode):
+        return self.epi_metadata_dict[episode]["task_description"]
+
     def query_category_by_episode(self, episode):
-        return self.epi_to_category[episode]
+        return self.epi_metadata_dict[episode]["category"]

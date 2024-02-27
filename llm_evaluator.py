@@ -43,6 +43,6 @@ class LLMEvaluator(BaseEvaluator):
 
 if __name__ == "__main__":
     e = LLMEvaluator(
-        agent="AppAgent",
+        agent_name="AppAgent",
         agent_exec_trace_folder="/Users/zl/Documents/mobile-agent/testbed/data/agent-traces/AppAgent/",
     )
