@@ -116,16 +116,14 @@ Answer single-step instructions:
 4) Tap the "Search" button.
 '''
 """
+
     def construct_system_prompt_for_multimodal_LLM(self, episode):
-
-
-
 
         pass
 
 
 if __name__ == "__main__":
-    e = LLMEvaluator( agent_name="AppAgent",
-        agent_exec_trace_folder=
-        "/Users/zl/Documents/mobile-agent/testbed/data/agent-traces/AppAgent/",
+    e = LLMEvaluator(
+        agent_name="AppAgent",
+        agent_exec_trace_folder="/Users/zl/Documents/mobile-agent/testbed/data/agent-traces/AppAgent/",
     )
