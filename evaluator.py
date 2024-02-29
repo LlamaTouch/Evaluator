@@ -5,6 +5,9 @@ from task_trace import TaskCategory
 
 
 class BaseEvaluator(ABC):
+    # ------------------------------------------------------------------------ #
+    # ------------------ Initialization ------------------ #
+    # ------------------------------------------------------------------------ #
     def __init__(self, agent_name, agent_exec_trace_folder):
         # logger setup
         logging.basicConfig(level=logging.INFO)
@@ -43,6 +46,9 @@ class BaseEvaluator(ABC):
                     "task_description": task_description,
                 }
 
+    # ------------------------------------------------------------------------ #
+    # ------------  Evaluation implementation ------------ #
+    # ------------------------------------------------------------------------ #
     def run_evaluation(self):
         self.logger.info("Start evaluation")
         for epi in self.epi_metadata_dict.keys():
@@ -51,10 +57,16 @@ class BaseEvaluator(ABC):
     def eval_episode(self, episode):
         self.logger.info(f"Evaluating episode: {episode}")
 
+    # ------------------------------------------------------------------------ #
+    # -------------------  Metrics ----------------------- #
+    # ------------------------------------------------------------------------ #
     @abstractmethod
     def report_stats(self):
         pass
 
+    # ------------------------------------------------------------------------ #
+    # ------------------ Helper functions ---------------- #
+    # ------------------------------------------------------------------------ #
     def query_task_decsription_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
 
