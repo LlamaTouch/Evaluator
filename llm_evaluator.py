@@ -127,3 +127,4 @@ if __name__ == "__main__":
         agent_name="AppAgent",
         agent_exec_trace_folder="/Users/zl/Documents/mobile-agent/testbed/data/agent-traces/AppAgent/",
     )
+    e.run_evaluation()

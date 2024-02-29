@@ -35,8 +35,11 @@ class BaseEvaluator(ABC):
                     "task_description": task_description,
                 }
 
-    @abstractmethod
     def run_evaluation(self):
+        for epi in self.epi_metadata_dict.keys():
+            print(epi)
+
+    def eval_episode(self, episode):
         pass
 
     @abstractmethod
