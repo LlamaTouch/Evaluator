@@ -1,5 +1,6 @@
 from evaluator import BaseEvaluator
 import os
+import logging
 
 
 class LLMEvaluator(BaseEvaluator):
@@ -23,10 +24,10 @@ class LLMEvaluator(BaseEvaluator):
 
     def __init__(self, agent_name, agent_exec_trace_folder):
         super().__init__(agent_name, agent_exec_trace_folder)
-        self.evaluator_name = "LLMEvaluator"
+        self.evaluator_name = self.__class__.__name__
 
-    def run_evaluation(self):
-        return super().run_evaluation()
+        # logger setup
+        self.logger = logging.getLogger(self.evaluator_name)
 
     def report_stats(self):
         return super().report_stats()
