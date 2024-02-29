@@ -70,6 +70,14 @@ def load_agent_exec_trace_by_episode(
     return load_trace(agent_exec_trace_folder)
 
 
+def load_groundtruth_trace_by_episode(episode) -> List[Tuple[Any, str, Dict]]:
+    category = DatasetHelper().get_category_by_episode(episode)
+    groundtruth_trace_folder = os.path.join(
+        GROUNDTRUTH_DATASET_PATH, category, episode, "captured_data"
+    )
+    return load_trace(groundtruth_trace_folder)
+
+
 def load_trace(trace_folder) -> List[Tuple[Any, str, Dict]]:
     """
     TODO
