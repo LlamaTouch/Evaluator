@@ -1,6 +1,6 @@
 from evaluator import BaseEvaluator
-import os
 import logging
+from task_trace import load_agent_exec_trace_by_episode, Agents
 
 
 class LLMEvaluator(BaseEvaluator):
@@ -22,8 +22,8 @@ class LLMEvaluator(BaseEvaluator):
         - GPT-4
     """
 
-    def __init__(self, agent_name, agent_exec_trace_folder):
-        super().__init__(agent_name, agent_exec_trace_folder)
+    def __init__(self, agent_name):
+        super().__init__(agent_name)
         self.evaluator_name = self.__class__.__name__
 
         # logger setup
@@ -32,32 +32,10 @@ class LLMEvaluator(BaseEvaluator):
     def report_stats(self):
         return super().report_stats()
 
-    def gpt_episodes(self):
-        episodes = [123, 345, 567]
-        return episodes
-
-    def get_episode_folder(self, episode):
-        """Get the folder of agent execution trace for one specific episode"""
-        category = self.query_category_by_episode(episode)
-        if self.agent_name == "AppAgent":
-            trace_folder = os.path.join(
-                self.agent_exec_trace_folder,
-                category,
-                episode,
-                episode,
-                "captured_data",
-            )
-        elif self.agent_name == "Auto-UI":
-            trace_folder = os.path.join(
-                self.agent_exec_trace_folder,
-                category,
-                episode,
-                "captured_data",
-            )
-        else:
-            pass
-
-        return trace_folder
+    def eval_impl(self, episode, task_description) -> bool:
+        task_exec_trace = load_agent_exec_trace_by_episode(self.agent_name, episode)
+        for step in task_exec_trace:
+            screenshot, vh, action = step
 
     def query_screen_resolution(self):
         """TODO"""
@@ -119,13 +97,9 @@ Answer single-step instructions:
 """
 
     def construct_system_prompt_for_multimodal_LLM(self, episode):
-
         pass
 
 
 if __name__ == "__main__":
-    e = LLMEvaluator(
-        agent_name="AppAgent",
-        agent_exec_trace_folder="/Users/zl/Documents/mobile-agent/testbed/data/agent-traces/AppAgent/",
-    )
+    e = LLMEvaluator(agent_name=Agents.APPAGENT)
     e.run_evaluation()
