@@ -16,8 +16,6 @@ class TestbedEvaluator(BaseEvaluator):
         self.logger = logging.getLogger(self.evaluator_name)
 
     def eval_impl(self, episode, task_description) -> bool:
-        
-
 
         groundtruth_trace = load_groundtruth_trace_by_episode(episode)
         task_exec_trace = load_agent_exec_trace_by_episode(self.agent_name, episode)
