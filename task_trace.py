@@ -1,6 +1,6 @@
-from enum import Enum
-from typing import List, Dict, Tuple, Any
 import os
+from enum import Enum
+from typing import Any, Dict, List, Tuple
 
 
 class Agents(Enum):
@@ -18,14 +18,7 @@ class TaskCategory(Enum):
     GENERATED = "generated"
 
 
-def load_groundtruth_trace_by_episode(episode) -> List[Tuple[Any, str, Dict]]:
-    """
-    *TODO*
-    Return: [[screenshot1, XML1, action1], [screenshot2, XML2, action2], ...]
-    """
-    groundtruth_trace_folder = f"{episode}/TODOTODOTODO"
-    return load_trace(groundtruth_trace_folder)
-
+GROUNDTRUTH_DATASET_PATH = "/data/xxx"
 
 AGENT_EXEC_TRACE_FOLDER = {
     Agents.APPAGENT: "data/agent_exec_trace/AppAgent",
@@ -33,6 +26,18 @@ AGENT_EXEC_TRACE_FOLDER = {
     Agents.AUTODROID: "...",
     Agents.COGAGENT: "...",
 }
+
+
+def load_groundtruth_trace_by_episode(episode) -> List[Tuple[Any, str, Dict]]:
+    """
+    *TODO*
+    Return: [[screenshot1, XML1, action1], [screenshot2, XML2, action2], ...]
+    """
+    category = DatasetHelper().get_category_by_episode(episode)
+    groundtruth_trace_folder = os.path.join(
+        GROUNDTRUTH_DATASET_PATH, category, episode, "captured_data"
+    )
+    return load_trace(groundtruth_trace_folder)
 
 
 def get_agent_exec_trace_folder(agent_name, episode) -> str:
@@ -67,12 +72,22 @@ def load_agent_exec_trace_by_episode(
 
 def load_trace(trace_folder) -> List[Tuple[Any, str, Dict]]:
     """
+    TODO
     Return: [[screenshot1, XML1, action1], [screenshot2, XML2, action2], ...]
     """
-    pass
+    return [(None, None, None), (None, None, None)]
 
 
 class DatasetHelper:
+    """A singleton class to help load task metadata from the dataset."""
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(DatasetHelper, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
     def __init__(self) -> None:
         # load task metadata
         self.epi_to_category_file = "data/epi_to_category.csv"
