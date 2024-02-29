@@ -1,11 +1,19 @@
 from abc import ABC, abstractmethod
 import os
+from enum import Enum
+
+class TaskCategory(Enum):
+    GENERAL = "general"
+    GOOGLEAPPS = "googleapps"
+    INSTALL = "install"
+    WEBSHOPPING = "webshopping"
+    GENERATED = "generated"
 
 
 class BaseEvaluator(ABC):
     def __init__(self, agent_name, agent_exec_trace_folder):
         self.agent_name = agent_name
-        self.agen_exec_trace_folder = agent_exec_trace_folder
+        self.agent_exec_trace_folder = agent_exec_trace_folder
         self.evaluator_name = None
 
         self.epi_to_category_file = "data/epi_to_category.csv"
@@ -34,8 +42,8 @@ class BaseEvaluator(ABC):
     def report_stats(self):
         pass
 
-    def query_task_decsription_by_episode(self, episode):
+    def query_task_decsription_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
 
-    def query_category_by_episode(self, episode):
+    def query_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
