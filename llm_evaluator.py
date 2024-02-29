@@ -9,7 +9,7 @@ class LLMEvaluator(BaseEvaluator):
     LLMEvaluator implements the evaluation process in paper:
         - AXNav: Replaying Accessibility Tests from Natural Language (https://arxiv.org/pdf/2310.02424v2.pdf)
 
-    Inputs of the LLM-powered evaluation process:
+    Inputs:
         - User prompt for the evaluation process
         - The overall task instruction
         - The plan for the current step
