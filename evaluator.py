@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import os
 from enum import Enum
 
+
 class TaskCategory(Enum):
     GENERAL = "general"
     GOOGLEAPPS = "googleapps"
