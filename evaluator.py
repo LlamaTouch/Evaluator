@@ -2,15 +2,16 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Dict
 
-from task_trace import Agents, DatasetHelper
+from agent import MobileAgent
+from task_trace import Agent, DatasetHelper, TaskTrace
 
 
 class BaseEvaluator(ABC):
-    def __init__(self, agent_name: Agents) -> None:
+    def __init__(self, agent: MobileAgent) -> None:
         logging.basicConfig(level=logging.INFO)
         self.logger = None
-        self.agent_name: Agents = agent_name
-        self.evaluator_name: Agents = None
+        self.agent: MobileAgent = agent
+        self.evaluator_name: str = None
         self.helper = DatasetHelper()
         self.episode_completion: Dict[str, bool] = {}
 

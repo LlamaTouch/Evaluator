@@ -1,7 +1,7 @@
 import logging
 
+from agent import AppAgent
 from evaluator import BaseEvaluator
-from task_trace import Agents, load_agent_exec_trace_by_episode
 
 
 class LLMEvaluator(BaseEvaluator):
@@ -23,13 +23,13 @@ class LLMEvaluator(BaseEvaluator):
         - GPT-4
     """
 
-    def __init__(self, agent_name) -> None:
-        super().__init__(agent_name)
+    def __init__(self, agent) -> None:
+        super().__init__(agent)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
     def eval_impl(self, episode, task_description) -> bool:
-        task_exec_trace = load_agent_exec_trace_by_episode(self.agent_name, episode)
+        task_exec_trace = self.agent.load_exec_trace_by_episode(episode)
         if len(task_exec_trace) == 1:
             screenshot, vh, action = task_exec_trace[0]
             # query whether a task is completed using a single UI representation
@@ -67,6 +67,7 @@ class LLMEvaluator(BaseEvaluator):
 
 
 if __name__ == "__main__":
-    e = LLMEvaluator(agent_name=Agents.APPAGENT)
+    app_agent = AppAgent()
+    e = LLMEvaluator(agent=app_agent)
     e.run_evaluation()
     e.report_stats()

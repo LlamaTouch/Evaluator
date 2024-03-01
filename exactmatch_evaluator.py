@@ -1,23 +1,20 @@
 import logging
 import random
 
+from agent import AppAgent
 from evaluator import BaseEvaluator
-from task_trace import (
-    Agents,
-    load_agent_exec_trace_by_episode,
-    load_groundtruth_trace_by_episode,
-)
+from task_trace import Agent, load_groundtruth_trace_by_episode
 
 
 class ExactMatchEvaluator(BaseEvaluator):
-    def __init__(self, agent_name) -> None:
-        super().__init__(agent_name)
+    def __init__(self, agent) -> None:
+        super().__init__(agent)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
     def eval_impl(self, episode, task_description) -> bool:
         groundtruth_trace = load_groundtruth_trace_by_episode(episode)
-        task_exec_trace = load_agent_exec_trace_by_episode(self.agent_name, episode)
+        task_exec_trace = self.agent.load_exec_trace_by_episode(episode)
         for i, item in enumerate(groundtruth_trace):
             gr_screenshot, gr_vh, gr_action = item
             exec_screenshot, exec_vh, exec_action = task_exec_trace[i]
@@ -31,6 +28,7 @@ class ExactMatchEvaluator(BaseEvaluator):
 
 
 if __name__ == "__main__":
-    e = ExactMatchEvaluator(agent_name=Agents.APPAGENT)
+    agent = AppAgent()
+    e = ExactMatchEvaluator(agent=agent)
     e.run_evaluation()
     e.report_stats()

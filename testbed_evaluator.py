@@ -1,17 +1,13 @@
 import logging
-import random
 
+from agent import AppAgent
 from evaluator import BaseEvaluator
-from task_trace import (
-    Agents,
-    load_agent_exec_trace_by_episode,
-    load_groundtruth_trace_by_episode,
-)
+from task_trace import TaskTrace, load_groundtruth_trace_by_episode
 
 
 class TestbedEvaluator(BaseEvaluator):
-    def __init__(self, agent_name) -> None:
-        super().__init__(agent_name)
+    def __init__(self, agent) -> None:
+        super().__init__(agent)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
@@ -20,14 +16,15 @@ class TestbedEvaluator(BaseEvaluator):
 
     def eval_impl(self, episode, task_description) -> bool:
 
-        groundtruth_trace = load_groundtruth_trace_by_episode(episode)
-        task_exec_trace = load_agent_exec_trace_by_episode(self.agent_name, episode)
+        groundtruth_trace: TaskTrace = load_groundtruth_trace_by_episode(episode)
+        task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
         for item in task_exec_trace:
             screenshot, vh, action = item
             # TODO: check whether all crucial states has been traversed
 
 
 if __name__ == "__main__":
-    e = TestbedEvaluator(agent_name=Agents.APPAGENT)
+    agent = AppAgent()
+    e = TestbedEvaluator(agent=agent)
     e.run_evaluation()
     e.report_stats()
