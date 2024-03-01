@@ -41,18 +41,31 @@ class UIState(NamedTuple):
 
 TaskTrace = List[UIState]
 
+# ---------------------------------------------------- #
+# -- Processing the ground-truth trace we generated -- #
+# -- Methods                                           #
+# ---- load_groundtruth_trace_by_episode               #
+# ---- load_groundtruth_trace_by_category              #
+# ---- load_groundtruth_trace_by_path                  #
+# ---------------------------------------------------- #
 
-def load_groundtruth_trace(
-    category: TaskCategory,
-) -> Dict[str, List[UIState]]:
+def load_groundtruth_trace_by_episode(episode: str) -> TaskTrace:
+    category: TaskCategory = DatasetHelper().get_category_by_episode(episode)
+    print(f"episode: {episode}, category: {category}")
+    return load_groundtruth_trace_by_category(category)[episode]
+
+
+def load_groundtruth_trace_by_category(category: TaskCategory) -> Dict[str, TaskTrace]:
     """
+    Load ground-truth traces in a whole category
+
     Return: {
         "episode_id_1": [(screenshot_1_1, XML_1_1, action_1_1), (screenshot_1_2, XML_1_2, action_1_2), ...],
         "episode_id_2": [(screenshot_2_1, XML_2_1, action_2_1), (screenshot_2_2, XML_2_2, action_2_2), ...],
         ...
     }
     """
-    groundtruth_trace_folder = os.path.join(GROUNDTRUTH_DATASET_PATH, category)
+    groundtruth_trace_folder = os.path.join(GROUNDTRUTH_DATASET_PATH, category.value)
     gt_trace_dict = {}
     dirs = [
         d
@@ -66,13 +79,13 @@ def load_groundtruth_trace(
         with open(ep_id_path, "r") as f:
             ep_id = f.readline().strip()
 
-        ep_trace_list = get_trace_by_path(path)
+        ep_trace_list = load_groundtruth_trace_by_path(path)
         gt_trace_dict[ep_id] = ep_trace_list
 
     return gt_trace_dict
 
 
-def get_trace_by_path(path: str) -> TaskTrace:
+def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
     ep_trace_list: TaskTrace = []
     files = [
         f for f in os.listdir(path) if f.endswith(".png") and f.find("png_image") != -1
@@ -135,18 +148,6 @@ def get_trace_by_path(path: str) -> TaskTrace:
     return ep_trace_list
 
 
-def load_groundtruth_trace_by_episode(episode: str):
-    category: TaskCategory = DatasetHelper().get_category_by_episode(episode)
-    print(f"episode: {episode}, category: {category}")
-    return load_groundtruth_trace(category)[episode]
-
-
-def load_trace(trace_folder) -> List[Tuple[Any, str, Dict]]:
-    """
-    TODO
-    Return: [[screenshot1, XML1, action1], [screenshot2, XML2, action2], ...]
-    """
-    return [(None, None, None), (None, None, None)]
 
 
 class DatasetHelper:
@@ -184,7 +185,9 @@ class DatasetHelper:
             for line in f:
                 epi, category, task_description = line.strip().split(",", maxsplit=2)
                 self.epi_metadata_dict[epi] = {
-                    "category": category,
+                    # convert string-format category to TaskCategory, 
+                    # e.g., "general" -> TaskCategory.GENERAL
+                    "category": TaskCategory[category.upper()],
                     "task_description": task_description,
                 }
 
@@ -197,7 +200,26 @@ class DatasetHelper:
     def get_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
 
+# ---------------------------------------------------- #
+# -------- Processing testbed-generated traces ------- #
+# -- Methods                                           #
+# ---- load_testbed_trace_by_episode                   #
+# ---- load_testbed_trace_by_path                      #
+# ---------------------------------------------------- #
+
+def load_testbed_trace_by_episode(episode: str) -> TaskTrace:
+    pass
+
+
+def load_testbed_trace_by_path(path: str) -> TaskTrace:
+    pass
+
 
 if __name__ == "__main__":
-    gt_trace = load_groundtruth_trace(TaskCategory.GENERAL)
-    # print(gt_trace)
+    # test 1
+    DatasetHelper().init_epi_to_category()
+    print(DatasetHelper().epi_metadata_dict)
+    # test 2
+    gt_trace = load_groundtruth_trace_by_category(TaskCategory.GENERAL)
+    print(gt_trace)
+

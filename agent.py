@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 import pandas as pd
 
-from task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace, get_trace_by_path
+from task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace, load_testbed_trace_by_path
 
 
 class MobileAgent(ABC):
@@ -28,7 +28,7 @@ class AppAgent(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.APPAGENT
-        self.epi_to_trace_path = None
+        self.epi_to_trace_path = {}
         self.agent_exec_trace_path = "/data/wangshihe/AgentTestbed/AppAgent"
 
     def proc_all_exec_trace(self):
@@ -40,16 +40,17 @@ class AppAgent(MobileAgent):
             data = pd.read_csv(summary_csv)
             for _, row in data.iterrows():
                 folder_name = row["trace_folder_path"].split("/")[-1]
-                epi = row["episode_id"]
+                epi = str(row["episode_id"])
                 self.epi_to_trace_path[epi] = os.path.join(
                     base_folder, v, folder_name, epi, "captured_data"
                 )
 
     def load_exec_trace_by_episode(self, episode) -> TaskTrace:
-        if self.epi_to_trace_path is None:
+        if not self.epi_to_trace_path:
             self.proc_all_exec_trace()
+            print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
         epi_trace_path = self.epi_to_trace_path[episode]
-        return get_trace_by_path(epi_trace_path)
+        return load_testbed_trace_by_path(epi_trace_path)
 
 
 class AutoUI(MobileAgent):
@@ -66,4 +67,4 @@ class AutoUI(MobileAgent):
         epi_trace_path = os.path.join(
             self.agent_exec_trace_path, category, episode, "captured_data"
         )
-        return get_trace_by_path(epi_trace_path)
+        return load_testbed_trace_by_path(epi_trace_path)
