@@ -3,19 +3,12 @@ from abc import ABC, abstractmethod
 
 import pandas as pd
 
-from task_trace import Agent, TaskCategory, TaskTrace, get_trace_by_path
-
-AGENT_EXEC_TRACE_PATH = {
-    Agent.APPAGENT: "/data/wangshihe/AgentTestbed/AppAgent",
-    Agent.AUTOUI: "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result",
-    Agent.AUTODROID: None,
-    Agent.COGAGENT: None,
-}
+from task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace, get_trace_by_path
 
 
 class MobileAgent(ABC):
-    def __init__(self, agent: Agent) -> None:
-        self.agent = agent
+    def __init__(self) -> None:
+        self.agent = None
 
     @abstractmethod
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
@@ -33,11 +26,13 @@ class AppAgent(MobileAgent):
     }
 
     def __init__(self) -> None:
-        super().__init__(Agent.APPAGENT)
+        super().__init__()
+        self.agent = Agent.APPAGENT
         self.epi_to_trace_path = None
+        self.agent_exec_trace_path = "/data/wangshihe/AgentTestbed/AppAgent"
 
     def proc_all_exec_trace(self):
-        base_folder = AGENT_EXEC_TRACE_PATH[self.agent]
+        base_folder = self.agent_exec_trace_path
         for k, v in AppAgent.APPAGENT_CATEGORY_TO_TRACE_FOLDER_NAME.items():
             if v is None:
                 continue
@@ -54,4 +49,21 @@ class AppAgent(MobileAgent):
         if self.epi_to_trace_path is None:
             self.proc_all_exec_trace()
         epi_trace_path = self.epi_to_trace_path[episode]
+        return get_trace_by_path(epi_trace_path)
+
+
+class AutoUI(MobileAgent):
+    def __init__(self) -> None:
+        super().__init__()
+        self.agent = Agent.AUTOUI
+        self.epi_to_trace_path = None
+        self.agent_exec_trace_path = (
+            "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result"
+        )
+
+    def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
+        category = DatasetHelper().get_category_by_episode(episode)
+        epi_trace_path = os.path.join(
+            self.agent_exec_trace_path, category, episode, "captured_data"
+        )
         return get_trace_by_path(epi_trace_path)

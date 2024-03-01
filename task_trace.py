@@ -41,60 +41,6 @@ class UIState(NamedTuple):
 
 TaskTrace = List[UIState]
 
-# =========================================================================
-# deprecated
-# =========================================================================
-AGENT_EXEC_TRACE_PATH = {
-    Agent.APPAGENT: "/data/wangshihe/AgentTestbed/AppAgent-AITW",
-    Agent.AUTOUI: "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result",
-    Agent.AUTODROID: None,
-    Agent.COGAGENT: None,
-}
-
-APPAGENT_CATEGORY_TO_TRACE_FOLDER_NAME = {
-    TaskCategory.GENERAL: "tasks-240215-1-general",
-    TaskCategory.GOOGLEAPPS: "tasks-240216-1-googleapp",
-    TaskCategory.INSTALL: "tasks-240215-3-install",
-    TaskCategory.WEBSHOPPING: "tasks-240215-2-webshopping",
-    TaskCategory.GENERATED: None,
-}
-
-
-def get_agent_exec_trace_folder(agent_name, episode) -> str:
-    """Get the folder of agent execution trace for one specific episode"""
-    category = DatasetHelper().get_category_by_episode(episode)
-    if agent_name == Agent.APPAGENT:
-        trace_folder = os.path.join(
-            AGENT_EXEC_TRACE_PATH[Agent.APPAGENT],
-            APPAGENT_CATEGORY_TO_TRACE_FOLDER_NAME[category],
-            episode,
-            episode,
-            "captured_data",
-        )
-    elif agent_name == Agent.AUTOUI:
-        trace_folder = os.path.join(
-            AGENT_EXEC_TRACE_PATH[Agent.AUTOUI],
-            category,
-            episode,
-            "captured_data",
-        )
-    else:
-        pass
-
-    """
-    The trace path contains the following folders:
-        - screenshot
-        - view_hierarchy
-        - activity
-        - action
-        - installed_apps
-        - xml
-    """
-    return trace_folder
-
-
-# =========================================================================
-
 
 def load_groundtruth_trace(
     category: TaskCategory,
@@ -126,7 +72,7 @@ def load_groundtruth_trace(
     return gt_trace_dict
 
 
-def get_trace_by_path(path: str) -> List[UIState]:
+def get_trace_by_path(path: str) -> TaskTrace:
     ep_trace_list: TaskTrace = []
     files = [
         f for f in os.listdir(path) if f.endswith(".png") and f.find("png_image") != -1

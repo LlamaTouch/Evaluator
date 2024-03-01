@@ -3,7 +3,7 @@ import random
 
 from agent import AppAgent
 from evaluator import BaseEvaluator
-from task_trace import Agent, load_groundtruth_trace_by_episode
+from task_trace import load_groundtruth_trace_by_episode
 
 
 class ExactMatchEvaluator(BaseEvaluator):
