@@ -2,6 +2,9 @@ import os
 from enum import Enum
 from typing import Any, Dict, List, Tuple
 
+import re
+from action_type import ActionType
+
 
 class Agents(Enum):
     APPAGENT = "AppAgent"
@@ -27,8 +30,18 @@ AGENT_EXEC_TRACE_FOLDER = {
     Agents.COGAGENT: "...",
 }
 
+ACTION_SPACE = {
+    "Home键": ActionType.PRESS_HOME,
+    "Back键": ActionType.PRESS_BACK,
+    "点击事件": ActionType.DUAL_POINT,
+    "滑动事件": ActionType.DUAL_POINT,
+    "键盘输入": ActionType.TYPE,
+}
 
-def load_groundtruth_trace(category: TaskCategory) -> Dict[str, List[Tuple[Any, str, Dict]]]:
+
+def load_groundtruth_trace(
+    category: TaskCategory,
+) -> Dict[str, List[Tuple[Any, str, Dict]]]:
     """
     Return: {
         "episode_id_1": [(screenshot_1_1, XML_1_1, action_1_1), (screenshot_1_2, XML_1_2, action_1_2), ...],
@@ -38,33 +51,86 @@ def load_groundtruth_trace(category: TaskCategory) -> Dict[str, List[Tuple[Any, 
     """
     groundtruth_trace_folder = os.path.join(GROUNDTRUTH_DATASET_PATH, category.value)
     gt_trace_dict = {}
-    dirs = [d for d in os.listdir(groundtruth_trace_folder) if os.path.isdir(os.path.join(groundtruth_trace_folder, d))]
+    dirs = [
+        d
+        for d in os.listdir(groundtruth_trace_folder)
+        if os.path.isdir(os.path.join(groundtruth_trace_folder, d))
+    ]
     dirs.sort()
     for dir in dirs:
         path = os.path.join(groundtruth_trace_folder, dir)
-        ep_trace_list = _gt_trace_episode(path)
+        ep_id_path = os.path.join(path, "instruction.txt")
+        with open(ep_id_path, "r") as f:
+            ep_id = f.readline().strip()
 
-        ep_id = dir # TODO: get ep_id
+        ep_trace_list = _gt_trace_episode(path)
         gt_trace_dict[ep_id] = ep_trace_list
 
     return gt_trace_dict
 
+
 def _gt_trace_episode(path: str) -> List[Tuple[Any, str, Dict]]:
     ep_trace_list = []
-    files = [f for f in os.listdir(path) if f.endswith(".png")]
+    files = [
+        f for f in os.listdir(path) if f.endswith(".png") and f.find("png_image") != -1
+    ]
     files.sort()
 
     action_path = os.path.join(path, "eventStructs.txt")
-    for file in files:
+    action_list = []
+    with open(action_path, "r") as f:
+        action_texts = f.readlines()
+
+    for action_text in action_texts:
+        action_type = re.search("【(?P<action_type>.+)】", action_text).groupdict()[
+            "action_type"
+        ]
+        if action_type == "Home键" or action_type == "Back键":
+            action_list.append({"action_type": ACTION_SPACE[action_type]})
+        elif action_type == "点击事件":
+            pattern = re.compile(
+                "屏幕大小：（w(?P<screen_wight>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
+            )
+            re_dict = re.search(pattern, action_text).groupdict()
+            action_list.append(
+                {
+                    "action_type": ACTION_SPACE[action_type],
+                    "begin_x": re_dict["position_1_x"],
+                    "begin_y": re_dict["position_1_y"],
+                    "end_x": re_dict["position_1_x"],
+                    "end_y": re_dict["position_1_y"],
+                }
+            )
+        elif action_type == "滑动事件":
+            pattern = re.compile(
+                "屏幕大小：（w(?P<screen_wight>\d+)，h(?P<screen_height>\d+)），起始位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)），结束位置：（x(?P<position_2_x>\d+)，y(?P<position_2_y>\d+)）"
+            )
+            re_dict = re.search(pattern, action_text).groupdict()
+            action_list.append(
+                {
+                    "action_type": ACTION_SPACE[action_type],
+                    "begin_x": re_dict["position_1_x"],
+                    "begin_y": re_dict["position_1_y"],
+                    "end_x": re_dict["position_2_x"],
+                    "end_y": re_dict["position_2_y"],
+                }
+            )
+        elif action_type == "键盘输入":
+            pattern = re.compile("【键盘输入】(?P<text>.+)")
+            text = re.search(pattern, action_text).groupdict()["text"]
+            action_list.append({"action_type": ACTION_SPACE[action_type], "text": text})
+        else:
+            raise ValueError(f"Unknown action type: {action_type}")
+
+    for file, action in zip(files, action_list):
         img_path = os.path.join(path, file)
         xml_path = os.path.join(path, file.replace("png_image.png", "png_xml.txt"))
+        with open(xml_path, "r") as f:
+            xml_text = f.read()
+        ep_trace_list.append((img_path, xml_text, action))
 
-        # TODO: get action, img, xml
-        action = None
-        ep_trace_list.append((img_path, xml_path, action))
-        # print(img_path)
-    
     return ep_trace_list
+
 
 def get_agent_exec_trace_folder(agent_name, episode) -> str:
     """Get the folder of agent execution trace for one specific episode"""
@@ -152,6 +218,7 @@ class DatasetHelper:
     def get_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     gt_trace = load_groundtruth_trace(TaskCategory.GENERAL)
-    print(gt_trace)
+    # print(gt_trace)
