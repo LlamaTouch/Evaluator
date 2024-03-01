@@ -49,6 +49,7 @@ TaskTrace = List[UIState]
 # ---- load_groundtruth_trace_by_path                  #
 # ---------------------------------------------------- #
 
+
 def load_groundtruth_trace_by_episode(episode: str) -> TaskTrace:
     category: TaskCategory = DatasetHelper().get_category_by_episode(episode)
     print(f"episode: {episode}, category: {category}")
@@ -148,8 +149,6 @@ def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
     return ep_trace_list
 
 
-
-
 class DatasetHelper:
     """A singleton class to help load task metadata from the dataset."""
 
@@ -185,7 +184,7 @@ class DatasetHelper:
             for line in f:
                 epi, category, task_description = line.strip().split(",", maxsplit=2)
                 self.epi_metadata_dict[epi] = {
-                    # convert string-format category to TaskCategory, 
+                    # convert string-format category to TaskCategory,
                     # e.g., "general" -> TaskCategory.GENERAL
                     "category": TaskCategory[category.upper()],
                     "task_description": task_description,
@@ -200,12 +199,14 @@ class DatasetHelper:
     def get_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
 
+
 # ---------------------------------------------------- #
 # -------- Processing testbed-generated traces ------- #
 # -- Methods                                           #
 # ---- load_testbed_trace_by_episode                   #
 # ---- load_testbed_trace_by_path                      #
 # ---------------------------------------------------- #
+
 
 def load_testbed_trace_by_episode(episode: str) -> TaskTrace:
     pass
@@ -222,4 +223,3 @@ if __name__ == "__main__":
     # test 2
     gt_trace = load_groundtruth_trace_by_category(TaskCategory.GENERAL)
     print(gt_trace)
-

@@ -3,7 +3,13 @@ from abc import ABC, abstractmethod
 
 import pandas as pd
 
-from task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace, load_testbed_trace_by_path
+from task_trace import (
+    Agent,
+    DatasetHelper,
+    TaskCategory,
+    TaskTrace,
+    load_testbed_trace_by_path,
+)
 
 
 class MobileAgent(ABC):
