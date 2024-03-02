@@ -36,10 +36,11 @@ ACTION_SPACE = {
 
 class UIState(NamedTuple):
     """
-    - screenshot_path: string 
+    - screenshot_path: string
     - vh: string; view hierarchy
     - action: Action
     """
+
     screenshot_path: str
     vh: str
     action: Action

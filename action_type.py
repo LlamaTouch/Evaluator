@@ -54,6 +54,7 @@ class Action(NamedTuple):
     - x: normalized x-axis (screen width) to the left margin
     - y: normalized y-axis (screen height) to the top margin
     """
+
     action_type: ActionType
     begin_x: float
     begin_y: float
