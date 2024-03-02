@@ -3,7 +3,7 @@ Adapted from https://github.com/google-research/google-research/tree/master/andr
 """
 
 import enum
-from typing import NamedTuple
+from typing import NamedTuple, Tuple
 
 
 class ActionType(enum.IntEnum):
@@ -56,7 +56,6 @@ class Action(NamedTuple):
     """
 
     action_type: ActionType
-    begin_x: float
-    begin_y: float
-    end_x: float
-    end_y: float
+    touch_point_yx: Tuple[float, float] = (-1, -1)
+    lift_point_yx: Tuple[float, float] = (-1, -1)
+    typed_text: str = ""

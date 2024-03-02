@@ -120,10 +120,14 @@ def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
             action_list.append(
                 Action(
                     action_type=ACTION_SPACE[action_type],
-                    begin_x=int(re_dict["position_1_x"]) / screen_width,
-                    begin_y=int(re_dict["position_1_y"]) / screen_height,
-                    end_x=int(re_dict["position_1_x"]) / screen_width,
-                    end_y=int(re_dict["position_1_y"]) / screen_height,
+                    touch_point_yx=(
+                        int(re_dict["position_1_y"]) / screen_height,
+                        int(re_dict["position_1_x"]) / screen_width,
+                    ),
+                    lift_point_yx=(
+                        int(re_dict["position_1_y"]) / screen_height,
+                        int(re_dict["position_1_x"]) / screen_width,
+                    ),
                 )
             )
         elif action_type == "滑动事件":
@@ -136,16 +140,22 @@ def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
             action_list.append(
                 Action(
                     action_type=ACTION_SPACE[action_type],
-                    begin_x=int(re_dict["position_1_x"]) / screen_width,
-                    begin_y=int(re_dict["position_1_y"]) / screen_height,
-                    end_x=int(re_dict["position_2_x"]) / screen_width,
-                    end_y=int(re_dict["position_2_y"]) / screen_height,
+                    touch_point_yx=(
+                        int(re_dict["position_1_y"]) / screen_height,
+                        int(re_dict["position_1_x"]) / screen_width,
+                    ),
+                    lift_point_yx=(
+                        int(re_dict["position_2_y"]) / screen_height,
+                        int(re_dict["position_2_x"]) / screen_width,
+                    ),
                 )
             )
         elif action_type == "键盘输入":
             pattern = re.compile("【键盘输入】(?P<text>.+)")
             text = re.search(pattern, action_text).groupdict()["text"]
-            action_list.append({"action_type": ACTION_SPACE[action_type], "text": text})
+            action_list.append(
+                Action(action_type=ACTION_SPACE[action_type], typed_text=text)
+            )
         else:
             raise ValueError(f"Unknown action type: {action_type}")
 

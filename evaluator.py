@@ -37,4 +37,5 @@ class BaseEvaluator(ABC):
                 num_true += 1
             else:
                 num_false += 1
+        print(self.episode_completion)
         print(f"Number of True: {num_true}, Number of False: {num_false}")
