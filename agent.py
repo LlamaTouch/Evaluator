@@ -76,7 +76,7 @@ class AppAgent(MobileAgent):
                     continue
                 with open(episode_anno_file, "rb") as f:
                     epi = pickle.load(f)
-                episode = epi[0]['episode_id']
+                episode = epi[0]["episode_id"]
                 epi_to_trace_path[episode] = os.path.join(base_folder, v, trace_folder)
 
         trace_path = epi_to_trace_path[episode]
