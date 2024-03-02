@@ -25,7 +25,6 @@ class MobileAgent(ABC):
 
 class AppAgent(MobileAgent):
 
-
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.APPAGENT
@@ -52,7 +51,7 @@ class AppAgent(MobileAgent):
                 self.epi_to_exec_trace_path[epi] = os.path.join(
                     base_folder, v, folder_name, epi, "captured_data"
                 )
-    
+
     def load_predicted_action_by_episode(self, episode: str) -> List[Dict]:
         """Predicted actions on dataset.
         If there is no corresponding action file, return an empty list"""
@@ -70,12 +69,14 @@ class AppAgent(MobileAgent):
             if v is None:
                 continue
             for trace_folder in os.listdir(os.path.join(base_folder, v)):
-                episode_anno_file = os.path.join(base_folder, v, trace_folder, "episode_anno.obj")
+                episode_anno_file = os.path.join(
+                    base_folder, v, trace_folder, "episode_anno.obj"
+                )
                 if not os.path.exists(episode_anno_file):
                     continue
                 with open(episode_anno_file, "rb") as f:
                     epi = pickle.load(f)
-                episode = epi[0]['episode_id']
+                episode = epi[0]["episode_id"]
                 epi_to_trace_path[episode] = os.path.join(base_folder, v, trace_folder)
 
         trace_path = epi_to_trace_path[episode]
@@ -111,6 +112,6 @@ class AutoUI(MobileAgent):
         return load_testbed_trace_by_path(epi_trace_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     aa = AppAgent()
     print(aa.load_predicted_action_by_episode("339077771907758195"))
