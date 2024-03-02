@@ -20,7 +20,7 @@ appied over a batch of data.
 """
 
 import jax
-import jax.numpy as jnp
+import numpy as jnp
 import numpy as np
 
 import action_type as action_type_lib
