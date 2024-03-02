@@ -4,7 +4,7 @@ import ast
 from enum import Enum
 from typing import Any, Dict, List, NamedTuple, Tuple
 
-from action_type import ActionType
+from action_type import ActionType, Action
 
 
 class Agent(Enum):
@@ -35,9 +35,14 @@ ACTION_SPACE = {
 
 
 class UIState(NamedTuple):
+    """
+    - screenshot_path: string 
+    - vh: string; view hierarchy
+    - action: Action
+    """
     screenshot_path: str
     vh: str
-    action: Dict
+    action: Action
 
 
 TaskTrace = List[UIState]
@@ -106,31 +111,35 @@ def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
             action_list.append({"action_type": ACTION_SPACE[action_type]})
         elif action_type == "点击事件":
             pattern = re.compile(
-                "屏幕大小：（w(?P<screen_wight>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
+                "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
             )
             re_dict = re.search(pattern, action_text).groupdict()
+            screen_width = int(re_dict["screen_width"])
+            screen_height = int(re_dict["screen_height"])
             action_list.append(
-                {
-                    "action_type": ACTION_SPACE[action_type],
-                    "begin_x": re_dict["position_1_x"],
-                    "begin_y": re_dict["position_1_y"],
-                    "end_x": re_dict["position_1_x"],
-                    "end_y": re_dict["position_1_y"],
-                }
+                Action(
+                    action_type=ACTION_SPACE[action_type],
+                    begin_x=int(re_dict["position_1_x"]) / screen_width,
+                    begin_y=int(re_dict["position_1_y"]) / screen_height,
+                    end_x=int(re_dict["position_1_x"]) / screen_width,
+                    end_y=int(re_dict["position_1_y"]) / screen_height,
+                )
             )
         elif action_type == "滑动事件":
             pattern = re.compile(
-                "屏幕大小：（w(?P<screen_wight>\d+)，h(?P<screen_height>\d+)），起始位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)），结束位置：（x(?P<position_2_x>\d+)，y(?P<position_2_y>\d+)）"
+                "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），起始位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)），结束位置：（x(?P<position_2_x>\d+)，y(?P<position_2_y>\d+)）"
             )
             re_dict = re.search(pattern, action_text).groupdict()
+            screen_width = int(re_dict["screen_width"])
+            screen_height = int(re_dict["screen_height"])
             action_list.append(
-                {
-                    "action_type": ACTION_SPACE[action_type],
-                    "begin_x": re_dict["position_1_x"],
-                    "begin_y": re_dict["position_1_y"],
-                    "end_x": re_dict["position_2_x"],
-                    "end_y": re_dict["position_2_y"],
-                }
+                Action(
+                    action_type=ACTION_SPACE[action_type],
+                    begin_x=int(re_dict["position_1_x"]) / screen_width,
+                    begin_y=int(re_dict["position_1_y"]) / screen_height,
+                    end_x=int(re_dict["position_2_x"]) / screen_width,
+                    end_y=int(re_dict["position_2_y"]) / screen_height,
+                )
             )
         elif action_type == "键盘输入":
             pattern = re.compile("【键盘输入】(?P<text>.+)")

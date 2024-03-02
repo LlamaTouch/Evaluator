@@ -3,6 +3,7 @@ Adapted from https://github.com/google-research/google-research/tree/master/andr
 """
 
 import enum
+from typing import NamedTuple
 
 
 class ActionType(enum.IntEnum):
@@ -45,3 +46,16 @@ class ActionType(enum.IntEnum):
     # resets the environment. This can be a result of many different things
     # including UI changes, Android version differences, etc.
     STATUS_TASK_IMPOSSIBLE = 11
+
+
+class Action(NamedTuple):
+    """
+    Following the AndroidInTheWild action format, this class represents an action
+    - x: normalized x-axis (screen width) to the left margin
+    - y: normalized y-axis (screen height) to the top margin
+    """
+    action_type: ActionType
+    begin_x: float
+    begin_y: float
+    end_x: float
+    end_y: float
