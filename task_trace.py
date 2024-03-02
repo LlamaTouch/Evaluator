@@ -1,5 +1,6 @@
 import os
 import re
+import ast
 from enum import Enum
 from typing import Any, Dict, List, NamedTuple, Tuple
 
@@ -34,12 +35,13 @@ ACTION_SPACE = {
 
 
 class UIState(NamedTuple):
-    screenshot: Any
+    screenshot_path: str
     vh: str
     action: Dict
 
 
 TaskTrace = List[UIState]
+
 
 # ---------------------------------------------------- #
 # -- Processing the ground-truth trace we generated -- #
@@ -48,8 +50,6 @@ TaskTrace = List[UIState]
 # ---- load_groundtruth_trace_by_category              #
 # ---- load_groundtruth_trace_by_path                  #
 # ---------------------------------------------------- #
-
-
 def load_groundtruth_trace_by_episode(episode: str) -> TaskTrace:
     category: TaskCategory = DatasetHelper().get_category_by_episode(episode)
     print(f"episode: {episode}, category: {category}")
@@ -144,7 +144,9 @@ def load_groundtruth_trace_by_path(path: str) -> TaskTrace:
         xml_path = os.path.join(path, file.replace("png_image.png", "png_xml.txt"))
         with open(xml_path, "r") as f:
             xml_text = f.read()
-        ep_trace_list.append(UIState(screenshot=img_path, vh=xml_text, action=action))
+        ep_trace_list.append(
+            UIState(screenshot_path=img_path, vh=xml_text, action=action)
+        )
 
     return ep_trace_list
 
@@ -202,10 +204,47 @@ class DatasetHelper:
 
 # ---------------------------------------------------- #
 # -------- Processing testbed-generated traces ------- #
+# -------- Used for the testbed evaluator ------------ #
 # -- Methods                                           #
 # ---- load_testbed_trace_by_episode                   #
 # ---- load_testbed_trace_by_path                      #
+# -- Data (always in the captured_data folder)         #
+# ---- xml: [0.xml, 1.xml, ...]
+# ---- activity: [0.activity, 1.activity, ...]
+# ---- action: [-1.action, 0.action, 1.action, ...]
+# ---- screenshot: [0.png, 1.png, ...]
 # ---------------------------------------------------- #
+def _proc_testbed_trace_action_file(action_file):
+    """
+    action_type: "CLICK", "SWIPE", "TYPE", "PRESS_BACK", "PRESS_HOME",
+                 "PRESS_ENTER", "STATUS_TASK_COMPLETE", "STATUS_TASK_IMPOSSIBLE"
+    action_param:
+        - "CLICK": [x, y]
+        - "SWIPE": [st_x, st_y, end_x, end_y]
+        - "TEXT": str
+        - others: None
+    """
+    with open(action_file) as f:
+        action_repr = f.read()
+    action_repr = action_repr.split("|")
+    action_type = action_repr[0]
+    if action_repr[2] != "NULL":
+        # convert [x x] to [x,x]
+        # convert [x, x] to [x,x]
+        action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
+        action_repr[2] = action_repr[2].replace(", ", ",").replace(" ", ",")
+        action_param = ast.literal_eval(action_repr[1]) + ast.literal_eval(
+            action_repr[2]
+        )
+    elif action_repr[1] != "NULL":
+        action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
+        action_param = ast.literal_eval(action_repr[1])
+    else:
+        action_param = None
+    screen_width = int(action_repr[-2])
+    screen_height = int(action_repr[-1])
+    print(action_type, action_param, screen_width, screen_height)
+    return action_type, action_param
 
 
 def load_testbed_trace_by_episode(episode: str) -> TaskTrace:
@@ -213,7 +252,21 @@ def load_testbed_trace_by_episode(episode: str) -> TaskTrace:
 
 
 def load_testbed_trace_by_path(path: str) -> TaskTrace:
-    pass
+    screenshot_folder_path = os.path.join(path, "screenshot")
+    num_UIState = len(os.listdir(screenshot_folder_path))
+    task_trace: List[UIState] = []
+    for i in range(num_UIState):
+        screenshot_path = os.path.join(screenshot_folder_path, f"{i}.png")
+        xml_path = os.path.join(path, "xml", f"{i}.xml")
+        activity_path = os.path.join(path, "activity", f"{i}.activity")
+        action_path = os.path.join(path, "action", f"{i}.action")
+        with open(xml_path) as f:
+            xml_text = f.read()
+        action = _proc_testbed_trace_action_file(action_path)
+        ui_state = UIState(screenshot_path=screenshot_path, vh=xml_text, action=action)
+        task_trace.append(ui_state)
+    print(len(task_trace))
+    return task_trace
 
 
 if __name__ == "__main__":
@@ -223,3 +276,12 @@ if __name__ == "__main__":
     # test 2
     gt_trace = load_groundtruth_trace_by_category(TaskCategory.GENERAL)
     print(gt_trace)
+    # test 3
+    _proc_testbed_trace_action_file("test-asset/1.action")
+    _proc_testbed_trace_action_file("test-asset/2.action")
+    _proc_testbed_trace_action_file("test-asset/3.action")
+    _proc_testbed_trace_action_file("test-asset/4.action")
+    # test 4
+    load_testbed_trace_by_path(
+        "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result/web_shopping/10016075255396203771/captured_data"
+    )
