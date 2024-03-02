@@ -76,7 +76,7 @@ class AppAgent(MobileAgent):
                     continue
                 with open(episode_anno_file, "rb") as f:
                     epi = pickle.load(f)
-                episode = epi[0]["episode_id"]
+                episode = epi[0]['episode_id']
                 epi_to_trace_path[episode] = os.path.join(base_folder, v, trace_folder)
 
         trace_path = epi_to_trace_path[episode]
@@ -84,7 +84,17 @@ class AppAgent(MobileAgent):
         if not os.path.exists(predicted_action_file):
             return []
         with open(os.path.join(trace_path, "appagent_action.obj"), "rb") as f:
+            """actions: [
+                {
+                    "action_type": "dual_type",
+                    "touch_point": [x, y],
+                    "lift_point": [x1, y1],
+                    "typed_text": "text",
+                },
+                ...
+            ]"""
             actions = pickle.load(f)
+            print(actions[0])
         return actions
 
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
@@ -114,4 +124,4 @@ class AutoUI(MobileAgent):
 
 if __name__ == "__main__":
     aa = AppAgent()
-    print(aa.load_predicted_action_by_episode("339077771907758195"))
+    aa.load_predicted_action_by_episode("339077771907758195")
