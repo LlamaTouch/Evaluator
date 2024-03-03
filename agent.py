@@ -4,8 +4,8 @@ import pickle
 from typing import List, Dict
 import pandas as pd
 
-from action_type import ActionType, Action
-from task_trace import (
+from .action_type import ActionType, Action
+from .task_trace import (
     Agent,
     DatasetHelper,
     TaskCategory,

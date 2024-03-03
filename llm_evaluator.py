@@ -1,7 +1,7 @@
 import logging
 
-from agent import AppAgent
-from evaluator import BaseEvaluator
+from .agent import AppAgent
+from .evaluator import BaseEvaluator
 
 
 class LLMEvaluator(BaseEvaluator):

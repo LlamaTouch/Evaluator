@@ -1,9 +1,9 @@
 import logging
 from typing import Tuple, Optional
 
-from agent import AppAgent
-from evaluator import BaseEvaluator, FailedReason
-from action_matching_impl import check_actions_match
+from .agent import AppAgent
+from .evaluator import BaseEvaluator, FailedReason
+from .action_matching_impl import check_actions_match
 
 
 class ExactMatchEvaluator(BaseEvaluator):

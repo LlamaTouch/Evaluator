@@ -23,7 +23,7 @@ import jax
 import numpy as jnp
 import numpy as np
 
-import action_type as action_type_lib
+from .action_type import ActionType
 
 
 _TAP_DISTANCE_THRESHOLD = 0.14  # Fraction of the screen
@@ -106,7 +106,7 @@ def is_tap_action(normalized_start_yx, normalized_end_yx):
 
 
 def _is_non_dual_point_action(action_type):
-    return jnp.not_equal(action_type, action_type_lib.ActionType.DUAL_POINT)
+    return jnp.not_equal(action_type, ActionType.DUAL_POINT)
 
 
 def _check_tap_actions_match(

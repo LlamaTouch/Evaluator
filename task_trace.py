@@ -4,7 +4,7 @@ import ast
 from enum import Enum
 from typing import Dict, List, NamedTuple
 
-from action_type import ActionType, Action
+from .action_type import ActionType, Action
 
 
 class Agent(Enum):

@@ -1,8 +1,8 @@
 import logging
 
-from agent import AppAgent
-from evaluator import BaseEvaluator
-from task_trace import TaskTrace
+from .agent import AppAgent
+from .evaluator import BaseEvaluator
+from .task_trace import TaskTrace
 
 
 class TestbedEvaluator(BaseEvaluator):

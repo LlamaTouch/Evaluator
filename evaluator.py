@@ -5,8 +5,8 @@ from abc import ABC, abstractmethod
 from typing import Dict, Tuple, Optional
 from enum import Enum
 
-from agent import MobileAgent
-from task_trace import DatasetHelper
+from .agent import MobileAgent
+from .task_trace import DatasetHelper
 
 
 class FailedReason(Enum):
