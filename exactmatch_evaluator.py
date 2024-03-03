@@ -3,7 +3,6 @@ from typing import Tuple, Optional
 
 from agent import AppAgent
 from evaluator import BaseEvaluator, FailedReason
-from task_trace import load_groundtruth_trace_by_episode
 from action_matching_impl import check_actions_match
 
 
@@ -18,7 +17,7 @@ class ExactMatchEvaluator(BaseEvaluator):
     ) -> Tuple[bool, Optional[FailedReason]]:
         """Exact match evaluation using self-defined trace"""
         # option 1: use our annotated trace
-        # gr_trace = load_groundtruth_trace_by_episode(episode)
+        # gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
         # gr_actions = [ui_state[2] for ui_state in gr_trace]
         # option 2: use AITW trace
         gr_actions = self.agent.load_AITW_episode_actions(episode)

@@ -2,7 +2,7 @@ import logging
 
 from agent import AppAgent
 from evaluator import BaseEvaluator
-from task_trace import TaskTrace, load_groundtruth_trace_by_episode
+from task_trace import TaskTrace
 
 
 class TestbedEvaluator(BaseEvaluator):
@@ -15,8 +15,9 @@ class TestbedEvaluator(BaseEvaluator):
         pass
 
     def eval_impl(self, episode, task_description) -> bool:
-
-        groundtruth_trace: TaskTrace = load_groundtruth_trace_by_episode(episode)
+        groundtruth_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(
+            episode
+        )
         task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
         for item in task_exec_trace:
             screenshot, vh, action = item

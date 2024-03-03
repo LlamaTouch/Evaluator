@@ -11,7 +11,6 @@ from task_trace import (
     DatasetHelper,
     TaskCategory,
     TaskTrace,
-    load_testbed_trace_by_path,
 )
 
 
@@ -207,7 +206,7 @@ class AppAgent(MobileAgent):
             self.proc_all_exec_trace()
             print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
         epi_trace_path = self.epi_to_exec_trace_path[episode]
-        return load_testbed_trace_by_path(epi_trace_path)
+        return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
 
 class AutoUI(MobileAgent):
@@ -224,7 +223,7 @@ class AutoUI(MobileAgent):
         epi_trace_path = os.path.join(
             self.agent_exec_trace_path, category, episode, "captured_data"
         )
-        return load_testbed_trace_by_path(epi_trace_path)
+        return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
 
 if __name__ == "__main__":

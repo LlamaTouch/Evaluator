@@ -66,4 +66,4 @@ class BaseEvaluator(ABC):
         file_name = f"dumped_stats/{self.evaluator_name}_{self.agent.agent_name}_{datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}.csv"
         with open(file_name, "w") as f:
             f.writelines(stats)
-        print(f"states dumped to file {file_name}")
+        print(f"Evaluation results were dumped to file {file_name}")
