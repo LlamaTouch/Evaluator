@@ -2,7 +2,7 @@ import os
 import re
 import ast
 from enum import Enum
-from typing import Any, Dict, List, NamedTuple, Tuple
+from typing import Dict, List, NamedTuple
 
 from action_type import ActionType, Action
 
@@ -91,7 +91,7 @@ class DatasetHelper:
                 }
 
     def get_all_episodes(self) -> List[str]:
-        return list(self.epi_metadata_dict.keys())[:5]
+        return list(self.epi_metadata_dict.keys())
 
     def get_task_decsription_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
