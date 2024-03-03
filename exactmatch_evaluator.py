@@ -1,8 +1,8 @@
 import logging
-import random
+from typing import Tuple, Optional
 
 from agent import AppAgent
-from evaluator import BaseEvaluator
+from evaluator import BaseEvaluator, FailedReason
 from task_trace import load_groundtruth_trace_by_episode
 from action_matching_impl import check_actions_match
 
@@ -13,15 +13,23 @@ class ExactMatchEvaluator(BaseEvaluator):
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
-    def eval_impl(self, episode, task_description) -> bool:
-        groundtruth_trace = load_groundtruth_trace_by_episode(episode)
+    def eval_impl(
+        self, episode, task_description
+    ) -> Tuple[bool, Optional[FailedReason]]:
+        """Exact match evaluation using self-defined trace"""
+        # option 1: use our annotated trace
+        # gr_trace = load_groundtruth_trace_by_episode(episode)
+        # gr_actions = [ui_state[2] for ui_state in gr_trace]
+        # option 2: use AITW trace
+        gr_actions = self.agent.load_AITW_episode_actions(episode)
+        if len(gr_actions) == 0:
+            return False, FailedReason.REF_TRACE_NOT_FOUND
+
         agent_predicted_actions = self.agent.load_predicted_action_by_episode(episode)
         if len(agent_predicted_actions) == 0:
-            return False
-        print(len(agent_predicted_actions))
-        ui_position_list = self.agent.load_episode_ui_positions(episode)
-        for i, item in enumerate(groundtruth_trace):
-            _, _, gr_action = item
+            return False, FailedReason.EXEC_TRACE_NOT_FOUND
+        ui_position_list = self.agent.load_AITW_episode_ui_positions(episode)
+        for i, gr_action in enumerate(gr_actions):
             real_action = agent_predicted_actions[i]
             print(f"step{i}, {gr_action}")
             print(f"step{i}, {real_action}")
@@ -29,13 +37,9 @@ class ExactMatchEvaluator(BaseEvaluator):
             if not self.check_action_match_like_AITW(
                 gr_action, real_action, ui_positions
             ):
-                return False
+                return False, FailedReason.STEP_CHECK_FAILED
             print(f"step{i} passed")
-        return True
-
-    def load_ui_positions(self, episode, index):
-        """This info is required in the evaluation process"""
-        pass
+        return True, None
 
     def check_action_match_like_AITW(
         self, gr_action, exec_action, ui_positions
@@ -58,6 +62,5 @@ class ExactMatchEvaluator(BaseEvaluator):
 if __name__ == "__main__":
     agent = AppAgent()
     e = ExactMatchEvaluator(agent=agent)
-    ret = e.eval_episode("13563225379366283319")
-    # e.run_evaluation()
-    # e.report_stats()
+    e.run_evaluation()
+    e.report_stats()

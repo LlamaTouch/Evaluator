@@ -2,11 +2,11 @@
 Adapted from https://github.com/google-research/google-research/tree/master/android_in_the_wild
 """
 
-import enum
+from enum import Enum
 from typing import NamedTuple, Tuple
 
 
-class ActionType(enum.IntEnum):
+class ActionType(Enum):
     """Integer values for each supported action type in AndroidInTheWild."""
 
     # Placeholders for unused enum values

@@ -213,7 +213,7 @@ class DatasetHelper:
                 }
 
     def get_all_episodes(self) -> List[str]:
-        return self.epi_metadata_dict.keys()
+        return list(self.epi_metadata_dict.keys())[:5]
 
     def get_task_decsription_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
