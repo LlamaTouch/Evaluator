@@ -61,7 +61,9 @@ class DatasetHelper:
 
     def __init__(self) -> None:
         # load task metadata
-        self.epi_to_category_file = "data/epi_to_category.csv"
+        self.epi_to_category_file = os.path.join(
+            os.path.dirname(__file__), "data/epi_to_category.csv"
+        )
         assert os.path.exists(
             self.epi_to_category_file
         ), f"The file {self.epi_to_category_file} does not exist"
