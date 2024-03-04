@@ -13,7 +13,7 @@ The following APIs are provided to build a mobile agent that ingests
 1. Retrieve all episodes of all tasks
 
 ```python
-from task_trace import DatasetHelper
+from Evaluator.task_trace import DatasetHelper
 from typing import List
 
 helper = DatasetHelper()
@@ -23,7 +23,7 @@ episodes: List[str] = helper.get_all_episodes()
 2. Retrieve task description and UI representation for a specific episode
 
 ```python
-from task_trace import DatasetHelper, TaskTrace
+from Evaluator.task_trace import DatasetHelper, TaskTrace
 from typing import List
 
 helper = DatasetHelper()
