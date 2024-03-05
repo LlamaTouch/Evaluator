@@ -37,12 +37,12 @@ ACTION_SPACE = {
 class UIState(NamedTuple):
     """
     - screenshot_path: string
-    - vh: string; view hierarchy
+    - vh_path: string
     - action: Action
     """
 
     screenshot_path: str
-    vh: str
+    vh_path: str
     action: Action
 
 
@@ -154,11 +154,9 @@ class DatasetHelper:
             xml_path = os.path.join(path, "xml", f"{i}.xml")
             activity_path = os.path.join(path, "activity", f"{i}.activity")
             action_path = os.path.join(path, "action", f"{i}.action")
-            with open(xml_path) as f:
-                xml_text = f.read()
             action = self._proc_testbed_trace_action_file(action_path)
             ui_state = UIState(
-                screenshot_path=screenshot_path, vh=xml_text, action=action
+                screenshot_path=screenshot_path, vh_path=xml_path, action=action
             )
             task_trace.append(ui_state)
         return task_trace
@@ -281,28 +279,8 @@ class DatasetHelper:
         for file, action in zip(files, action_list):
             img_path = os.path.join(path, file)
             xml_path = os.path.join(path, file.replace("png_image.png", "png_xml.txt"))
-            with open(xml_path, "r") as f:
-                xml_text = f.read()
             ep_trace_list.append(
-                UIState(screenshot_path=img_path, vh=xml_text, action=action)
+                UIState(screenshot_path=img_path, vh_path=xml_path, action=action)
             )
 
         return ep_trace_list
-
-
-if __name__ == "__main__":
-    # test 1
-    DatasetHelper().init_epi_to_category()
-    print(DatasetHelper().epi_metadata_dict)
-    # test 2
-    gt_trace = DatasetHelper().load_groundtruth_trace_by_category(TaskCategory.GENERAL)
-    print(gt_trace)
-    # test 3
-    DatasetHelper()._proc_testbed_trace_action_file("test-asset/1.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test-asset/2.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test-asset/3.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test-asset/4.action")
-    # test 4
-    DatasetHelper().load_testbed_trace_by_path(
-        "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result/web_shopping/10016075255396203771/captured_data"
-    )

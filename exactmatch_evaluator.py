@@ -1,9 +1,11 @@
 import logging
-from typing import Tuple, Optional
+import numpy as np
+from typing import Tuple, Optional, List
+from PIL import Image
 
-from .agent import AppAgent
 from .evaluator import BaseEvaluator, FailedReason
 from .action_matching_impl import check_actions_match
+from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
 class ExactMatchEvaluator(BaseEvaluator):
@@ -16,23 +18,25 @@ class ExactMatchEvaluator(BaseEvaluator):
         self, episode, task_description
     ) -> Tuple[bool, Optional[FailedReason]]:
         """Exact match evaluation using self-defined trace"""
-        # option 1: use our annotated trace
-        # gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
-        # gr_actions = [ui_state[2] for ui_state in gr_trace]
+        # option 1: compare with our annotated trace
+        gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
+        screenshot_paths, vh_paths, gr_actions = zip(*gr_trace)
         # option 2: use AITW trace
-        gr_actions = self.agent.load_AITW_episode_actions(episode)
-        if len(gr_actions) == 0:
-            return False, FailedReason.REF_TRACE_NOT_FOUND
-
+        # gr_actions = self.agent.load_AITW_episode_actions(episode)
+        # if len(gr_actions) == 0:
+        #     return False, FailedReason.REF_TRACE_NOT_FOUND
+        # ui_position_list = self.agent.load_AITW_episode_ui_positions(episode)
         agent_predicted_actions = self.agent.load_predicted_action_by_episode(episode)
         if len(agent_predicted_actions) == 0:
             return False, FailedReason.EXEC_TRACE_NOT_FOUND
-        ui_position_list = self.agent.load_AITW_episode_ui_positions(episode)
         for i, gr_action in enumerate(gr_actions):
             real_action = agent_predicted_actions[i]
-            print(f"step{i}, {gr_action}")
-            print(f"step{i}, {real_action}")
-            ui_positions = ui_position_list[i]
+            ui_positions = self.extract_ui_positions_from_vh(
+                screenshot_paths[i], vh_paths[i]
+            )
+            # print(f"step{i}, {gr_action}")
+            # print(f"step{i}, {real_action}")
+            # print(f"step{i}, {ui_positions}")
             if not self.check_action_match_like_AITW(
                 gr_action, real_action, ui_positions
             ):
@@ -57,9 +61,25 @@ class ExactMatchEvaluator(BaseEvaluator):
             check_match = False
         return check_match
 
+    def extract_ui_positions_from_vh(
+        self, screenshot_path: str, vh_path: str
+    ) -> np.ndarray[np.ndarray]:
+        """Extract UI positions used for evaluation from view hierarchy
 
-if __name__ == "__main__":
-    agent = AppAgent()
-    e = ExactMatchEvaluator(agent=agent)
-    e.run_evaluation()
-    e.report_stats()
+        Return:
+            normalized_ui_positions: [
+                [y, x, height, width],
+                [y, x, height, width],
+                [y, x, height, width],
+                ...
+            ]
+        """
+        screen_width, screen_height = Image.open(screenshot_path).size
+        ui_positions = extract_ui_positions_from_vh(vh_path).astype(float)
+        print(f"extracting {len(ui_positions)} UI positions from {vh_path}")
+        if len(ui_positions) == 0:
+            return np.array([])
+        # normalize every single np.ndarray in ui_positions according to w, h
+        ui_positions[:, [0, 2]] /= screen_height
+        ui_positions[:, [1, 3]] /= screen_width
+        return ui_positions
