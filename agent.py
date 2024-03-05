@@ -58,8 +58,27 @@ class AppAgent(MobileAgent):
         )
         return a
 
-    def load_AITW_episode_ui_positions(self, episode: str) -> List[Dict]:
-        """From AITW"""
+    def load_AITW_episode_ui_positions(self, episode: str) -> List[List[List]]:
+        """From AITW
+
+        Return:
+            The return list contain ui_annotation_positions of every single
+            screenshots;
+            Foramt: [
+                [
+                    [y, x, width, height],
+                    [y, x, width, height],
+                    [y, x, width, height],
+                    ],
+                [
+                    [y, x, width, height],
+                    [y, x, width, height],
+                    [y, x, width, height],
+                    ],
+                ...
+                ]
+            Type: List[NDArray[NDArray[np.int64]]]
+        """
         base_folder = "/data/wangshihe/AgentTestbed/AppAgent-AITW"
         appagent_category_to_trace_folder_name = {
             TaskCategory.GENERAL: "tasks-240215-1-general",
@@ -223,10 +242,3 @@ class AutoUI(MobileAgent):
             self.agent_exec_trace_path, category, episode, "captured_data"
         )
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
-
-
-if __name__ == "__main__":
-    aa = AppAgent()
-    # print(aa.load_predicted_action_by_episode("339077771907758195"))
-    aa.load_AITW_episode_ui_positions("339077771907758195")
-    aa.load_AITW_episode_actions("339077771907758195")

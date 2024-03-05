@@ -44,3 +44,19 @@ Clone this repo as a submodule to the agent, then import it?
 ```
 git submodule add https://github.com/MATestbed/Evaluator.git
 ```
+
+# Evaluation
+
+## Docs
+
+## Usages
+
+# Code Development
+
+## Run tests
+
+Use the `pytest` library.
+
+```python
+pytest test/test_agent.py
+```
