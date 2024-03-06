@@ -1,16 +1,12 @@
 import os
-from abc import ABC, abstractmethod
 import pickle
-from typing import List, Dict
+from abc import ABC, abstractmethod
+from typing import Dict, List
+
 import pandas as pd
 
-from .action_type import ActionType, Action
-from .task_trace import (
-    Agent,
-    DatasetHelper,
-    TaskCategory,
-    TaskTrace,
-)
+from .action_type import Action, ActionType
+from .task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 
 
 class MobileAgent(ABC):
@@ -41,7 +37,6 @@ class AppAgent(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.APPAGENT
-        self.epi_to_trace_path = None
         self.epi_to_exec_trace_path = {}
 
     def _convert_AITW_record_to_action(self, record: Dict) -> Action:
@@ -218,7 +213,7 @@ class AppAgent(MobileAgent):
                 )
 
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
-        if not self.epi_to_trace_path:
+        if not self.epi_to_exec_trace_path:
             self.proc_all_exec_trace()
             # print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
         epi_trace_path = self.epi_to_exec_trace_path[episode]
@@ -229,7 +224,6 @@ class AutoUI(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.AUTOUI
-        self.epi_to_trace_path = None
         self.agent_exec_trace_path = (
             "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result"
         )
