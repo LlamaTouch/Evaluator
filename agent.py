@@ -41,6 +41,7 @@ class AppAgent(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.APPAGENT
+        self.epi_to_trace_path = None
         self.epi_to_exec_trace_path = {}
 
     def _convert_AITW_record_to_action(self, record: Dict) -> Action:
@@ -222,7 +223,7 @@ class AppAgent(MobileAgent):
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         if not self.epi_to_trace_path:
             self.proc_all_exec_trace()
-            print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
+            # print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
         epi_trace_path = self.epi_to_exec_trace_path[episode]
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 

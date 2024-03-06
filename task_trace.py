@@ -226,7 +226,7 @@ class DatasetHelper:
                 "action_type"
             ]
             if action_type == "Home键" or action_type == "Back键":
-                action_list.append({"action_type": ACTION_SPACE[action_type]})
+                action_list.append(Action(action_type=ACTION_SPACE[action_type]))
             elif action_type == "点击事件":
                 pattern = re.compile(
                     "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
