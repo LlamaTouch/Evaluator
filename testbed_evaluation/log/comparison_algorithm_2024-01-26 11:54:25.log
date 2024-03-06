@@ -1,0 +1,574 @@
+2024-01-26 11:54:25 INFO: task 0:Open the settings
+2024-01-26 11:54:25 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11
+2024-01-26 11:54:25 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077
+2024-01-26 11:54:25 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:25 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/0.xml: cosine_similarity: 0.7227082568968002
+2024-01-26 11:54:25 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/0.xml
+2024-01-26 11:54:25 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:25 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/1.xml: cosine_similarity: 0.4881213724186243
+2024-01-26 11:54:25 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/1.xml
+2024-01-26 11:54:25 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:25 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/2.xml: cosine_similarity: 0.742742502046083
+2024-01-26 11:54:25 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077/captured_data/xml/2.xml
+2024-01-26 11:54:25 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:25 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-42-26/84143002711104077
+2024-01-26 11:54:25 INFO: task 1:Search for flights from Buenos aires to Helsinki
+2024-01-26 11:54:25 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12
+2024-01-26 11:54:25 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639
+2024-01-26 11:54:25 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:25 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/0.xml: cosine_similarity: 0.6517792410996424
+2024-01-26 11:54:25 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/0.xml
+2024-01-26 11:54:25 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:25 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/1.xml: cosine_similarity: 0.6418714933298111
+2024-01-26 11:54:25 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/1.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/2.xml: cosine_similarity: 0.6491489851753239
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/2.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/3.xml: cosine_similarity: 0.7162783845746921
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/3.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/4.xml: cosine_similarity: 0.714826085872372
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/4.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/5.xml: cosine_similarity: 0.714826085872372
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/5.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/6.xml: cosine_similarity: 0.714826085872372
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/6.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/7.xml: cosine_similarity: 0.5987523801816484
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/7.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/8.xml: cosine_similarity: 0.627313849132772
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/8.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/9.xml: cosine_similarity: 0.5863898952563833
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/9.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/10.xml: cosine_similarity: 0.6159506034842285
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_12/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639/captured_data/xml/10.xml
+2024-01-26 11:54:26 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:26 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_12 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-44-01/151130279482320639
+2024-01-26 11:54:26 INFO: task 2:What's a good restaurant near me?
+2024-01-26 11:54:26 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13
+2024-01-26 11:54:26 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/0.xml: cosine_similarity: 0.7221220522401772
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/0.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/1.xml: cosine_similarity: 0.7301412697129996
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/1.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/2.xml: cosine_similarity: 0.668985350627805
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/2.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/3.xml: cosine_similarity: 0.6423177786387639
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/3.xml
+2024-01-26 11:54:26 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:26 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/4.xml: cosine_similarity: 0.6457280830540021
+2024-01-26 11:54:26 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/4.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/5.xml: cosine_similarity: 0.6891351874908587
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/5.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/6.xml: cosine_similarity: 0.7297518847098431
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/6.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/7.xml: cosine_similarity: 0.6471374910868481
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/7.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/8.xml: cosine_similarity: 0.7297518847098431
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/8.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/9.xml: cosine_similarity: 0.668985350627805
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/9.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/10.xml: cosine_similarity: 0.6423177786387639
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/10.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/11.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/11.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/12.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/12.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/13.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/13.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/14.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/14.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/15.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/15.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/16.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/16.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/17.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/17.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/18.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/18.xml
+2024-01-26 11:54:27 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:27 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/19.xml: cosine_similarity: 0.6749551806764877
+2024-01-26 11:54:27 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_13/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413/captured_data/xml/19.xml
+2024-01-26 11:54:27 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:27 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_13 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_00-50-26/174083699924127413
+2024-01-26 11:54:27 INFO: task 3:What's on the menu at Chipotle?
+2024-01-26 11:54:27 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14
+2024-01-26 11:54:27 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/0.xml: cosine_similarity: 0.6688007844897087
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/0.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/1.xml: cosine_similarity: 0.5774509590428065
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/1.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/2.xml: cosine_similarity: 0.6819418592270238
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/2.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/3.xml: cosine_similarity: 0.5833175802419016
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/3.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/4.xml: cosine_similarity: 0.5984195215469104
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/4.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/5.xml: cosine_similarity: 0.5984195215469104
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/5.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/6.xml: cosine_similarity: 0.5833175802419016
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/6.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/7.xml: cosine_similarity: 0.5984195215469104
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_14/6.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134/captured_data/xml/7.xml
+2024-01-26 11:54:28 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:28 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_14 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-02-33/212233713605494134
+2024-01-26 11:54:28 INFO: task 4:Open the contacts
+2024-01-26 11:54:28 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15
+2024-01-26 11:54:28 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/0.xml: cosine_similarity: 0.727435605283901
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/0.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/1.xml: cosine_similarity: 0.7409806558846905
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/1.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/2.xml: cosine_similarity: 0.8521675338781437
+2024-01-26 11:54:28 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/2.xml
+2024-01-26 11:54:28 INFO: fuzzy_match exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/2.xml
+2024-01-26 11:54:28 INFO: exactly matched : 1/1
+2024-01-26 11:54:28 INFO: pic_id: 2 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/2.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/3.xml: cosine_similarity: 0.8710385777238502
+2024-01-26 11:54:28 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/3.xml
+2024-01-26 11:54:28 INFO: fuzzy_match exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/3.xml
+2024-01-26 11:54:28 INFO: exactly matched : 1/1
+2024-01-26 11:54:28 INFO: pic_id: 2 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_15/2.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596/captured_data/xml/3.xml
+2024-01-26 11:54:28 INFO: All True in checkpoints and capture_id_list is sorted, task completed!
+2024-01-26 11:54:28 INFO: comparison_algorithm successfully: /data/jxq/mobile-agent/aitw_replay_data/general/trace_15 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-07-18/244629384739303596
+2024-01-26 11:54:28 INFO: task 5:How do I get to the nearest electronics store?
+2024-01-26 11:54:28 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16
+2024-01-26 11:54:28 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/0.xml: cosine_similarity: 0.6853642488943068
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/0.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/1.xml: cosine_similarity: 0.6241298018457907
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/1.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/2.xml: cosine_similarity: 0.6081915012933743
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/2.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/3.xml: cosine_similarity: 0.6081915012933743
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/3.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/4.xml: cosine_similarity: 0.6081915012933743
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/4.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/5.xml: cosine_similarity: 0.6081915012933743
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/5.xml
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:28 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/6.xml: cosine_similarity: 0.6081915012933743
+2024-01-26 11:54:28 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_16/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348/captured_data/xml/6.xml
+2024-01-26 11:54:28 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:28 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_16 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-09-30/323068747820571348
+2024-01-26 11:54:28 INFO: task 6:Search for hotels in London
+2024-01-26 11:54:28 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17
+2024-01-26 11:54:28 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195
+2024-01-26 11:54:28 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/0.xml: cosine_similarity: 0.6300865150583155
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/0.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/1.xml: cosine_similarity: 0.5215918647436353
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/1.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/2.xml: cosine_similarity: 0.6331440068591994
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/2.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/3.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/3.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/4.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/4.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/5.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/5.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/6.xml: cosine_similarity: 0.6331440068591994
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/6.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/7.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/7.xml
+2024-01-26 11:54:29 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:29 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/8.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:29 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/8.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/9.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/9.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/10.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/10.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/11.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/11.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/12.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/12.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/13.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/13.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/14.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/14.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/15.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/15.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/16.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/16.xml
+2024-01-26 11:54:30 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:30 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/17.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:30 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/17.xml
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/18.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:31 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/18.xml
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/19.xml: cosine_similarity: 0.723106315599913
+2024-01-26 11:54:31 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_17/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195/captured_data/xml/19.xml
+2024-01-26 11:54:31 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:31 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_17 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-13-49/339077771907758195
+2024-01-26 11:54:31 INFO: task 7:Check the settings for the Google Photos app
+2024-01-26 11:54:31 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18
+2024-01-26 11:54:31 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml: cosine_similarity: 0.7788564815724076
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.nexuslauncher/.NexusLauncherActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml: cosine_similarity: 0.9054730179721331
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml: cosine_similarity: 0.8839764693945759
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml: cosine_similarity: 0.8840881037284675
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml: cosine_similarity: 0.9079673066414842
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml: cosine_similarity: 0.9080260310412893
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml: cosine_similarity: 0.9080847668368839
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml: cosine_similarity: 0.9079673066414842
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml: cosine_similarity: 0.9084374211285609
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml: cosine_similarity: 0.9087316137659336
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml: cosine_similarity: 0.9087316137659336
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml: cosine_similarity: 0.7788564815724076
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/0.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.nexuslauncher/.NexusLauncherActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml: cosine_similarity: 0.9054730179721331
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/1.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml: cosine_similarity: 0.8839764693945759
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/2.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml: cosine_similarity: 0.8840881037284675
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/3.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml: cosine_similarity: 0.9079673066414842
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/4.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml: cosine_similarity: 0.9080260310412893
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/5.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml: cosine_similarity: 0.9080847668368839
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/6.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml: cosine_similarity: 0.9079673066414842
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/7.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml: cosine_similarity: 0.9084374211285609
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/8.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/9.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/10.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/11.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/12.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/13.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/14.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/15.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml: cosine_similarity: 0.9088493708758958
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/16.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml: cosine_similarity: 0.908790486598995
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/17.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml: cosine_similarity: 0.9087316137659336
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/18.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml: cosine_similarity: 0.9087316137659336
+2024-01-26 11:54:31 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml
+2024-01-26 11:54:31 INFO: fuzzy_match exactly match successfully: checkpoint 0/2 /data/jxq/mobile-agent/aitw_replay_data/general/trace_18/5-fuzzy_match--1 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051/captured_data/xml/19.xml
+2024-01-26 11:54:31 INFO: exactly matched : 1/2
+2024-01-26 11:54:31 INFO: activity exactly match failed: com.google.android.apps.photos/com.google.android.apps.photos.settings.SettingsActivity != com.google.android.apps.photos/.home.HomeActivity
+2024-01-26 11:54:31 INFO: False in checkpoints, task not completed!
+2024-01-26 11:54:31 INFO: comparison_algorithm failed: /data/jxq/mobile-agent/aitw_replay_data/general/trace_18 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-25-57/601779706200353051
+2024-01-26 11:54:31 INFO: task 8:What's the weather like in Beijing?
+2024-01-26 11:54:31 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19
+2024-01-26 11:54:31 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718
+2024-01-26 11:54:31 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:31 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/0.xml: cosine_similarity: 0.707139309971153
+2024-01-26 11:54:31 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/0.xml
+2024-01-26 11:54:32 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:32 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/1.xml: cosine_similarity: 0.7124622080691271
+2024-01-26 11:54:32 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/1.xml
+2024-01-26 11:54:32 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:32 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/2.xml: cosine_similarity: 0.678694229511551
+2024-01-26 11:54:32 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/2.xml
+2024-01-26 11:54:32 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:32 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/3.xml: cosine_similarity: 0.9785521157855989
+2024-01-26 11:54:32 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/3.xml
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: textbox search expand_bound: [0, 0, 1080, 579.5]
+2024-01-26 11:54:32 INFO: Total EditText number:22
+2024-01-26 11:54:32 INFO: sentence similarity threshold: 0.8
+2024-01-26 11:54:32 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-26 11:54:32 INFO: Use pytorch device: cpu
+2024-01-26 11:54:34 INFO: text exactly match successfully: checkpoint text:whats the weather like in beijing == captured text:weather in beijing
+2024-01-26 11:54:34 INFO: textbox exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3-textbox-0 and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/3.xml
+2024-01-26 11:54:34 INFO: exactly matched : 1/1
+2024-01-26 11:54:34 INFO: pic_id: 3 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_19/3.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718/captured_data/xml/3.xml
+2024-01-26 11:54:34 INFO: All True in checkpoints and capture_id_list is sorted, task completed!
+2024-01-26 11:54:34 INFO: comparison_algorithm successfully: /data/jxq/mobile-agent/aitw_replay_data/general/trace_19 and /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-38-31/728772179473267718
+2024-01-26 11:54:34 INFO: task 9:What is the capital of Argentina?
+2024-01-26 11:54:34 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20
+2024-01-26 11:54:34 INFO: captured_dir: /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958
+2024-01-26 11:54:34 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:34 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/0.xml: cosine_similarity: 0.715418265931461
+2024-01-26 11:54:34 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/0.xml
+2024-01-26 11:54:34 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:34 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/1.xml: cosine_similarity: 0.7261214113985816
+2024-01-26 11:54:34 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/1.xml
+2024-01-26 11:54:34 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:34 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/2.xml: cosine_similarity: 0.6913861620973611
+2024-01-26 11:54:34 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/2.xml
+2024-01-26 11:54:34 INFO: xml similarity COSSINE_BOUND: 0.75
+2024-01-26 11:54:34 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/3.xml: cosine_similarity: 0.7004121712050326
+2024-01-26 11:54:34 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/wangshihe/AgentTestbed/AppAgent/tasks-240126-1/task_Chrome_2024-01-26_01-40-46/751726089240508958/captured_data/xml/3.xml
