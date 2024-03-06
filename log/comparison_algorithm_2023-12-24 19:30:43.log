@@ -1,0 +1,5 @@
+2023-12-24 19:32:00 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5.xml and captured /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5.xml
+2023-12-24 19:32:00 INFO: exactly match successfully: 美食视频
+2023-12-24 19:32:00 INFO: exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5-textbox-0 and captured /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5.xml
+2023-12-24 19:32:00 INFO: total_match!: checkpoint /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5.xml and captured /data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_7/5.xml
+2023-12-24 19:32:00 INFO: All True in checkpoint and capture_id_list is sorted, task completed!

@@ -1,0 +1,9 @@
+2024-01-25 13:16:46 INFO: checkpoint_dir: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11
+2024-01-25 13:16:46 INFO: captured_dir: /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077
+2024-01-25 13:16:46 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/0.xml: cosine_similarity: 0.8400647732817951
+2024-01-25 13:16:46 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/0.xml
+2024-01-25 13:16:46 INFO: fuzzy_match exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3-fuzzy_match--1 and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/0.xml
+2024-01-25 13:16:46 INFO: exactly matched : 1/1
+2024-01-25 13:16:46 INFO: pic_id: 3 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/0.xml
+2024-01-25 13:16:46 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/1.xml: cosine_similarity: 0.7914815297322315
+2024-01-25 13:16:46 INFO: fuzzy match failed: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_11/3.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/84143002711104077/captured_data/xml/1.xml
