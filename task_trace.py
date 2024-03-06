@@ -268,7 +268,7 @@ class DatasetHelper:
                     )
                 )
             elif action_type == "键盘输入":
-                pattern = re.compile("【键盘输入】(?P<text>.+)")
+                pattern = re.compile("【键盘输入】(?P<text>.*)")
                 text = re.search(pattern, action_text).groupdict()["text"]
                 action_list.append(
                     Action(action_type=ACTION_SPACE[action_type], typed_text=text)
