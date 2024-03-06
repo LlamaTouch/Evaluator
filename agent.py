@@ -163,9 +163,7 @@ class AppAgent(MobileAgent):
                     continue
                 with open(episode_anno_file, "r") as f:
                     epi = eval(f.read())["epi"]
-                epi_to_trace_path[epi] = os.path.join(
-                    base_folder, v, trace_folder
-                )
+                epi_to_trace_path[epi] = os.path.join(base_folder, v, trace_folder)
 
         if episode not in epi_to_trace_path.keys():
             return []
