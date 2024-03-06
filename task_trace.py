@@ -2,7 +2,7 @@ import os
 import re
 import ast
 from enum import Enum
-from typing import Dict, List, NamedTuple
+from typing import Union, Dict, List, NamedTuple
 
 from .action_type import ActionType, Action
 
@@ -69,6 +69,7 @@ class DatasetHelper:
         ), f"The file {self.epi_to_category_file} does not exist"
         self.epi_metadata_dict = {}
         self.init_epi_to_category()
+        self.init_load_groundtruth_trace()
 
     def init_epi_to_category(self):
         """
@@ -92,14 +93,34 @@ class DatasetHelper:
                     "task_description": task_description,
                 }
 
+    def init_load_groundtruth_trace(self):
+        self.epi_to_path_dict = {}
+        self.groundtruth_trace_by_category = {}
+        for category in TaskCategory:
+            self.groundtruth_trace_by_category[category] = (
+                self._load_groundtruth_trace_by_category(category)
+            )
+
     def get_all_episodes(self) -> List[str]:
         return [*self.epi_metadata_dict.keys()]
+
+    def get_episodes_by_category(self, episode: Union[TaskCategory, str]) -> List[str]:
+        if isinstance(episode, str):
+            episode = TaskCategory[episode.upper()]
+        return [
+            epi
+            for epi in self.get_all_episodes()
+            if self.get_category_by_episode(epi) == episode
+        ]
 
     def get_task_decsription_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
 
     def get_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
+
+    def get_epi_to_path_dict(self) -> Dict:
+        return self.epi_to_path_dict
 
     # ---------------------------------------------------- #
     # -------- Processing testbed exectuion traces ------- #
@@ -167,7 +188,6 @@ class DatasetHelper:
     # -- Methods                                           #
     # ---- load_groundtruth_trace_by_episode               #
     # ---- load_groundtruth_trace_by_category              #
-    # ---- load_groundtruth_trace_by_path                  #
     # ---------------------------------------------------- #
     def load_groundtruth_trace_by_episode(self, episode: str) -> TaskTrace:
         category: TaskCategory = self.get_category_by_episode(episode)
@@ -175,6 +195,11 @@ class DatasetHelper:
         return self.load_groundtruth_trace_by_category(category)[episode]
 
     def load_groundtruth_trace_by_category(
+        self, category: TaskCategory
+    ) -> Dict[str, TaskTrace]:
+        return self.groundtruth_trace_by_category[category]
+
+    def _load_groundtruth_trace_by_category(
         self, category: TaskCategory
     ) -> Dict[str, TaskTrace]:
         """
@@ -202,12 +227,13 @@ class DatasetHelper:
             with open(ep_id_path, "r") as f:
                 ep_id = f.readline().strip()
 
-            ep_trace_list = self.load_groundtruth_trace_by_path(path)
+            self.epi_to_path_dict[ep_id] = path
+            ep_trace_list = self._load_groundtruth_trace_by_path(path)
             gt_trace_dict[ep_id] = ep_trace_list
 
         return gt_trace_dict
 
-    def load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
+    def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         ep_trace_list: TaskTrace = []
         files = [
             f

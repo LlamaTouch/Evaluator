@@ -157,14 +157,13 @@ class AppAgent(MobileAgent):
                 continue
             for trace_folder in os.listdir(os.path.join(base_folder, v)):
                 episode_anno_file = os.path.join(
-                    base_folder, v, trace_folder, "episode_anno.obj"
+                    base_folder, v, trace_folder, "task_metadata.txt"
                 )
                 if not os.path.exists(episode_anno_file):
                     continue
-                with open(episode_anno_file, "rb") as f:
-                    epi = pickle.load(f)
-                episode_id = str(epi[0]["episode_id"])
-                epi_to_trace_path[episode_id] = os.path.join(
+                with open(episode_anno_file, "r") as f:
+                    epi = eval(f.read())["epi"]
+                epi_to_trace_path[epi] = os.path.join(
                     base_folder, v, trace_folder
                 )
 
