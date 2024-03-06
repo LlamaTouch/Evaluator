@@ -4,7 +4,6 @@ from .agent import AppAgent
 from .evaluator import BaseEvaluator
 from .task_trace import TaskTrace
 
-
 class TestbedEvaluator(BaseEvaluator):
     def __init__(self, agent) -> None:
         super().__init__(agent)
@@ -15,13 +14,22 @@ class TestbedEvaluator(BaseEvaluator):
         pass
 
     def eval_impl(self, episode, task_description) -> bool:
-        groundtruth_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(
+        testbed_groudtruth_trace_path = self.helper.load_testbed_goundtruth_trace_path_by_episode(
             episode
         )
-        task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
-        for item in task_exec_trace:
-            screenshot, vh, action = item
-            # TODO: check whether all crucial states has been traversed
+        task_exec_trace_path = self.agent.load_exec_trace_path_by_episode(
+            episode
+        )
+
+        comparison_algorithm(checkpoint_dir=testbed_groudtruth_trace_path, captured_dir=task_exec_trace_path)
+
+        # groundtruth_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(
+        #     episode
+        # )
+        # task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
+        # for item in task_exec_trace:
+        #     screenshot, vh, action = item
+        #     # TODO: check whether all crucial states has been traversed
 
 
 if __name__ == "__main__":

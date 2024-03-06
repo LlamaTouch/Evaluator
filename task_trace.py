@@ -23,6 +23,7 @@ class TaskCategory(Enum):
 
 
 GROUNDTRUTH_DATASET_PATH = "/data/yyh/mobile/capture/AITW_decode"
+TESTBED_GROUNDTRUTH_DATASET_PATH = "/data/jxq/mobile-agent/aitw_replay_data"
 
 
 ACTION_SPACE = {
@@ -284,3 +285,14 @@ class DatasetHelper:
             )
 
         return ep_trace_list
+    
+
+    def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
+        category: TaskCategory = self.get_category_by_episode(episode)
+        category_path  = os.path.join(TESTBED_GROUNDTRUTH_DATASET_PATH, category.value)
+        summary_csv = os.path.join(category,"all_instruction.csv")
+        import pandas as pd
+        data = pd.read_csv(summary_csv)
+        epi_to_testbed_trace_path = data[data["episode_id"]==episode]["trace_folder_path"]
+        return epi_to_testbed_trace_path
+        
