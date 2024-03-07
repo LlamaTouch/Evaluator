@@ -181,6 +181,10 @@ class AppAgent(MobileAgent):
         # convert evnery action in actions to Action
         act_list: List[Action] = []
         for action in actions:
+            # WARNING: deprecated feature used
+            if isinstance(action["action_type"], type):
+                action["action_type"] = "type"
+
             act = Action(
                 action_type=ActionType[action["action_type"].upper()],
                 touch_point_yx=tuple(action["touch_point"]),

@@ -35,7 +35,7 @@ class BaseEvaluator(ABC):
 
     def eval_episode(self, episode: str) -> Tuple[bool, Optional[FailedReason]]:
         self.logger.info(f"Evaluating episode: {episode}")
-        task_description = self.helper.get_task_decsription_by_episode(episode)
+        task_description = self.helper.get_task_description_by_episode(episode)
         return self.eval_impl(episode, task_description)
 
     @abstractmethod
