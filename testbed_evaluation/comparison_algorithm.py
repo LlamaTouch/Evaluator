@@ -1,10 +1,9 @@
 from get_checkpoint_list import Checkpoints
 from xml_fuzzy_match import get_xml_fuzzy_match
 from xml_exactly_match import exactly_match
-from check_install import check_install
 import os
 import logging
-import time
+
 
 
 def _get_xml_path_list(xml_dir):
@@ -12,6 +11,8 @@ def _get_xml_path_list(xml_dir):
     function: 根据xml_dir, 返回排序好的xml path list
     input: xml_dir: xml文件夹
     output: xml_path_list: xml path list
+    xml_list before sort:[1.xml,0.xml,2.xml]
+    xml_list after sort :[0.xml,1.xml,2.xml]
     """
     xml_list = [f for f in os.listdir(xml_dir) if f.split(".")[-1] == "xml"]
     xml_list.sort(key=lambda x: int(x.split(".")[0]))
@@ -30,17 +31,11 @@ def comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND=0.75):
     checkpoints = Checkpoints(checkpoint_dir)
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
-    # if checkpoints.installed_ls:
-    #     return check_install(checkpoints.installed_ls, captured_dir)
-
-    # else:
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
     captured_xml_path_list = _get_xml_path_list(
         os.path.join(captured_dir, "captured_data", "xml")
     )
     for i in range(len(checkpoint_fuzzy_match_list)):
-        # for i in range(len(checkpoints.checkpoint_ls)):
-        # pic_id = int(checkpoints.checkpoint_ls[i].pic_id)
         pic_id = int(checkpoint_fuzzy_match_list[i]["pic_id"])
         fuzzy_match_node_id = int(checkpoint_fuzzy_match_list[i]["node_id"])
         checkpoint_xml_path = checkpoint_xml_path_list[pic_id]
@@ -123,28 +118,3 @@ def comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND=0.75):
             )
             return False
 
-
-if __name__ == "__main__":
-
-    log_dir_path = "/data/jxq/mobile-agent/comparison_algorithm/log/log"
-
-    # 获取当前时间
-    current_time = time.localtime()
-    formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
-
-    # Configure logging
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s %(levelname)s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[
-            logging.FileHandler(
-                f"{log_dir_path}/comparison_algorithm_{formatted_time}.log", "w"
-            ),
-            logging.StreamHandler(),
-        ],
-    )
-
-    checkpoint_dir = "/data/jxq/mobile-agent/aitw_replay_data/googleapps/trace_5"
-    captured_dir = "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result/google_apps/12328916592710067202"
-    comparison_algorithm(checkpoint_dir=checkpoint_dir, captured_dir=captured_dir)

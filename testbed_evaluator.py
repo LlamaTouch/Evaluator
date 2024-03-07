@@ -26,13 +26,6 @@ class TestbedEvaluator(BaseEvaluator):
             captured_dir=task_exec_trace_path,
         )
         return completeness, None
-        # groundtruth_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(
-        #     episode
-        # )
-        # task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
-        # for item in task_exec_trace:
-        #     screenshot, vh, action = item
-        #     # TODO: check whether all crucial states has been traversed
 
 
 if __name__ == "__main__":
