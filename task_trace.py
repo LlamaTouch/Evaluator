@@ -1,4 +1,5 @@
 import ast
+import logging
 import os
 import re
 from enum import Enum
@@ -60,6 +61,7 @@ class DatasetHelper:
         return cls._instance
 
     def __init__(self) -> None:
+        self.logger = logging.getLogger(self.__class__.__name__)
         # load task metadata
         self.epi_to_category_file = os.path.join(
             os.path.dirname(__file__), "data/epi_to_category.csv"
@@ -69,7 +71,6 @@ class DatasetHelper:
         ), f"The file {self.epi_to_category_file} does not exist"
         self.epi_metadata_dict = {}
         self.init_epi_to_category()
-        self.init_load_groundtruth_trace()
 
     def init_epi_to_category(self):
         """
@@ -93,14 +94,6 @@ class DatasetHelper:
                     "task_description": task_description,
                 }
 
-    def init_load_groundtruth_trace(self):
-        self.epi_to_path_dict = {}
-        self.groundtruth_trace_by_category = {}
-        for category in TaskCategory:
-            self.groundtruth_trace_by_category[category] = (
-                self._load_groundtruth_trace_by_category(category)
-            )
-
     def get_all_episodes(self) -> List[str]:
         return [*self.epi_metadata_dict.keys()]
 
@@ -114,13 +107,14 @@ class DatasetHelper:
         ]
 
     def get_task_description_by_episode(self, episode) -> str:
+        if episode not in self.epi_metadata_dict:
+            raise KeyError(f"episode: {episode} not found in dataset")
         return self.epi_metadata_dict[episode]["task_description"]
 
     def get_category_by_episode(self, episode) -> TaskCategory:
+        if episode not in self.epi_metadata_dict:
+            raise KeyError(f"episode: {episode} not found in dataset")
         return self.epi_metadata_dict[episode]["category"]
-
-    def get_epi_to_path_dict(self) -> Dict:
-        return self.epi_to_path_dict
 
     # ---------------------------------------------------- #
     # -------- Processing testbed exectuion traces ------- #
@@ -185,25 +179,23 @@ class DatasetHelper:
     # ---------------------------------------------------- #
     # -- Processing the ground-truth trace we annotated -- #
     # -- Used for the exact evaluator and task execution - #
-    # -- Methods                                           #
+    # -- Exposed Methods                                   #
     # ---- load_groundtruth_trace_by_episode               #
-    # ---- load_groundtruth_trace_by_category              #
     # ---------------------------------------------------- #
     def load_groundtruth_trace_by_episode(self, episode: str) -> TaskTrace:
         category: TaskCategory = self.get_category_by_episode(episode)
         print(f"episode: {episode}, category: {category}")
-        return self.load_groundtruth_trace_by_category(category)[episode]
-
-    def load_groundtruth_trace_by_category(
-        self, category: TaskCategory
-    ) -> Dict[str, TaskTrace]:
-        return self.groundtruth_trace_by_category[category]
+        return self._load_groundtruth_trace_by_category(category)[episode]
 
     def _load_groundtruth_trace_by_category(
         self, category: TaskCategory
     ) -> Dict[str, TaskTrace]:
         """
         Load ground-truth traces in a whole category
+        *Note*: There is a potential risk when directly invoking this method, as
+        the ground-truth trace dict may contain traces that their episodes are not
+        in self.epi_metadata_dict. Always loading ground-truth traces by episode.
+
 
         Return: {
             "episode_id_1": [(screenshot_1_1, XML_1_1, action_1_1), (screenshot_1_2, XML_1_2, action_1_2), ...],
@@ -227,13 +219,13 @@ class DatasetHelper:
             with open(ep_id_path, "r") as f:
                 ep_id = f.readline().strip()
 
-            self.epi_to_path_dict[ep_id] = path
             ep_trace_list = self._load_groundtruth_trace_by_path(path)
             gt_trace_dict[ep_id] = ep_trace_list
 
         return gt_trace_dict
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
+        self.logger.debug(f"loading groundtruth trace in path: {path}")
         ep_trace_list: TaskTrace = []
         files = [
             f
@@ -247,6 +239,7 @@ class DatasetHelper:
         with open(action_path, "r") as f:
             action_texts = f.readlines()
 
+        # this for-range is for processing the action record
         for action_text in action_texts:
             action_type = re.search("【(?P<action_type>.+)】", action_text).groupdict()[
                 "action_type"
@@ -302,9 +295,14 @@ class DatasetHelper:
             else:
                 raise ValueError(f"Unknown action type: {action_type}")
 
+        self.logger.debug(
+            f"{len(action_list)} actions detected, # of screenshots/vhs: {len(files)}"
+        )
         for file, action in zip(files, action_list):
             img_path = os.path.join(path, file)
             xml_path = os.path.join(path, file.replace("png_image.png", "png_xml.txt"))
+            self.logger.debug(f"processing screenshot file: {img_path}")
+
             ep_trace_list.append(
                 UIState(screenshot_path=img_path, vh_path=xml_path, action=action)
             )
