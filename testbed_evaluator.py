@@ -22,8 +22,8 @@ class TestbedEvaluator(BaseEvaluator):
             episode
         )
 
-        comparison_algorithm(checkpoint_dir=testbed_groudtruth_trace_path, captured_dir=task_exec_trace_path)
-
+        completeness = comparison_algorithm(checkpoint_dir=testbed_groudtruth_trace_path, captured_dir=task_exec_trace_path)
+        return completeness, None
         # groundtruth_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(
         #     episode
         # )
