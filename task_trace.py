@@ -1,10 +1,10 @@
+import ast
 import os
 import re
-import ast
 from enum import Enum
-from typing import Union, Dict, List, NamedTuple
+from typing import Dict, List, NamedTuple, Union
 
-from .action_type import ActionType, Action
+from .action_type import Action, ActionType
 
 
 class Agent(Enum):
@@ -113,7 +113,7 @@ class DatasetHelper:
             if self.get_category_by_episode(epi) == episode
         ]
 
-    def get_task_decsription_by_episode(self, episode) -> str:
+    def get_task_description_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
 
     def get_category_by_episode(self, episode) -> TaskCategory:
