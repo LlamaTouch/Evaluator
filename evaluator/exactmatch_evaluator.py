@@ -26,9 +26,13 @@ class ExactMatchEvaluator(BaseEvaluator):
             return False, FailedReason.EXEC_TRACE_NOT_FOUND
         for i, gr_action in enumerate(gr_actions):
             real_action = agent_predicted_actions[i]
-            ui_positions = self.extract_ui_positions_from_vh(
-                screenshot_paths[i], vh_paths[i]
-            )
+            try:
+                ui_positions = self.extract_ui_positions_from_vh(
+                    screenshot_paths[i], vh_paths[i]
+                )
+            except:
+                print(f"failed to extract ui positions from file: {vh_paths[i]}")
+                return False, FailedReason.UI_POSITIONS_NOT_FOUND
             # print(f"step{i}, {gr_action}")
             # print(f"step{i}, {real_action}")
             # print(f"step{i}, {ui_positions}")
@@ -60,6 +64,10 @@ class ExactMatchEvaluator(BaseEvaluator):
         self, screenshot_path: str, vh_path: str
     ) -> np.ndarray[np.ndarray]:
         """Extract UI positions used for evaluation from view hierarchy
+
+        Args:
+            screenshot_path: path to the screenshot; used to get (width, height)
+            vh_path: path to the view hierarchy file
 
         Return:
             normalized_ui_positions: [

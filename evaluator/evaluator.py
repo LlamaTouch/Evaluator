@@ -1,9 +1,9 @@
 import logging
 import os
-from datetime import datetime
 from abc import ABC, abstractmethod
-from typing import Dict, Tuple, Optional
+from datetime import datetime
 from enum import Enum
+from typing import Dict, Optional, Tuple
 
 from .agent import MobileAgent
 from .task_trace import DatasetHelper
@@ -13,6 +13,7 @@ class FailedReason(Enum):
     EXEC_TRACE_NOT_FOUND = "execution trace not found"
     REF_TRACE_NOT_FOUND = "reference trace not found"
     STEP_CHECK_FAILED = "step checking failed"
+    UI_POSITIONS_NOT_FOUND = "ui positions not found"
 
 
 class BaseEvaluator(ABC):
