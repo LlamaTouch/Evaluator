@@ -22,6 +22,7 @@ class TaskCategory(Enum):
     WEBSHOPPING = "webshopping"
     GENERATED = "generated"
 
+
 """
 GROUNDTRUTH_DATASET_PATH: this is what we replayed and recorded.
 TESTBED_GROUNDTRUTH_DATASET_PATH: Based on GROUNDTRUTH_DATASET_PATH, we manually annotated 

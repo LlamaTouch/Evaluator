@@ -5,7 +5,6 @@ import os
 import logging
 
 
-
 def _get_xml_path_list(xml_dir):
     """
     function: 根据xml_dir, 返回排序好的xml path list
@@ -117,4 +116,3 @@ def comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND=0.75):
                 "All True in checkpoints but capture_id_list is not sorted, task not completed!"
             )
             return False
-
