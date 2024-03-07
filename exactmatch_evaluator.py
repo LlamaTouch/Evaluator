@@ -1,10 +1,11 @@
 import logging
+from typing import Optional, Tuple
+
 import numpy as np
-from typing import Tuple, Optional, List
 from PIL import Image
 
 from .evaluator import BaseEvaluator, FailedReason
-from .action_matching_impl import check_actions_match
+from .exactmatch_evaluation.action_matching import check_actions_match
 from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
@@ -18,14 +19,8 @@ class ExactMatchEvaluator(BaseEvaluator):
         self, episode, task_description
     ) -> Tuple[bool, Optional[FailedReason]]:
         """Exact match evaluation using self-defined trace"""
-        # option 1: compare with our annotated trace
         gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
         screenshot_paths, vh_paths, gr_actions = zip(*gr_trace)
-        # option 2: use AITW trace
-        # gr_actions = self.agent.load_AITW_episode_actions(episode)
-        # if len(gr_actions) == 0:
-        #     return False, FailedReason.REF_TRACE_NOT_FOUND
-        # ui_position_list = self.agent.load_AITW_episode_ui_positions(episode)
         agent_predicted_actions = self.agent.load_predicted_action_by_episode(episode)
         if len(agent_predicted_actions) == 0:
             return False, FailedReason.EXEC_TRACE_NOT_FOUND

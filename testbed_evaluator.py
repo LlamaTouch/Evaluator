@@ -2,7 +2,6 @@ import logging
 
 from .agent import AppAgent
 from .evaluator import BaseEvaluator
-from .task_trace import TaskTrace
 from .testbed_evaluator import comparison_algorithm
 
 
