@@ -36,8 +36,6 @@ class MobileAgent(ABC):
         pass
 
 
-
-
 class AutoUI(MobileAgent):
     def __init__(self) -> None:
         super().__init__()

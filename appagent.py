@@ -126,7 +126,7 @@ class AppAgent(MobileAgent):
             with open(episode_anno_file, "r") as f:
                 epi = eval(f.read())["epi"]
             epi_to_trace_path[epi] = trace_folder
-        
+
         if episode not in epi_to_trace_path.keys():
             return []
 
@@ -160,7 +160,6 @@ class AppAgent(MobileAgent):
             )
             act_list.append(act)
         return act_list
-
 
     def proc_all_exec_trace(self) -> None:
         """exec trace on testbed"""
