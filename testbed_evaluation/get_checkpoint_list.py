@@ -1,5 +1,6 @@
 import os
 
+
 class Checkpoint:
     def __init__(self, pic_id, keyword, node_id):
         self.pic_id = pic_id
@@ -8,14 +9,15 @@ class Checkpoint:
         self.matched = False
         self.capture_id = None
 
+
 class Checkpoints:
     def __init__(self, checkpoint_dir):
         # self.checkpoint_ls,self.installed_ls = _get_checkpoint_list(checkpoint_dir)
-        self.checkpoint_ls  = _get_checkpoint_list(checkpoint_dir)
+        self.checkpoint_ls = _get_checkpoint_list(checkpoint_dir)
 
     def get_fuzzy_match_list(self):
         """
-        function:返回fuzzy match list, each item contains pic_id and node_id 
+        function:返回fuzzy match list, each item contains pic_id and node_id
         output: list of pair of pic_id and node_id
         """
         fuzzy_match_list = []
@@ -26,26 +28,23 @@ class Checkpoints:
                 if self.checkpoint_ls[i].keyword == "fuzzy_match":
                     item = {
                         "pic_id": self.checkpoint_ls[i].pic_id,
-                        "node_id": self.checkpoint_ls[i].node_id
+                        "node_id": self.checkpoint_ls[i].node_id,
                     }
                 else:
-                    item  ={
-                        "pic_id": self.checkpoint_ls[i].pic_id,
-                        "node_id": -1
-                    }
+                    item = {"pic_id": self.checkpoint_ls[i].pic_id, "node_id": -1}
                 fuzzy_match_list.append(item)
             else:
                 if self.checkpoint_ls[i].keyword == "fuzzy_match":
                     item = {
                         "pic_id": self.checkpoint_ls[i].pic_id,
-                        "node_id": self.checkpoint_ls[i].node_id
+                        "node_id": self.checkpoint_ls[i].node_id,
                     }
                     fuzzy_match_list[pic_id_dict[self.checkpoint_ls[i].pic_id]] = item
                 else:
                     continue
 
         return fuzzy_match_list
-    
+
     def get_pic_exactly_match_list(self, pic_id):
         """
         function: 根据pic_id, 返回该pic_id下的exactly checkpoint list
@@ -54,7 +53,10 @@ class Checkpoints:
         """
         exactly_match_list = []
         for i in range(len(self.checkpoint_ls)):
-            if self.checkpoint_ls[i].pic_id == pic_id and "fuzzy_match" not in self.checkpoint_ls[i].keyword:
+            if (
+                self.checkpoint_ls[i].pic_id == pic_id
+                and "fuzzy_match" not in self.checkpoint_ls[i].keyword
+            ):
                 exactly_match_list.append(self.checkpoint_ls[i])
         return exactly_match_list
 
@@ -65,7 +67,9 @@ def _get_checkpoint_list(checkpoint_dir):
     input: checkpoint_dir: 标注完之后的文件夹
     output: checkpoint_list: checkpoint列表
     """
-    checkpoint_file_list = [f for f in os.listdir(checkpoint_dir) if f.split(".")[-1] == "text"]
+    checkpoint_file_list = [
+        f for f in os.listdir(checkpoint_dir) if f.split(".")[-1] == "text"
+    ]
     checkpoint_file_list.sort(key=lambda x: int(x.split(".")[0][:-7]))
     checkpoint_ls = []
     # installed_ls = []
@@ -75,14 +79,14 @@ def _get_checkpoint_list(checkpoint_dir):
         checkpoint_file_path = os.path.join(checkpoint_dir, checkpoint_file)
         with open(checkpoint_file_path, "r") as f:
             content = f.read()
-            split_content = [item.strip() for item in content.split('|') if item]
+            split_content = [item.strip() for item in content.split("|") if item]
             # 进一步解析每个字符串
             # parsed_content = []
             for item in split_content:
                 # 格式总是 "keyword<content>"
-                parts = item.split('<')
+                parts = item.split("<")
                 if len(parts) == 2:
-                    keyword, content = parts[0], parts[1].rstrip('>')
+                    keyword, content = parts[0], parts[1].rstrip(">")
                     keyword = keyword.strip().lower()
                     # if keyword == "check_install":
                     #     installed_ls.append(Checkpoint(int(pic_id), keyword, str(content).lower()))
@@ -90,7 +94,7 @@ def _get_checkpoint_list(checkpoint_dir):
                     checkpoint_ls.append(Checkpoint(int(pic_id), keyword, content))
                     # parsed_content.append(Checkpoint(int(pic_id), keyword, int(content)))
         # checkpoint_list = checkpoint_ls + parsed_content
-    
+
     return checkpoint_ls
 
 
@@ -109,7 +113,6 @@ def _print_checkpoint_list(checkpoint_list):
         print("-------------------------")
 
 
-    
 if __name__ == "__main__":
     checkpoint_dir = "/data/jxq/mobile-agent/aitw_replay_data/general/trace_35"
     checkpoint_ls = Checkpoints(checkpoint_dir)

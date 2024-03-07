@@ -5,6 +5,7 @@ from .evaluator import BaseEvaluator
 from .task_trace import TaskTrace
 from .testbed_evaluator import comparison_algorithm
 
+
 class TestbedEvaluator(BaseEvaluator):
     def __init__(self, agent) -> None:
         super().__init__(agent)
@@ -15,12 +16,10 @@ class TestbedEvaluator(BaseEvaluator):
         pass
 
     def eval_impl(self, episode, task_description) -> bool:
-        testbed_groudtruth_trace_path = self.helper.load_testbed_goundtruth_trace_path_by_episode(
-            episode
+        testbed_groudtruth_trace_path = (
+            self.helper.load_testbed_goundtruth_trace_path_by_episode(episode)
         )
-        task_exec_trace_path = self.agent.load_exec_trace_path_by_episode(
-            episode
-        )
+        task_exec_trace_path = self.agent.load_exec_trace_path_by_episode(episode)
 
         completeness = comparison_algorithm(checkpoint_dir=testbed_groudtruth_trace_path, captured_dir=task_exec_trace_path)
         return completeness, None
