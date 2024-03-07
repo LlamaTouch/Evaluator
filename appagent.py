@@ -1,39 +1,13 @@
 import os
 import pickle
-from abc import ABC, abstractmethod
 from typing import Dict, List
 
 import pandas as pd
 
-from .action_type import Action, ActionType
-from .task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
-
-
-class MobileAgent(ABC):
-    def __init__(self) -> None:
-        self._agent: Agent = None
-        self.agent_name: str = None
-
-    @property
-    def agent(self) -> Agent:
-        return self._agent
-
-    @agent.setter
-    def agent(self, agent: Agent) -> None:
-        self._agent = agent
-        self.agent_name = self._agent.value
-
-    @abstractmethod
-    def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
-        pass
-
-    @abstractmethod
-    def load_predicted_action_by_episode(self, episode: str) -> List[Dict]:
-        pass
-
-    @abstractmethod
-    def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        pass
+from evaluator.agent import MobileAgent
+from evaluator.common.action_type import Action, ActionType
+from evaluator.exactmatch_evaluator import ExactMatchEvaluator
+from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 
 
 class AppAgent(MobileAgent):
@@ -141,29 +115,18 @@ class AppAgent(MobileAgent):
     def load_predicted_action_by_episode(self, episode: str) -> List[Action]:
         """Predicted actions on dataset.
         If there is no corresponding action file, return an empty list"""
-        base_folder = "/data/wangshihe/AgentTestbed/AppAgent-AITW"
-        appagent_category_to_trace_folder_name = {
-            TaskCategory.GENERAL: "tasks-240215-1-general",
-            TaskCategory.GOOGLEAPPS: "tasks-240216-1-googleapp",
-            TaskCategory.INSTALL: "tasks-240215-3-install",
-            TaskCategory.WEBSHOPPING: "tasks-240215-2-webshopping",
-            TaskCategory.GENERATED: None,
-        }
+        base_folder = "/data/wangshihe/AgentTestbed/Evaluator/AppAgent/tasks-240306-all"
         # build the map between episode and path
         epi_to_trace_path = {}
-        for _, v in appagent_category_to_trace_folder_name.items():
-            if v is None:
+        for folder in os.listdir(base_folder):
+            trace_folder = os.path.join(base_folder, folder)
+            episode_anno_file = os.path.join(trace_folder, "task_metadata.txt")
+            if not os.path.exists(episode_anno_file):
                 continue
-            for trace_folder in os.listdir(os.path.join(base_folder, v)):
-                episode_anno_file = os.path.join(
-                    base_folder, v, trace_folder, "task_metadata.txt"
-                )
-                if not os.path.exists(episode_anno_file):
-                    continue
-                with open(episode_anno_file, "r") as f:
-                    epi = eval(f.read())["epi"]
-                epi_to_trace_path[epi] = os.path.join(base_folder, v, trace_folder)
-
+            with open(episode_anno_file, "r") as f:
+                epi = eval(f.read())["epi"]
+            epi_to_trace_path[epi] = trace_folder
+        
         if episode not in epi_to_trace_path.keys():
             return []
 
@@ -197,6 +160,7 @@ class AppAgent(MobileAgent):
             )
             act_list.append(act)
         return act_list
+
 
     def proc_all_exec_trace(self) -> None:
         """exec trace on testbed"""
@@ -234,24 +198,8 @@ class AppAgent(MobileAgent):
         return self.epi_to_exec_trace_path[episode]
 
 
-class AutoUI(MobileAgent):
-    def __init__(self) -> None:
-        super().__init__()
-        self.agent = Agent.AUTOUI
-        self.agent_exec_trace_path = (
-            "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result"
-        )
-
-    def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
-        category = DatasetHelper().get_category_by_episode(episode)
-        epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category, episode, "captured_data"
-        )
-        return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
-
-    def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        category = DatasetHelper().get_category_by_episode(episode)
-        epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category, episode, "captured_data"
-        )
-        return epi_trace_path
+if __name__ == "__main__":
+    agent = AppAgent()
+    e = ExactMatchEvaluator(agent=agent)
+    e.run_evaluation()
+    e.report_stats()

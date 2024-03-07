@@ -23,8 +23,7 @@ appied over a batch of data.
 import numpy as jnp
 import numpy as np
 
-from .action_type import ActionType
-
+from ..common.action_type import ActionType
 
 _TAP_DISTANCE_THRESHOLD = 0.14  # Fraction of the screen
 ANNOTATION_WIDTH_AUGMENT_FRACTION = 1.4

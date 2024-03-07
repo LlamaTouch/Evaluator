@@ -1,6 +1,5 @@
 import logging
 
-from .agent import AppAgent
 from .evaluator import BaseEvaluator
 from .testbed_evaluator import comparison_algorithm
 
@@ -25,10 +24,3 @@ class TestbedEvaluator(BaseEvaluator):
             captured_dir=task_exec_trace_path,
         )
         return completeness, None
-
-
-if __name__ == "__main__":
-    agent = AppAgent()
-    e = TestbedEvaluator(agent=agent)
-    e.run_evaluation()
-    e.report_stats()

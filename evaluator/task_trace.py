@@ -4,9 +4,10 @@ import os
 import re
 from enum import Enum
 from typing import Dict, List, NamedTuple, Union
+
 import pandas as pd
 
-from .action_type import Action, ActionType
+from .common.action_type import Action, ActionType
 
 
 class Agent(Enum):
