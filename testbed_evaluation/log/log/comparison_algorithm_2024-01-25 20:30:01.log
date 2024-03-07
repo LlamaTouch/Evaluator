@@ -1,0 +1,118 @@
+2024-01-25 20:30:01 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/0.xml: cosine_similarity: 0.6999866051047393
+2024-01-25 20:30:01 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/0.xml
+2024-01-25 20:30:01 INFO: Total EditText number:8
+2024-01-25 20:30:01 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:01 INFO: Use pytorch device: cpu
+2024-01-25 20:30:03 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Thu, Jan 25
+2024-01-25 20:30:03 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:04 INFO: Use pytorch device: cpu
+2024-01-25 20:30:06 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:
+2024-01-25 20:30:06 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:06 INFO: Use pytorch device: cpu
+2024-01-25 20:30:08 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Play Store
+2024-01-25 20:30:08 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:08 INFO: Use pytorch device: cpu
+2024-01-25 20:30:09 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Gmail
+2024-01-25 20:30:09 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:10 INFO: Use pytorch device: cpu
+2024-01-25 20:30:11 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Photos
+2024-01-25 20:30:11 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:12 INFO: Use pytorch device: cpu
+2024-01-25 20:30:14 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:YouTube
+2024-01-25 20:30:14 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:15 INFO: Use pytorch device: cpu
+2024-01-25 20:30:16 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Messages
+2024-01-25 20:30:16 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:16 INFO: Use pytorch device: cpu
+2024-01-25 20:30:17 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Chrome
+2024-01-25 20:30:18 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/1.xml: cosine_similarity: 0.7489350487132923
+2024-01-25 20:30:18 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/1.xml
+2024-01-25 20:30:18 INFO: Total EditText number:18
+2024-01-25 20:30:18 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:18 INFO: Use pytorch device: cpu
+2024-01-25 20:30:19 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Sign in
+2024-01-25 20:30:19 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:20 INFO: Use pytorch device: cpu
+2024-01-25 20:30:22 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:weather like in Beijing?
+2024-01-25 20:30:22 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:22 INFO: Use pytorch device: cpu
+2024-01-25 20:30:24 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Images
+2024-01-25 20:30:24 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:24 INFO: Use pytorch device: cpu
+2024-01-25 20:30:26 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:News
+2024-01-25 20:30:26 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:26 INFO: Use pytorch device: cpu
+2024-01-25 20:30:27 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Videos
+2024-01-25 20:30:27 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:28 INFO: Use pytorch device: cpu
+2024-01-25 20:30:29 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Perspectives
+2024-01-25 20:30:29 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:29 INFO: Use pytorch device: cpu
+2024-01-25 20:30:30 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Shopping
+2024-01-25 20:30:30 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:31 INFO: Use pytorch device: cpu
+2024-01-25 20:30:32 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Maps
+2024-01-25 20:30:32 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:33 INFO: Use pytorch device: cpu
+2024-01-25 20:30:33 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Books
+2024-01-25 20:30:33 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:33 INFO: Use pytorch device: cpu
+2024-01-25 20:30:34 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Flights
+2024-01-25 20:30:34 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:35 INFO: Use pytorch device: cpu
+2024-01-25 20:30:35 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Finance
+2024-01-25 20:30:35 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:36 INFO: Use pytorch device: cpu
+2024-01-25 20:30:37 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Feels like 
+2024-01-25 20:30:37 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:37 INFO: Use pytorch device: cpu
+2024-01-25 20:30:38 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:°
+2024-01-25 20:30:38 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:38 INFO: Use pytorch device: cpu
+2024-01-25 20:30:40 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:weather.com
+2024-01-25 20:30:40 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:40 INFO: Use pytorch device: cpu
+2024-01-25 20:30:42 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:People also ask
+2024-01-25 20:30:42 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:42 INFO: Use pytorch device: cpu
+2024-01-25 20:30:44 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:More results from www.quora.com
+2024-01-25 20:30:44 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:45 INFO: Use pytorch device: cpu
+2024-01-25 20:30:46 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:People also search for
+2024-01-25 20:30:46 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:46 INFO: Use pytorch device: cpu
+2024-01-25 20:30:48 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:google.com/search?q=weather+like+in+Beijing%3F&oq=weather+like+in+Beijing%3F&aqs=chrome..69i57j0i5i30l3j0i8i30.62301j0j9&client=ms-unknown&sourceid=chrome-mobile&ie=UTF-8
+2024-01-25 20:30:48 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/2.xml: cosine_similarity: 0.6850254259085389
+2024-01-25 20:30:48 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/2.xml
+2024-01-25 20:30:48 INFO: Total EditText number:3
+2024-01-25 20:30:48 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:48 INFO: Use pytorch device: cpu
+2024-01-25 20:30:50 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:weather like in Beijing? - Google Search
+2024-01-25 20:30:50 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:51 INFO: Use pytorch device: cpu
+2024-01-25 20:30:54 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:google.com/search?q=weather+like+in+Beijing%3F&oq=weather+like+in+Beijing%3F&aqs=chrome..69i57j0i5i30l3j0i8i30.62301j0j9&client=ms-unknown&sourceid=chrome-mobile&ie=UTF-8
+2024-01-25 20:30:54 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:54 INFO: Use pytorch device: cpu
+2024-01-25 20:30:55 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Search or type web address
+2024-01-25 20:30:55 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/3.xml: cosine_similarity: 0.7610104892897258
+2024-01-25 20:30:55 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/3.xml
+2024-01-25 20:30:55 INFO: Total EditText number:6
+2024-01-25 20:30:55 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:56 INFO: Use pytorch device: cpu
+2024-01-25 20:30:57 INFO: text exactly match successfully: checkpoint text:what is the capital of argentina == captured text:capital of Argentina?
+2024-01-25 20:30:57 INFO: textbox exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4-textbox-0 and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/3.xml
+2024-01-25 20:30:57 INFO: exactly matched : 1/1
+2024-01-25 20:30:57 INFO: pic_id: 4 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/3.xml
+2024-01-25 20:30:58 INFO: fuzzy match: /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml vs /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/4.xml: cosine_similarity: 0.7723193191553003
+2024-01-25 20:30:58 INFO: fuzzy match successfully: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/4.xml
+2024-01-25 20:30:58 INFO: Total EditText number:16
+2024-01-25 20:30:58 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:58 INFO: Use pytorch device: cpu
+2024-01-25 20:30:59 INFO: text exactly match unsuccessfully: checkpoint text:what is the capital of argentina != captured text:Sign in
+2024-01-25 20:30:59 INFO: Load pretrained SentenceTransformer: /data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2
+2024-01-25 20:30:59 INFO: Use pytorch device: cpu
+2024-01-25 20:31:01 INFO: text exactly match successfully: checkpoint text:what is the capital of argentina == captured text:capital of Argentina?
+2024-01-25 20:31:01 INFO: textbox exactly match successfully: checkpoint 0/1 /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4-textbox-0 and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/4.xml
+2024-01-25 20:31:01 INFO: exactly matched : 1/1
+2024-01-25 20:31:01 INFO: pic_id: 4 exactly checkpoint total_match!: checkpoint /data/jxq/mobile-agent/aitw_replay_data/general/trace_20/4.xml and captured /data/zzh/mobile-agent/Auto-UI/agentenv/captured_data/751726089240508958/captured_data/xml/4.xml
+2024-01-25 20:31:01 INFO: All True in checkpoints and capture_id_list is sorted, task completed!

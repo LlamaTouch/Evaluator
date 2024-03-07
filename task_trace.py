@@ -4,6 +4,7 @@ import os
 import re
 from enum import Enum
 from typing import Dict, List, NamedTuple, Union
+import pandas as pd
 
 from .action_type import Action, ActionType
 
@@ -23,7 +24,13 @@ class TaskCategory(Enum):
     GENERATED = "generated"
 
 
+"""
+GROUNDTRUTH_DATASET_PATH: this is what we replayed and recorded.
+TESTBED_GROUNDTRUTH_DATASET_PATH: Based on GROUNDTRUTH_DATASET_PATH, we manually annotated 
+                                        crucial states that will be used in the MATestbed evaluator.
+"""
 GROUNDTRUTH_DATASET_PATH = "/data/yyh/mobile/capture/AITW_decode"
+TESTBED_GROUNDTRUTH_DATASET_PATH = "/data/jxq/mobile-agent/aitw_replay_data"
 
 
 ACTION_SPACE = {
@@ -308,3 +315,13 @@ class DatasetHelper:
             )
 
         return ep_trace_list
+
+    def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
+        category: TaskCategory = self.get_category_by_episode(episode)
+        category_path = os.path.join(TESTBED_GROUNDTRUTH_DATASET_PATH, category.value)
+        summary_csv = os.path.join(category_path, "all_instruction.csv")
+        data = pd.read_csv(summary_csv)
+        epi_to_testbed_trace_path = data[data["episode_id"] == episode][
+            "trace_folder_path"
+        ]
+        return epi_to_testbed_trace_path
