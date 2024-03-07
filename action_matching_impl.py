@@ -19,7 +19,7 @@ Note: this code is implemented using JAX so it can be 'vmap'ed and efficiently
 appied over a batch of data.
 """
 
-import jax
+# import jax
 import numpy as jnp
 import numpy as np
 

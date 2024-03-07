@@ -1,11 +1,11 @@
+import ast
 import os
 import re
-import ast
-import pandas as pd
 from enum import Enum
-from typing import Dict, List, NamedTuple
+from typing import Dict, List, NamedTuple, Union
+import pandas as pd
 
-from .action_type import ActionType, Action
+from .action_type import Action, ActionType
 
 
 class Agent(Enum):
@@ -76,6 +76,7 @@ class DatasetHelper:
         ), f"The file {self.epi_to_category_file} does not exist"
         self.epi_metadata_dict = {}
         self.init_epi_to_category()
+        self.init_load_groundtruth_trace()
 
     def init_epi_to_category(self):
         """
@@ -99,14 +100,34 @@ class DatasetHelper:
                     "task_description": task_description,
                 }
 
+    def init_load_groundtruth_trace(self):
+        self.epi_to_path_dict = {}
+        self.groundtruth_trace_by_category = {}
+        for category in TaskCategory:
+            self.groundtruth_trace_by_category[category] = (
+                self._load_groundtruth_trace_by_category(category)
+            )
+
     def get_all_episodes(self) -> List[str]:
         return [*self.epi_metadata_dict.keys()]
 
-    def get_task_decsription_by_episode(self, episode) -> str:
+    def get_episodes_by_category(self, episode: Union[TaskCategory, str]) -> List[str]:
+        if isinstance(episode, str):
+            episode = TaskCategory[episode.upper()]
+        return [
+            epi
+            for epi in self.get_all_episodes()
+            if self.get_category_by_episode(epi) == episode
+        ]
+
+    def get_task_description_by_episode(self, episode) -> str:
         return self.epi_metadata_dict[episode]["task_description"]
 
     def get_category_by_episode(self, episode) -> TaskCategory:
         return self.epi_metadata_dict[episode]["category"]
+
+    def get_epi_to_path_dict(self) -> Dict:
+        return self.epi_to_path_dict
 
     # ---------------------------------------------------- #
     # -------- Processing testbed exectuion traces ------- #
@@ -174,7 +195,6 @@ class DatasetHelper:
     # -- Methods                                           #
     # ---- load_groundtruth_trace_by_episode               #
     # ---- load_groundtruth_trace_by_category              #
-    # ---- load_groundtruth_trace_by_path                  #
     # ---------------------------------------------------- #
     def load_groundtruth_trace_by_episode(self, episode: str) -> TaskTrace:
         category: TaskCategory = self.get_category_by_episode(episode)
@@ -182,6 +202,11 @@ class DatasetHelper:
         return self.load_groundtruth_trace_by_category(category)[episode]
 
     def load_groundtruth_trace_by_category(
+        self, category: TaskCategory
+    ) -> Dict[str, TaskTrace]:
+        return self.groundtruth_trace_by_category[category]
+
+    def _load_groundtruth_trace_by_category(
         self, category: TaskCategory
     ) -> Dict[str, TaskTrace]:
         """
@@ -209,12 +234,13 @@ class DatasetHelper:
             with open(ep_id_path, "r") as f:
                 ep_id = f.readline().strip()
 
-            ep_trace_list = self.load_groundtruth_trace_by_path(path)
+            self.epi_to_path_dict[ep_id] = path
+            ep_trace_list = self._load_groundtruth_trace_by_path(path)
             gt_trace_dict[ep_id] = ep_trace_list
 
         return gt_trace_dict
 
-    def load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
+    def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         ep_trace_list: TaskTrace = []
         files = [
             f
@@ -233,7 +259,7 @@ class DatasetHelper:
                 "action_type"
             ]
             if action_type == "Home键" or action_type == "Back键":
-                action_list.append({"action_type": ACTION_SPACE[action_type]})
+                action_list.append(Action(action_type=ACTION_SPACE[action_type]))
             elif action_type == "点击事件":
                 pattern = re.compile(
                     "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
@@ -275,7 +301,7 @@ class DatasetHelper:
                     )
                 )
             elif action_type == "键盘输入":
-                pattern = re.compile("【键盘输入】(?P<text>.+)")
+                pattern = re.compile("【键盘输入】(?P<text>.*)")
                 text = re.search(pattern, action_text).groupdict()["text"]
                 action_list.append(
                     Action(action_type=ACTION_SPACE[action_type], typed_text=text)

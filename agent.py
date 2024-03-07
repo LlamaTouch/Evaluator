@@ -1,16 +1,12 @@
 import os
-from abc import ABC, abstractmethod
 import pickle
-from typing import List, Dict
+from abc import ABC, abstractmethod
+from typing import Dict, List
+
 import pandas as pd
 
-from .action_type import ActionType, Action
-from .task_trace import (
-    Agent,
-    DatasetHelper,
-    TaskCategory,
-    TaskTrace,
-)
+from .action_type import Action, ActionType
+from .task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 
 
 class MobileAgent(ABC):
@@ -160,16 +156,13 @@ class AppAgent(MobileAgent):
                 continue
             for trace_folder in os.listdir(os.path.join(base_folder, v)):
                 episode_anno_file = os.path.join(
-                    base_folder, v, trace_folder, "episode_anno.obj"
+                    base_folder, v, trace_folder, "task_metadata.txt"
                 )
                 if not os.path.exists(episode_anno_file):
                     continue
-                with open(episode_anno_file, "rb") as f:
-                    epi = pickle.load(f)
-                episode_id = str(epi[0]["episode_id"])
-                epi_to_trace_path[episode_id] = os.path.join(
-                    base_folder, v, trace_folder
-                )
+                with open(episode_anno_file, "r") as f:
+                    epi = eval(f.read())["epi"]
+                epi_to_trace_path[epi] = os.path.join(base_folder, v, trace_folder)
 
         if episode not in epi_to_trace_path.keys():
             return []
@@ -192,6 +185,10 @@ class AppAgent(MobileAgent):
         # convert evnery action in actions to Action
         act_list: List[Action] = []
         for action in actions:
+            # WARNING: deprecated feature used
+            if isinstance(action["action_type"], type):
+                action["action_type"] = "type"
+
             act = Action(
                 action_type=ActionType[action["action_type"].upper()],
                 touch_point_yx=tuple(action["touch_point"]),
@@ -226,7 +223,7 @@ class AppAgent(MobileAgent):
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         if not self.epi_to_exec_trace_path:
             self.proc_all_exec_trace()
-            print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
+            # print(f"Reading {len(self.epi_to_trace_path)} episodes in total")
         epi_trace_path = self.epi_to_exec_trace_path[episode]
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
@@ -241,7 +238,6 @@ class AutoUI(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.AUTOUI
-        self.epi_to_trace_path = None
         self.agent_exec_trace_path = (
             "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result"
         )
