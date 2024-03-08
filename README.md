@@ -52,13 +52,13 @@ To evaluate the mobile agents, the following traces should be prepared:
 - **The ground-truth trace with annotated crucial states.**
 It contains screenshot, view hierarchy, and actions on each UI representation.
 For each task (episode), it includes crucial states that a agent should go through to finish the task.
-This is used as the ground-truth trace for evaluating mobile agents using _*exact match evaluator*_ and our _*testbed evaluator*_.
+This is used as the ground-truth trace for evaluating mobile agents using <ins>*exact match evaluator*</ins> and our <ins>*testbed evaluator*</ins>.
 - **The agent-predicted action trace.**
-This is used by the _*exact match evaluator*_.
+This is used by the <ins>*exact match evaluator*</ins>.
 It includes agent-predicted actions on each UI as a lot of traditional work do (e.g., AITW).
 These predicted actions can be compared with the actions in the ground-truth trace to show the single-step match accuracy.
 - **The task execution trace.**
-This is used by the _*testbed evaluator*_.
+This is used by the <ins>*testbed evaluator*</ins>.
 This is recorded during a mobile agent operating on a real device.
 It will be compared with the crucial stats in the ground-truth trace, aiming to revealing the real capability of mobile agents operating on a real environment.
 
