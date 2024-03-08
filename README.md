@@ -2,13 +2,13 @@
 
 ## Docs
 
-The `DatasetHelper` class defined in [task_trace.py](./task_trace.py) helps to retrieve the ground-truth dataset and testbed-generated dataset.
+The `DatasetHelper` class defined in [task_trace.py](./task_trace.py) helps to retrieve the dataset and annotated crucial states.
 
 The following APIs are provided to build a mobile agent that ingests
 - task description
 - UI representation (screenshot and view hierarchy)
     - screenshot path: str
-    - text-format view hierarchy: str
+    - view hierarchy path: str
 
 1. Retrieve all episodes of all tasks
 
@@ -47,9 +47,24 @@ git submodule add https://github.com/MATestbed/Evaluator.git
 
 # Evaluation
 
-## Docs
+To evaluate the mobile agents, the following traces should be prepared:
+
+- **The ground-truth trace with annotated crucial states.**
+It contains screenshot, view hierarchy, and actions on each UI representation.
+For each task (episode), it includes crucial states that a agent should go through to finish the task.
+This is used as the ground-truth trace for evaluating mobile agents using _*exact match evaluator*_ and our _*testbed evaluator*_.
+- **The agent-predicted action trace.**
+This is used by the _*exact match evaluator*_.
+It includes agent-predicted actions on each UI as a lot of traditional work do (e.g., AITW).
+These predicted actions can be compared with the actions in the ground-truth trace to show the single-step match accuracy.
+- **The task execution trace.**
+This is used by the _*testbed evaluator*_.
+This is recorded during a mobile agent operating on a real device.
+It will be compared with the crucial stats in the ground-truth trace, aiming to revealing the real capability of mobile agents operating on a real environment.
 
 ## Usages
+
+Implement the specific trace loading logic for each agent, and then call `Evaluator.run_evaluation()` method!
 
 # Code Development
 
