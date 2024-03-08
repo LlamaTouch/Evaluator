@@ -1,8 +1,9 @@
-from get_checkpoint_list import Checkpoints
-from xml_fuzzy_match import get_xml_fuzzy_match
-from xml_exactly_match import exactly_match
-import os
 import logging
+import os
+
+from .get_crucial_states import CrucialStates
+from .xml_exactly_match import exactly_match
+from .xml_fuzzy_match import get_xml_fuzzy_match
 
 
 def _get_xml_path_list(xml_dir):
@@ -20,20 +21,18 @@ def _get_xml_path_list(xml_dir):
 
 
 # assistant env
-def comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND=0.75):
+def comparison_algorithm(checkpoint_dir, captured_dir, COSINE_BOUND=0.75):
     """
     function: 根据checkpoint_dir和captured_dir, 返回是否匹配成功
     input: checkpoint_dir: 标注完之后的文件夹
            captured_dir: captured文件夹
     output: True or False
     """
-    checkpoints = Checkpoints(checkpoint_dir)
+    checkpoints = CrucialStates(checkpoint_dir)
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
-    captured_xml_path_list = _get_xml_path_list(
-        os.path.join(captured_dir, "captured_data", "xml")
-    )
+    captured_xml_path_list = _get_xml_path_list(os.path.join(captured_dir, "xml"))
     for i in range(len(checkpoint_fuzzy_match_list)):
         pic_id = int(checkpoint_fuzzy_match_list[i]["pic_id"])
         fuzzy_match_node_id = int(checkpoint_fuzzy_match_list[i]["node_id"])
@@ -46,7 +45,7 @@ def comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND=0.75):
                 checkpoint_xml_path,
                 fuzzy_match_node_id,
                 captured_xml_path,
-                COSSINE_BOUND,
+                COSINE_BOUND,
             ):
                 logging.info(
                     f"fuzzy match successfully: checkpoint {checkpoint_dir}/{pic_id}.xml and captured {captured_xml_path}"

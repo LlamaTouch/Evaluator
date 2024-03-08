@@ -1,15 +1,11 @@
-from zss import simple_distance
-import xml.etree.ElementTree as ET
-from lxml import etree
-import lxml
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import io
+import json
 import logging
 import os
-import json
-from xml_exactly_match import _parse_bounds, _is_in_bounds, _expand_bounds
-from sentence_similarity import check_sentence_similarity
+
+from lxml import etree
+
+from .sentence_similarity import check_sentence_similarity
+from .xml_exactly_match import _is_in_bounds
 
 
 def get_bounds(checkpoint_xml_path, node_id):
@@ -63,10 +59,10 @@ def simplify_xml(xml_path, bounds):
 
 
 def get_xml_fuzzy_match(
-    checkpoint_xml_path, node_id, captured_xml_path, COSSINE_BOUND=0.65
+    checkpoint_xml_path, node_id, captured_xml_path, COSINE_BOUND=0.65
 ):
     """ "
-    根据cossine similarity和tree edit distance match xml
+    根据cosine similarity和tree edit distance match xml
     input xml path
     return true or false
     """
@@ -82,11 +78,11 @@ def get_xml_fuzzy_match(
     simp_tree2 = simplify_xml(captured_xml_path, bounds)
     # print(f"simp_tree2{simp_tree2}")
 
-    logging.info(f"xml similarity COSSINE_BOUND: {COSSINE_BOUND}")
+    logging.info(f"xml similarity COSINE_BOUND: {COSINE_BOUND}")
     # cosine_similarity only
 
     cosine_similarity, status = check_sentence_similarity(
-        simp_tree1, simp_tree2, threshold=COSSINE_BOUND
+        simp_tree1, simp_tree2, threshold=COSINE_BOUND
     )
     # print(f"similarity: {similarity}")
     logging.info(

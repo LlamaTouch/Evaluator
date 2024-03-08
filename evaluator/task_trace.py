@@ -77,16 +77,17 @@ class DatasetHelper:
         assert os.path.exists(
             self.epi_to_category_file
         ), f"The file {self.epi_to_category_file} does not exist"
-        self.epi_metadata_dict = {}
+
+        self.epi_metadata_dict: Dict[str, Dict[str, Union[TaskCategory, str]]] = {}
         self.init_epi_to_category()
 
-    def init_epi_to_category(self):
+    def init_epi_to_category(self) -> None:
         """
         Load episode metadata from the file {self.epi_to_category_file}
         Format: {
             "episode": {
-                "category": xx,
-                "task_description": xx,
+                "category": TaskCategory,
+                "task_description": str,
             },
             ...
         }
@@ -322,7 +323,7 @@ class DatasetHelper:
         category_path = os.path.join(TESTBED_GROUNDTRUTH_DATASET_PATH, category.value)
         summary_csv = os.path.join(category_path, "all_instruction.csv")
         data = pd.read_csv(summary_csv)
-        epi_to_testbed_trace_path = data[data["episode_id"] == episode][
+        epi_to_testbed_trace_path = data[data["episode_id"] == int(episode)][
             "trace_folder_path"
-        ]
+        ].iloc[0]
         return epi_to_testbed_trace_path

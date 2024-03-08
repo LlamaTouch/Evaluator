@@ -1,19 +1,19 @@
 import os
+import re
+from typing import NamedTuple
 
 
-class Checkpoint:
-    def __init__(self, pic_id, keyword, node_id):
-        self.pic_id = pic_id
-        self.keyword = keyword
-        self.node_id = node_id
-        self.matched = False
-        self.capture_id = None
+class CrucialState(NamedTuple):
+    pic_id: str
+    keyword: str
+    node_id: str
+    matched: bool = False
+    capture_id = None
 
 
-class Checkpoints:
+class CrucialStates:
     def __init__(self, checkpoint_dir):
-        # self.checkpoint_ls,self.installed_ls = _get_checkpoint_list(checkpoint_dir)
-        self.checkpoint_ls = _get_checkpoint_list(checkpoint_dir)
+        self.checkpoint_ls = _get_crucial_states(checkpoint_dir)
 
     def get_fuzzy_match_list(self):
         """
@@ -61,7 +61,7 @@ class Checkpoints:
         return exactly_match_list
 
 
-def _get_checkpoint_list(checkpoint_dir):
+def _get_crucial_states(checkpoint_dir):
     """
     function: 根据标注完的文件夹, 返回checkpoint列表
     input: checkpoint_dir: 标注完之后的文件夹
@@ -70,30 +70,25 @@ def _get_checkpoint_list(checkpoint_dir):
     checkpoint_file_list = [
         f for f in os.listdir(checkpoint_dir) if f.split(".")[-1] == "text"
     ]
+    # checkpoint_file_list: [8_drawed.png.text, 5_drawed.png.text] will sort by [5, 8]
+    # Result will be [5_drawed.png.text, 8_drawed.png.text]
     checkpoint_file_list.sort(key=lambda x: int(x.split(".")[0][:-7]))
     checkpoint_ls = []
-    # installed_ls = []
     for checkpoint_file in checkpoint_file_list:
         pic_id = checkpoint_file.split(".")[0][:-7]
-        # 每个文件中的内容格式为 "keyword<content>|keyword<content>|keyword<content>|..."
         checkpoint_file_path = os.path.join(checkpoint_dir, checkpoint_file)
         with open(checkpoint_file_path, "r") as f:
             content = f.read()
+            # split_content: ['keyword<id>', '...'], e.g., ['textbox<10>', 'click<72>']
             split_content = [item.strip() for item in content.split("|") if item]
-            # 进一步解析每个字符串
-            # parsed_content = []
             for item in split_content:
-                # 格式总是 "keyword<content>"
-                parts = item.split("<")
-                if len(parts) == 2:
-                    keyword, content = parts[0], parts[1].rstrip(">")
-                    keyword = keyword.strip().lower()
-                    # if keyword == "check_install":
-                    #     installed_ls.append(Checkpoint(int(pic_id), keyword, str(content).lower()))
-                    # else:
-                    checkpoint_ls.append(Checkpoint(int(pic_id), keyword, content))
-                    # parsed_content.append(Checkpoint(int(pic_id), keyword, int(content)))
-        # checkpoint_list = checkpoint_ls + parsed_content
+                match = re.search(r"(?P<keyword>\w+)<(?P<content>\w+)>", item)
+                if match:
+                    keyword = match.group("keyword")
+                    content = match.group("content")
+                    checkpoint_ls.append(
+                        CrucialState(pic_id=pic_id, keyword=keyword, node_id=content)
+                    )
 
     return checkpoint_ls
 
@@ -114,8 +109,8 @@ def _print_checkpoint_list(checkpoint_list):
 
 
 if __name__ == "__main__":
-    checkpoint_dir = "/data/jxq/mobile-agent/aitw_replay_data/general/trace_35"
-    checkpoint_ls = Checkpoints(checkpoint_dir)
+    checkpoint_dir = "/data/jxq/mobile-agent/aitw_replay_data/generated/trace_39"
+    checkpoint_ls = CrucialStates(checkpoint_dir)
     fuzy_match_ls = checkpoint_ls.get_fuzzy_match_list()
     print(fuzy_match_ls)
     # _print_checkpoint_list(checkpoint_ls.checkpoint_ls)

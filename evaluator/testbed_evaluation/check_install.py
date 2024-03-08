@@ -1,7 +1,9 @@
 import logging
 import os
-from get_checkpoint_list import Checkpoint
+
 import pandas as pd
+
+from .get_crucial_states import CrucialState
 
 
 def check_install(checkpoint_installed_ls, captured_dir):
@@ -90,7 +92,7 @@ if __name__ == "__main__":
         "/data/jxq/mobile-agent/AgentEnv_copy/captured_data/84143002711104077"
     )
     ls = [
-        Checkpoint(
+        CrucialState(
             1,
             "check_uninstall",
             "ebay",

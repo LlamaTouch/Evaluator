@@ -1,5 +1,6 @@
-from sentence_transformers import SentenceTransformer, util
 import logging
+
+from sentence_transformers import SentenceTransformer, util
 
 
 def compute_sentence_similiarity(sentence1, sentence2):

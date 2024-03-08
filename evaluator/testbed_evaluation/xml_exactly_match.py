@@ -1,12 +1,12 @@
-from lxml import etree
-import xml.etree.ElementTree as ET
 import json
-from check_install import check_install, check_uninstall
-
-import os
 import logging
+import os
 import re
-from sentence_similarity import check_sentence_similarity
+
+from lxml import etree
+
+from .check_install import check_install, check_uninstall
+from .sentence_similarity import check_sentence_similarity
 
 
 def _get_bounds_and_text(checkpoint_json_fp, node_id):

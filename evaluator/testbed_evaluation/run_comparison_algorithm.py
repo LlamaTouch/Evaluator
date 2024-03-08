@@ -1,8 +1,10 @@
-from comparison_algorithm import comparison_algorithm
-import time
 import logging
 import os
+import time
+
 import pandas as pd
+
+from .comparison_algorithm import comparison_algorithm
 
 dir_map = dict()
 
@@ -14,7 +16,7 @@ classes = "web_shopping"
 # classes = "googleapps"
 
 agent = "auto-ui"
-COSSINE_BOUND = 0.7
+COSINE_BOUND = 0.7
 # agent = "appagent"
 log_dir_path = f"/data/jxq/mobile-agent/comparison_algorithm/log/{agent}/{classes}"
 
@@ -37,7 +39,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
         logging.FileHandler(
-            f"{log_dir_path}/COSSINE_BOUND_{COSSINE_BOUND}_comparison_algorithm_{formatted_time}.log",
+            f"{log_dir_path}/COSINE_BOUND_{COSINE_BOUND}_comparison_algorithm_{formatted_time}.log",
             "w",
         ),
         logging.StreamHandler(),
@@ -77,7 +79,7 @@ for i, row in instruction_data.iterrows():
     logging.info(f"checkpoint_dir: {checkpoint_dir}")
     logging.info(f"captured_dir: {captured_dir}")
 
-    if comparison_algorithm(checkpoint_dir, captured_dir, COSSINE_BOUND):
+    if comparison_algorithm(checkpoint_dir, captured_dir, COSINE_BOUND):
         logging.info(
             f"comparison_algorithm successfully: {checkpoint_dir} and {captured_dir}"
         )
@@ -96,7 +98,7 @@ for index, row in instruction_data.iterrows():
     ]
 
 output_data.to_csv(
-    f"/data/jxq/mobile-agent/comparison_algorithm/output_data/{classes}/{agent}/{formatted_time}_{part}_COSSINE_BOUND_{COSSINE_BOUND}.csv",
+    f"/data/jxq/mobile-agent/comparison_algorithm/output_data/{classes}/{agent}/{formatted_time}_{part}_COSINE_BOUND_{COSINE_BOUND}.csv",
     index=False,
 )
 logging.info(f"success_num: {testbed_judge_success_state.count(True)}")

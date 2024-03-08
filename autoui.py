@@ -7,6 +7,7 @@ from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action, ActionType
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskTrace
+from evaluator.testbed_evaluator import TestbedEvaluator
 
 
 class AutoUI(MobileAgent):
@@ -45,20 +46,24 @@ class AutoUI(MobileAgent):
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         category = DatasetHelper().get_category_by_episode(episode)
         epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category, episode, "captured_data"
+            self.agent_exec_trace_path, category.value, episode, "captured_data"
         )
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
         category = DatasetHelper().get_category_by_episode(episode)
         epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category, episode, "captured_data"
+            self.agent_exec_trace_path, category.value, episode, "captured_data"
         )
         return epi_trace_path
 
 
 if __name__ == "__main__":
     agent = AutoUI()
-    e = ExactMatchEvaluator(agent=agent)
-    e.run_evaluation()
-    e.report_stats()
+    # e = ExactMatchEvaluator(agent=agent)
+    # e.run_evaluation()
+    # e.report_stats()
+
+    t = TestbedEvaluator(agent=agent)
+    t.run_evaluation()
+    t.report_stats()

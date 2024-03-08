@@ -1,7 +1,7 @@
 import logging
 
 from .evaluator import BaseEvaluator
-from .testbed_evaluator import comparison_algorithm
+from .testbed_evaluation.comparison_algorithm import comparison_algorithm
 
 
 class TestbedEvaluator(BaseEvaluator):
@@ -18,6 +18,7 @@ class TestbedEvaluator(BaseEvaluator):
             self.helper.load_testbed_goundtruth_trace_path_by_episode(episode)
         )
         task_exec_trace_path = self.agent.load_exec_trace_path_by_episode(episode)
+        print(testbed_groudtruth_trace_path, task_exec_trace_path)
 
         completeness = comparison_algorithm(
             checkpoint_dir=testbed_groudtruth_trace_path,
