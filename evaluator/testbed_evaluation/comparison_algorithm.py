@@ -1,7 +1,8 @@
 import logging
 import os
+from typing import List
 
-from .get_crucial_states import CrucialStates
+from .get_crucial_states import CrucialState, CrucialStates
 from .xml_exactly_match import exactly_match
 from .xml_fuzzy_match import get_xml_fuzzy_match
 
@@ -31,7 +32,14 @@ def comparison_algorithm(
     output: True or False
     """
     checkpoints = CrucialStates(episode, checkpoint_dir)
+    css: List[CrucialState] = checkpoints.get_crucial_states()
+    for cs in css:
+        print(cs)
+
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
+
+    for item in checkpoint_fuzzy_match_list:
+        print(item)
 
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
     captured_xml_path_list = _get_xml_path_list(os.path.join(captured_dir, "xml"))

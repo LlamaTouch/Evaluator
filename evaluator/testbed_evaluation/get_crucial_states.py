@@ -15,8 +15,11 @@ class CrucialStates:
     def __init__(self, episode: str, checkpoint_dir: str):
         self.episode: str = episode
         self.checkpoint_dir: str = checkpoint_dir
-        self.checkpoint_ls: List[CrucialState] = []
+        self.crucial_states: List[CrucialState] = []
         self._load_crucial_states()
+
+    def get_crucial_states(self) -> List[CrucialState]:
+        return self.crucial_states
 
     def get_fuzzy_match_list(self):
         """
@@ -25,24 +28,24 @@ class CrucialStates:
         """
         fuzzy_match_list = []
         pic_id_dict = dict()
-        for i in range(len(self.checkpoint_ls)):
-            if self.checkpoint_ls[i].pic_id not in pic_id_dict.keys():
-                pic_id_dict[self.checkpoint_ls[i].pic_id] = len(fuzzy_match_list)
-                if self.checkpoint_ls[i].keyword == "fuzzy_match":
+        for i in range(len(self.crucial_states)):
+            if self.crucial_states[i].pic_id not in pic_id_dict.keys():
+                pic_id_dict[self.crucial_states[i].pic_id] = len(fuzzy_match_list)
+                if self.crucial_states[i].keyword == "fuzzy_match":
                     item = {
-                        "pic_id": self.checkpoint_ls[i].pic_id,
-                        "node_id": self.checkpoint_ls[i].node_id,
+                        "pic_id": self.crucial_states[i].pic_id,
+                        "node_id": self.crucial_states[i].node_id,
                     }
                 else:
-                    item = {"pic_id": self.checkpoint_ls[i].pic_id, "node_id": -1}
+                    item = {"pic_id": self.crucial_states[i].pic_id, "node_id": -1}
                 fuzzy_match_list.append(item)
             else:
-                if self.checkpoint_ls[i].keyword == "fuzzy_match":
+                if self.crucial_states[i].keyword == "fuzzy_match":
                     item = {
-                        "pic_id": self.checkpoint_ls[i].pic_id,
-                        "node_id": self.checkpoint_ls[i].node_id,
+                        "pic_id": self.crucial_states[i].pic_id,
+                        "node_id": self.crucial_states[i].node_id,
                     }
-                    fuzzy_match_list[pic_id_dict[self.checkpoint_ls[i].pic_id]] = item
+                    fuzzy_match_list[pic_id_dict[self.crucial_states[i].pic_id]] = item
                 else:
                     continue
 
@@ -55,12 +58,12 @@ class CrucialStates:
         output: exactly_match_list: 该pic_id下的exactly checkpoint list
         """
         exactly_match_list = []
-        for i in range(len(self.checkpoint_ls)):
+        for i in range(len(self.crucial_states)):
             if (
-                self.checkpoint_ls[i].pic_id == pic_id
-                and "fuzzy_match" not in self.checkpoint_ls[i].keyword
+                self.crucial_states[i].pic_id == pic_id
+                and "fuzzy_match" not in self.crucial_states[i].keyword
             ):
-                exactly_match_list.append(self.checkpoint_ls[i])
+                exactly_match_list.append(self.crucial_states[i])
         return exactly_match_list
 
     def _load_crucial_states(self):
@@ -79,11 +82,11 @@ class CrucialStates:
                 # split_content: ['keyword<id>', '...'], e.g., ['textbox<10>', 'click<72>']
                 split_content = [item.strip() for item in content.split("|") if item]
                 for item in split_content:
-                    match = re.search(r"(?P<keyword>\w+)<(?P<content>\w+)>", item)
+                    match = re.search(r"(?P<keyword>\w+)<(?P<content>.+)>", item)
                     if match:
                         keyword = match.group("keyword")
                         content = match.group("content")
-                        self.checkpoint_ls.append(
+                        self.crucial_states.append(
                             CrucialState(
                                 pic_id=pic_id, keyword=keyword, node_id=content
                             )
@@ -91,7 +94,7 @@ class CrucialStates:
 
     def print_crucial_states(self):
         print(f"Crucial states for episode: {self.episode}")
-        checkpoint_list = self.checkpoint_ls
+        checkpoint_list = self.crucial_states
         for i in range(len(checkpoint_list)):
             print(f"\tcrucial_state: {i}")
             print(f"\tpic_id: {checkpoint_list[i].pic_id}")
