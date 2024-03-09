@@ -26,7 +26,6 @@ class BaseEvaluator(ABC):
         self.episode_completion: Dict[str, Tuple[bool, str]] = {}
 
     def run_evaluation(self) -> None:
-        self.logger.info("Start evaluation")
         for epi in self.helper.get_all_episodes():
             completeness, failed_reason = self.eval_episode(epi)
             if failed_reason is not None:

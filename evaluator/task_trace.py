@@ -3,7 +3,7 @@ import logging
 import os
 import re
 from enum import Enum
-from typing import Dict, List, NamedTuple, Union
+from typing import Dict, List, NamedTuple, Optional, Union
 
 import pandas as pd
 
@@ -28,10 +28,10 @@ class TaskCategory(Enum):
 """
 GROUNDTRUTH_DATASET_PATH: this is what we replayed and recorded.
 TESTBED_GROUNDTRUTH_DATASET_PATH: Based on GROUNDTRUTH_DATASET_PATH, we manually annotated 
-                                        crucial states that will be used in the MATestbed evaluator.
+crucial states that will be used in the MATestbed evaluator.
 """
-GROUNDTRUTH_DATASET_PATH = "/data/yyh/mobile/capture/AITW_decode"
-TESTBED_GROUNDTRUTH_DATASET_PATH = "/data/jxq/mobile-agent/aitw_replay_data"
+# GROUNDTRUTH_DATASET_PATH = "/data/yyh/mobile/capture/AITW_decode"
+GROUNDTRUTH_DATASET_PATH = "/data/jxq/mobile-agent/aitw_replay_data"
 
 
 ACTION_SPACE = {
@@ -56,6 +56,16 @@ class UIState(NamedTuple):
 
 
 TaskTrace = List[UIState]
+
+
+def get_all_screenshot_paths(task_trace: TaskTrace) -> List[str]:
+    return [ui_state.screenshot_path for ui_state in task_trace]
+
+def get_all_vh_paths(task_trace: TaskTrace) -> List[str]:
+    return [ui_state.vh_path for ui_state in task_trace]
+
+def get_all_actions(task_trace: TaskTrace) -> List[Action]:
+    return [ui_state.action for ui_state in task_trace]
 
 
 class DatasetHelper:
@@ -191,10 +201,13 @@ class DatasetHelper:
     # -- Exposed Methods                                   #
     # ---- load_groundtruth_trace_by_episode               #
     # ---------------------------------------------------- #
-    def load_groundtruth_trace_by_episode(self, episode: str) -> TaskTrace:
+    def load_groundtruth_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
         category: TaskCategory = self.get_category_by_episode(episode)
         print(f"episode: {episode}, category: {category}")
-        return self._load_groundtruth_trace_by_category(category)[episode]
+        if episode in self._load_groundtruth_trace_by_category(category):
+            return self._load_groundtruth_trace_by_category(category)[episode]
+        else:
+            return None
 
     def _load_groundtruth_trace_by_category(
         self, category: TaskCategory
@@ -228,19 +241,18 @@ class DatasetHelper:
             with open(ep_id_path, "r") as f:
                 ep_id = f.readline().strip()
 
-            ep_trace_list = self._load_groundtruth_trace_by_path(path)
-            gt_trace_dict[ep_id] = ep_trace_list
+            ep_trace: TaskTrace = self._load_groundtruth_trace_by_path(path)
+            gt_trace_dict[ep_id] = ep_trace
+
+            print(ep_id, ep_trace)
 
         return gt_trace_dict
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         self.logger.debug(f"loading groundtruth trace in path: {path}")
         ep_trace_list: TaskTrace = []
-        files = [
-            f
-            for f in os.listdir(path)
-            if f.endswith(".png") and f.find("png_image") != -1
-        ]
+        files = [ f for f in os.listdir(path) if f.endswith(".png") ]
+        print(files)
         files.sort()
 
         action_path = os.path.join(path, "eventStructs.txt")
@@ -320,7 +332,7 @@ class DatasetHelper:
 
     def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
         category: TaskCategory = self.get_category_by_episode(episode)
-        category_path = os.path.join(TESTBED_GROUNDTRUTH_DATASET_PATH, category.value)
+        category_path = os.path.join(GROUNDTRUTH_DATASET_PATH, category.value)
         summary_csv = os.path.join(category_path, "all_instruction.csv")
         data = pd.read_csv(summary_csv)
         epi_to_testbed_trace_path = data[data["episode_id"] == int(episode)][

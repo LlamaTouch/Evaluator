@@ -21,22 +21,27 @@ def _get_xml_path_list(xml_dir):
 
 
 # assistant env
-def comparison_algorithm(checkpoint_dir, captured_dir, COSINE_BOUND=0.75):
+def comparison_algorithm(episode: str, checkpoint_dir: str, captured_dir: str, COSINE_BOUND=0.75):
     """
     function: 根据checkpoint_dir和captured_dir, 返回是否匹配成功
     input: checkpoint_dir: 标注完之后的文件夹
            captured_dir: captured文件夹
     output: True or False
     """
-    checkpoints = CrucialStates(checkpoint_dir)
+    checkpoints = CrucialStates(episode, checkpoint_dir)
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
     captured_xml_path_list = _get_xml_path_list(os.path.join(captured_dir, "xml"))
     for i in range(len(checkpoint_fuzzy_match_list)):
+        # get the entire XML of the node to be fuzzily matched
         pic_id = int(checkpoint_fuzzy_match_list[i]["pic_id"])
-        fuzzy_match_node_id = int(checkpoint_fuzzy_match_list[i]["node_id"])
         checkpoint_xml_path = checkpoint_xml_path_list[pic_id]
+        # get the node id in this entire XML
+        fuzzy_match_node_id = int(checkpoint_fuzzy_match_list[i]["node_id"])
+
+        print(f"{checkpoint_xml_path}'s {fuzzy_match_node_id} should be fuzzily matched")
+        
 
         for index in range(len(captured_xml_path_list)):
             captured_xml_path = captured_xml_path_list[index]

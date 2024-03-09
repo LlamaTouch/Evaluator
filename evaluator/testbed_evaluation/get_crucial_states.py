@@ -1,6 +1,6 @@
 import os
 import re
-from typing import NamedTuple
+from typing import List, NamedTuple
 
 
 class CrucialState(NamedTuple):
@@ -12,8 +12,14 @@ class CrucialState(NamedTuple):
 
 
 class CrucialStates:
-    def __init__(self, checkpoint_dir):
-        self.checkpoint_ls = _get_crucial_states(checkpoint_dir)
+    def __init__(self, episode: str, checkpoint_dir: str):
+        self.episode: str = episode
+        self.checkpoint_dir: str = checkpoint_dir
+        self.checkpoint_ls: List[CrucialState] = []
+        self._load_crucial_states()
+
+    def show_crucial_state(self):
+        pass
 
     def get_fuzzy_match_list(self):
         """
@@ -60,58 +66,40 @@ class CrucialStates:
                 exactly_match_list.append(self.checkpoint_ls[i])
         return exactly_match_list
 
+    def _load_crucial_states(self):
+        """Load crucial states from dir"""
+        checkpoint_file_list = [
+            f for f in os.listdir(self.checkpoint_dir) if f.split(".")[-1] == "text"
+        ]
+        # checkpoint_file_list: [8_drawed.png.text, 5_drawed.png.text] will sort by [5, 8]
+        # Result will be [5_drawed.png.text, 8_drawed.png.text]
+        checkpoint_file_list.sort(key=lambda x: int(x.split(".")[0][:-7]))
+        for checkpoint_file in checkpoint_file_list:
+            pic_id = checkpoint_file.split(".")[0][:-7]
+            checkpoint_file_path = os.path.join(self.checkpoint_dir, checkpoint_file)
+            with open(checkpoint_file_path, "r") as f:
+                content = f.read()
+                # split_content: ['keyword<id>', '...'], e.g., ['textbox<10>', 'click<72>']
+                split_content = [item.strip() for item in content.split("|") if item]
+                for item in split_content:
+                    match = re.search(r"(?P<keyword>\w+)<(?P<content>\w+)>", item)
+                    if match:
+                        keyword = match.group("keyword")
+                        content = match.group("content")
+                        self.checkpoint_ls.append(
+                            CrucialState(
+                                pic_id=pic_id, keyword=keyword, node_id=content
+                            )
+                        )
 
-def _get_crucial_states(checkpoint_dir):
-    """
-    function: 根据标注完的文件夹, 返回checkpoint列表
-    input: checkpoint_dir: 标注完之后的文件夹
-    output: checkpoint_list: checkpoint列表
-    """
-    checkpoint_file_list = [
-        f for f in os.listdir(checkpoint_dir) if f.split(".")[-1] == "text"
-    ]
-    # checkpoint_file_list: [8_drawed.png.text, 5_drawed.png.text] will sort by [5, 8]
-    # Result will be [5_drawed.png.text, 8_drawed.png.text]
-    checkpoint_file_list.sort(key=lambda x: int(x.split(".")[0][:-7]))
-    checkpoint_ls = []
-    for checkpoint_file in checkpoint_file_list:
-        pic_id = checkpoint_file.split(".")[0][:-7]
-        checkpoint_file_path = os.path.join(checkpoint_dir, checkpoint_file)
-        with open(checkpoint_file_path, "r") as f:
-            content = f.read()
-            # split_content: ['keyword<id>', '...'], e.g., ['textbox<10>', 'click<72>']
-            split_content = [item.strip() for item in content.split("|") if item]
-            for item in split_content:
-                match = re.search(r"(?P<keyword>\w+)<(?P<content>\w+)>", item)
-                if match:
-                    keyword = match.group("keyword")
-                    content = match.group("content")
-                    checkpoint_ls.append(
-                        CrucialState(pic_id=pic_id, keyword=keyword, node_id=content)
-                    )
-
-    return checkpoint_ls
-
-
-def _print_checkpoint_list(checkpoint_list):
-    """
-    function: 打印checkpoint列表
-    input: checkpoint_list: checkpoint列表
-    """
-    for i in range(len(checkpoint_list)):
-        print(f"checkpoint {i}:")
-        print(f"pic_id: {checkpoint_list[i].pic_id}")
-        print(f"keyword: {checkpoint_list[i].keyword}")
-        print(f"node_id: {checkpoint_list[i].node_id}")
-        print(f"matched: {checkpoint_list[i].matched}")
-        print(f"capture_id: {checkpoint_list[i].capture_id}")
-        print("-------------------------")
-
-
-if __name__ == "__main__":
-    checkpoint_dir = "/data/jxq/mobile-agent/aitw_replay_data/generated/trace_39"
-    checkpoint_ls = CrucialStates(checkpoint_dir)
-    fuzy_match_ls = checkpoint_ls.get_fuzzy_match_list()
-    print(fuzy_match_ls)
-    # _print_checkpoint_list(checkpoint_ls.checkpoint_ls)
-    # _print_checkpoint_list(checkpoint_ls.installed_ls)
+    def _print_crucial_states(self):
+        print(f"Crucial states for episode: {self.episode}")
+        checkpoint_list = self.checkpoint_ls
+        for i in range(len(checkpoint_list)):
+            print(f"\tcheckpoint {i}:")
+            print(f"\tpic_id: {checkpoint_list[i].pic_id}")
+            print(f"\tkeyword: {checkpoint_list[i].keyword}")
+            print(f"\tnode_id: {checkpoint_list[i].node_id}")
+            print(f"\tmatched: {checkpoint_list[i].matched}")
+            print(f"\tcapture_id: {checkpoint_list[i].capture_id}")
+            print("\t-------------------------")
