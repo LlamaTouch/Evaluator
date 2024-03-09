@@ -3,15 +3,20 @@ import pytest
 from ..task_trace import DatasetHelper, TaskCategory, TaskTrace
 
 
+def test_init_epi_metadata():
+    helper = DatasetHelper()
+    assert len(helper.get_all_episodes()) == 191
+
+
 def test_general():
     # test 1
     DatasetHelper().init_epi_to_category()
     print(DatasetHelper().epi_metadata_dict)
     # test 2
-    DatasetHelper()._proc_testbed_trace_action_file("test_asset/1.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test_asset/2.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test_asset/3.action")
-    DatasetHelper()._proc_testbed_trace_action_file("test_asset/4.action")
+    DatasetHelper()._proc_testbed_trace_action_file("evaluator/test_asset/1.action")
+    DatasetHelper()._proc_testbed_trace_action_file("evaluator/test_asset/2.action")
+    DatasetHelper()._proc_testbed_trace_action_file("evaluator/test_asset/3.action")
+    DatasetHelper()._proc_testbed_trace_action_file("evaluator/test_asset/4.action")
 
     assert False
 
@@ -45,11 +50,3 @@ def test_load_groundtruth_trace():
         vh_paths = [ui_state[1].split("/")[-1] for ui_state in trace]
         sorted_vh_paths = sorted(vh_paths)
         assert vh_paths == sorted_vh_paths
-
-
-def test_load_testbed_trace():
-    DatasetHelper().load_testbed_trace_by_path(
-        "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result/web_shopping/10016075255396203771/captured_data"
-    )
-
-    assert False

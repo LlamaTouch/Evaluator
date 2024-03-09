@@ -18,9 +18,6 @@ class CrucialStates:
         self.checkpoint_ls: List[CrucialState] = []
         self._load_crucial_states()
 
-    def show_crucial_state(self):
-        pass
-
     def get_fuzzy_match_list(self):
         """
         function:返回fuzzy match list, each item contains pic_id and node_id
@@ -92,11 +89,11 @@ class CrucialStates:
                             )
                         )
 
-    def _print_crucial_states(self):
+    def print_crucial_states(self):
         print(f"Crucial states for episode: {self.episode}")
         checkpoint_list = self.checkpoint_ls
         for i in range(len(checkpoint_list)):
-            print(f"\tcheckpoint {i}:")
+            print(f"\tcrucial_state: {i}")
             print(f"\tpic_id: {checkpoint_list[i].pic_id}")
             print(f"\tkeyword: {checkpoint_list[i].keyword}")
             print(f"\tnode_id: {checkpoint_list[i].node_id}")

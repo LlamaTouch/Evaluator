@@ -31,8 +31,9 @@ TESTBED_GROUNDTRUTH_DATASET_PATH: Based on GROUNDTRUTH_DATASET_PATH, we manually
 crucial states that will be used in the MATestbed evaluator.
 """
 # GROUNDTRUTH_DATASET_PATH = "/data/yyh/mobile/capture/AITW_decode"
-GROUNDTRUTH_DATASET_PATH = "/data/jxq/mobile-agent/aitw_replay_data"
-
+GROUNDTRUTH_DATASET_PATH = os.getenv(
+    "GROUNDTRUTH_DATASET_PATH", "/data/jxq/mobile-agent/aitw_replay_data"
+)
 
 ACTION_SPACE = {
     "Home键": ActionType.PRESS_HOME,
@@ -84,7 +85,7 @@ class DatasetHelper:
         self.logger = logging.getLogger(self.__class__.__name__)
         # load task metadata
         self.epi_to_category_file = os.path.join(
-            os.path.dirname(__file__), "data/epi_to_category.csv"
+            GROUNDTRUTH_DATASET_PATH, "epi_metadata.csv"
         )
         assert os.path.exists(
             self.epi_to_category_file
@@ -94,8 +95,9 @@ class DatasetHelper:
         self.init_epi_to_category()
 
     def init_epi_to_category(self) -> None:
-        """
-        Load episode metadata from the file {self.epi_to_category_file}
+        """Load episode metadata from the file {self.epi_to_category_file}
+        Columns: [episode,category,path,description,nsteps]
+
         Format: {
             "episode": {
                 "category": TaskCategory,
@@ -107,12 +109,15 @@ class DatasetHelper:
         with open(self.epi_to_category_file, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
-                epi, category, task_description = line.strip().split(",", maxsplit=2)
+                epi, category, path, task_description, _ = line.strip().split(
+                    ",", maxsplit=4
+                )
                 self.epi_metadata_dict[epi] = {
                     # convert string-format category to TaskCategory,
                     # e.g., "general" -> TaskCategory.GENERAL
                     "category": TaskCategory[category.upper()],
                     "task_description": task_description,
+                    "path": path,
                 }
 
     def get_all_episodes(self) -> List[str]:
@@ -246,15 +251,18 @@ class DatasetHelper:
             ep_trace: TaskTrace = self._load_groundtruth_trace_by_path(path)
             gt_trace_dict[ep_id] = ep_trace
 
-            print(ep_id, ep_trace)
-
         return gt_trace_dict
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         self.logger.debug(f"loading groundtruth trace in path: {path}")
         ep_trace_list: TaskTrace = []
-        files = [f for f in os.listdir(path) if f.endswith(".png")]
-        print(files)
+        # the task trace folder may contain png-format images
+        # their name could be 0.png, 1.png, and 0_drawed.png, 1_drawed.png
+        # 0_drawed.png and 1_drawed.png are used in the annotation process
+        # we only want to get 0.png and 1.png
+        files = [
+            f for f in os.listdir(path) if f.endswith(".png") and "drawed" not in f
+        ]
         files.sort()
 
         action_path = os.path.join(path, "eventStructs.txt")
@@ -340,4 +348,4 @@ class DatasetHelper:
         epi_to_testbed_trace_path = data[data["episode_id"] == int(episode)][
             "trace_folder_path"
         ].iloc[0]
-        return epi_to_testbed_trace_path
+        return os.path.join(category_path, epi_to_testbed_trace_path)
