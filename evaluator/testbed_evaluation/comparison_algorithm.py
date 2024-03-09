@@ -32,10 +32,6 @@ def comparison_algorithm(
     output: True or False
     """
     checkpoints = CrucialStates(episode, checkpoint_dir)
-    css: List[CrucialState] = checkpoints.get_crucial_states()
-    for cs in css:
-        print(cs)
-
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
     for item in checkpoint_fuzzy_match_list:
