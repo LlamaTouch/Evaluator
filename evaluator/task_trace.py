@@ -24,7 +24,7 @@ class TaskCategory(Enum):
 
 
 GROUNDTRUTH_DATASET_PATH = os.getenv(
-    "GROUNDTRUTH_DATASET_PATH", "/data/jxq/mobile-agent/aitw_replay_data"
+    "GROUNDTRUTH_DATASET_PATH", "/home/zl/mobile-agent/testbed/groundtruth-traces"
 )
 
 ACTION_SPACE = {

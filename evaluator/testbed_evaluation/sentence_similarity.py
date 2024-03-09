@@ -26,20 +26,6 @@ def check_sentence_similarity(sentence1, sentence2, threshold=0.8):
     """
     检查两个句子是否相似
     """
-    logging.info(f"sentence similarity threshold: {threshold}")
+    # logging.info(f"sentence similarity threshold: {threshold}")
     similarity = compute_sentence_similiarity(sentence1, sentence2)
     return similarity, similarity > threshold
-
-
-if __name__ == "__main__":
-    # 输入两个句子
-    sentence1 = "What's the weather like in Singapore?"
-    sentence2 = "weather like in Singapore?"
-
-    # 计算相似度
-    similarity, is_similar = check_sentence_similarity(sentence1, sentence2)
-
-    print(f"Similarity: {similarity}")
-    print(
-        "The sentences are semantically " + ("similar" if is_similar else "not similar")
-    )

@@ -79,25 +79,3 @@ def check_uninstall(checkpoint_installed_ls, captured_dir):
             logging.info("check uninstall task failed!")
             logging.info(f"checkpoint package:{str(checkpoint_installed_ls)}")
             return False
-
-
-if __name__ == "__main__":
-
-    # app_package_map = pd.read_csv("/data/jxq/mobile-agent/comparison_algorithm/app_package_map.csv")
-    # a = app_package_map.to_dict(orient='records')
-    # print(a)
-    # print(a[0]["app_name"])
-
-    captured_dir = (
-        "/data/jxq/mobile-agent/AgentEnv_copy/captured_data/84143002711104077"
-    )
-    ls = [
-        CrucialState(
-            1,
-            "check_uninstall",
-            "ebay",
-        )
-    ]
-    status = check_uninstall(ls, captured_dir)
-    if status:
-        print("hello world")

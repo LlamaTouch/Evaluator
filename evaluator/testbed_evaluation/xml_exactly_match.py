@@ -80,7 +80,7 @@ def _is_in_bounds(captured_bounds, checkpoint_bounds, expand_ratio=10):
     checkpoint_bounds = _parse_bounds(checkpoint_bounds)
     expand_bound = _expand_bounds(checkpoint_bounds, expand_ratio)
 
-    logging.info(f"textbox search expand_bound: {str(expand_bound)}")
+    # logging.info(f"textbox search expand_bound: {str(expand_bound)}")
 
     if (
         captured_bounds[0] >= expand_bound[0]

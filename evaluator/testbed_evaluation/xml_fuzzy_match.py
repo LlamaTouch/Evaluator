@@ -78,7 +78,7 @@ def get_xml_fuzzy_match(
     simp_tree2 = simplify_xml(captured_xml_path, bounds)
     # print(f"simp_tree2{simp_tree2}")
 
-    logging.info(f"xml similarity COSINE_BOUND: {COSINE_BOUND}")
+    # logging.info(f"xml similarity COSINE_BOUND: {COSINE_BOUND}")
     # cosine_similarity only
 
     cosine_similarity, status = check_sentence_similarity(
@@ -90,28 +90,3 @@ def get_xml_fuzzy_match(
     )
 
     return status
-
-
-if __name__ == "__main__":
-
-    # xml1 = xml_to_string('/data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_2/10.xml')
-    # xml2 = xml_to_string('/data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_2/0.xml')
-    # xml2 = xml_to_string('/data/jxq/mobile-agent/testbed_draw_temp/jxq/trace_2/7.xml')
-    xml1 = "/data/jxq/mobile-agent/aitw_replay_data/general/trace_53/5.xml"
-    xml2 = "/data/wangshihe/AgentTestbed/AppAgent/tasks-240214-1-general/task_Chrome_2024-02-13_16-24-21/13075604686848738248/captured_data/xml/0.xml"
-
-    similarity = get_xml_fuzzy_match(xml1, 3, xml2)
-    print(similarity)
-
-    # distance = tree_edit_distance(xml1, xml2)
-
-    # similarity = cosine_distance(xml1, xml2)
-    # print("Cosine Similarity:", similarity)
-
-    # simp_tree1 = get_simplfied_tree(xml1)
-    # simp_tree2 = get_simplfied_tree(xml2)
-
-    # tree_to_file(simp_tree1, './tree1.txt')
-    # tree_to_file(simp_tree2, './tree2.txt')
-    # similarity2 = cosine_distance(tree_to_string(simp_tree1), tree_to_string(simp_tree2))
-    # print("Cosine Similarity2:", similarity2)

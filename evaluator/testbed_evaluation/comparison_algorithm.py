@@ -105,7 +105,7 @@ def comparison_algorithm(
     # 判断checkpoints.checkpoint_ls中的matched是不是全是True
     checkpoints_ls = [
         checkpoint
-        for checkpoint in checkpoints.checkpoint_ls
+        for checkpoint in checkpoints.get_crucial_states()
         if checkpoint.keyword != "fuzzy_match"
     ]
     matched_state = [checkpoint.matched for checkpoint in checkpoints_ls]

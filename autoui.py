@@ -64,6 +64,11 @@ if __name__ == "__main__":
     # e.run_evaluation()
     # e.report_stats()
 
-    t = TestbedEvaluator(agent=agent)
+    t = TestbedEvaluator(
+        agent=agent,
+        options={
+            "first_n": 1,
+        },
+    )
     t.run_evaluation()
     t.report_stats()

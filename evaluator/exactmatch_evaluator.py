@@ -1,8 +1,10 @@
 import logging
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 import numpy as np
 from PIL import Image
+
+from evaluator.agent import MobileAgent
 
 from .evaluator import BaseEvaluator, FailedReason
 from .exactmatch_evaluation.action_matching import check_actions_match
@@ -10,8 +12,8 @@ from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
 class ExactMatchEvaluator(BaseEvaluator):
-    def __init__(self, agent) -> None:
-        super().__init__(agent)
+    def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
+        super().__init__(agent, options)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
