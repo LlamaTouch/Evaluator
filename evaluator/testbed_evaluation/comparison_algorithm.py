@@ -21,7 +21,9 @@ def _get_xml_path_list(xml_dir):
 
 
 # assistant env
-def comparison_algorithm(episode: str, checkpoint_dir: str, captured_dir: str, COSINE_BOUND=0.75):
+def comparison_algorithm(
+    episode: str, checkpoint_dir: str, captured_dir: str, COSINE_BOUND=0.75
+):
     """
     function: 根据checkpoint_dir和captured_dir, 返回是否匹配成功
     input: checkpoint_dir: 标注完之后的文件夹
@@ -40,8 +42,9 @@ def comparison_algorithm(episode: str, checkpoint_dir: str, captured_dir: str, C
         # get the node id in this entire XML
         fuzzy_match_node_id = int(checkpoint_fuzzy_match_list[i]["node_id"])
 
-        print(f"{checkpoint_xml_path}'s {fuzzy_match_node_id} should be fuzzily matched")
-        
+        print(
+            f"{checkpoint_xml_path}'s {fuzzy_match_node_id} should be fuzzily matched"
+        )
 
         for index in range(len(captured_xml_path_list)):
             captured_xml_path = captured_xml_path_list[index]

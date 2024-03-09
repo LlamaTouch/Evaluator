@@ -22,9 +22,8 @@ class TestbedEvaluator(BaseEvaluator):
     def load_crucial_states_by_episode(self, episode):
         gt_trace = self.helper.load_groundtruth_trace_by_episode(episode)
 
-
     def eval_impl(self, episode, task_description) -> bool:
-        # load crucial states        
+        # load crucial states
         crucial_states: CrucialStates = self.load_crucial_states_by_episode(episode)
 
         # load task execution trace of a specific mobile agent
@@ -34,8 +33,6 @@ class TestbedEvaluator(BaseEvaluator):
         actions: List[Action] = get_all_actions(task_exec_trace)
 
         # for each crucial states, find matching things
-
-
 
         testbed_groudtruth_trace_path = (
             self.helper.load_testbed_goundtruth_trace_path_by_episode(episode)

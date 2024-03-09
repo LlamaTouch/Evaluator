@@ -61,8 +61,10 @@ TaskTrace = List[UIState]
 def get_all_screenshot_paths(task_trace: TaskTrace) -> List[str]:
     return [ui_state.screenshot_path for ui_state in task_trace]
 
+
 def get_all_vh_paths(task_trace: TaskTrace) -> List[str]:
     return [ui_state.vh_path for ui_state in task_trace]
+
 
 def get_all_actions(task_trace: TaskTrace) -> List[Action]:
     return [ui_state.action for ui_state in task_trace]
@@ -251,7 +253,7 @@ class DatasetHelper:
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         self.logger.debug(f"loading groundtruth trace in path: {path}")
         ep_trace_list: TaskTrace = []
-        files = [ f for f in os.listdir(path) if f.endswith(".png") ]
+        files = [f for f in os.listdir(path) if f.endswith(".png")]
         print(files)
         files.sort()
 
