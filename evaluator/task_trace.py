@@ -188,11 +188,17 @@ class DatasetHelper:
         for i in range(num_UIState):
             screenshot_path = os.path.join(screenshot_folder_path, f"{i}.png")
             xml_path = os.path.join(path, "xml", f"{i}.xml")
+            vh_json_path = os.path.join(path, "xml", f"{i}.json")
             activity_path = os.path.join(path, "activity", f"{i}.activity")
+            activity = self._extract_activity_from_file(activity_path)
             action_path = os.path.join(path, "action", f"{i}.action")
             action = self._proc_testbed_trace_action_file(action_path)
             ui_state = UIState(
-                screenshot_path=screenshot_path, vh_path=xml_path, action=action
+                screenshot_path=screenshot_path,
+                vh_path=xml_path,
+                vh_json_path=vh_json_path,
+                activity=activity,
+                action=action,
             )
             task_trace.append(ui_state)
         return task_trace
@@ -332,7 +338,7 @@ class DatasetHelper:
         """
         with open(path) as f:
             line = f.read().strip()
-        match = re.search(r"u0 ([\w./]+)|mObscuringWindow=(null)", line)
+        match = re.search(r"(com\.[\w./]+)|mObscuringWindow=(null)", line)
         extracted_activity = match.group(1) if match.group(1) else match.group(2)
         return extracted_activity
 
