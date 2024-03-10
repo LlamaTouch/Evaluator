@@ -59,7 +59,7 @@ def simplify_xml(xml_path, bounds):
 
 
 def get_xml_fuzzy_match(
-    checkpoint_xml_path, node_id, captured_xml_path, COSINE_BOUND=0.65
+    checkpoint_xml_path, node_id, captured_xml_path, cosine_bound=0.65
 ):
     """ "
     根据cosine similarity和tree edit distance match xml
@@ -82,7 +82,7 @@ def get_xml_fuzzy_match(
     # cosine_similarity only
 
     cosine_similarity, status = check_sentence_similarity(
-        simp_tree1, simp_tree2, threshold=COSINE_BOUND
+        simp_tree1, simp_tree2, threshold=cosine_bound
     )
     # print(f"similarity: {similarity}")
     logging.info(

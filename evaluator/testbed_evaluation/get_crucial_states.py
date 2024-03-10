@@ -7,6 +7,7 @@ class CrucialState(NamedTuple):
     pic_id: str
     keyword: str
     node_id: str
+    vh_path: str  # represent which vh file this crucial state belongs to
     matched: bool = False
     capture_id = None
 
@@ -73,9 +74,9 @@ class CrucialStates:
         ]
         # checkpoint_file_list: [8_drawed.png.text, 5_drawed.png.text] will sort by [5, 8]
         # Result will be [5_drawed.png.text, 8_drawed.png.text]
-        checkpoint_file_list.sort(key=lambda x: int(x.split(".")[0][:-7]))
+        checkpoint_file_list.sort(key=lambda x: int(x.split("_")[0]))
         for checkpoint_file in checkpoint_file_list:
-            pic_id = checkpoint_file.split(".")[0][:-7]
+            pic_id = checkpoint_file.split("_")[0]
             checkpoint_file_path = os.path.join(self.checkpoint_dir, checkpoint_file)
             with open(checkpoint_file_path, "r") as f:
                 content = f.read()
@@ -88,7 +89,10 @@ class CrucialStates:
                         content = match.group("content")
                         self.crucial_states.append(
                             CrucialState(
-                                pic_id=pic_id, keyword=keyword, node_id=content
+                                pic_id=pic_id,
+                                keyword=keyword,
+                                node_id=content,
+                                vh_path=f"{pic_id}.xml",
                             )
                         )
 

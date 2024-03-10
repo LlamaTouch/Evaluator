@@ -39,12 +39,16 @@ ACTION_SPACE = {
 class UIState(NamedTuple):
     """
     - screenshot_path: string
-    - vh_path: string
+    - vh_path: string (dumped through `uiautomator`)
+    - vh_json_path: string (dumped through `droidbot`)
+    - activity: activity of the current screen
     - action: Action
     """
 
     screenshot_path: str
     vh_path: str
+    vh_json_path: str
+    activity: str
     action: Action
 
 
@@ -175,7 +179,6 @@ class DatasetHelper:
             action_param = None
         screen_width = int(action_repr[-2])
         screen_height = int(action_repr[-1])
-        print(action_type, action_param, screen_width, screen_height)
         return action_type, action_param
 
     def load_testbed_trace_by_path(self, path: str) -> TaskTrace:
@@ -245,21 +248,17 @@ class DatasetHelper:
 
         return gt_trace_dict
 
-    def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
-        self.logger.debug(f"loading groundtruth trace in path: {path}")
-        ep_trace_list: TaskTrace = []
-        # the task trace folder may contain png-format images
-        # their name could be 0.png, 1.png, and 0_drawed.png, 1_drawed.png
-        # 0_drawed.png and 1_drawed.png are used in the annotation process
-        # we only want to get 0.png and 1.png
-        files = [
-            f for f in os.listdir(path) if f.endswith(".png") and "drawed" not in f
-        ]
-        files.sort()
-
-        action_path = os.path.join(path, "eventStructs.txt")
+    def _extract_actions_from_file(self, path: str) -> List[Action]:
+        """Actions for one episode are recorded in one file.
+        Format:
+        【点击事件】屏幕大小：（w320，h720），触摸位置：（x196，y558）
+        【点击事件】屏幕大小：（w320，h720），触摸位置：（x76，y193）
+        【键盘输入】bestbuy
+        【点击事件】屏幕大小：（w320，h720），触摸位置：（x106，y253）
+         ...
+        """
         action_list = []
-        with open(action_path, "r") as f:
+        with open(path, "r") as f:
             action_texts = f.readlines()
 
         # this for-range is for processing the action record
@@ -318,16 +317,59 @@ class DatasetHelper:
             else:
                 raise ValueError(f"Unknown action type: {action_type}")
 
+        return action_list
+
+    def _extract_activity_from_file(self, path: str) -> str:
+        """A single activity file may contain one of the following lines.
+        Format:
+          mObscuringWindow=Window{5fc0ca7 u0 com.android.systemui.ImageWallpaper}
+          mObscuringWindow=null
+          mObscuringWindow=Window{33ca9c8 u0 com.android.vending/com.android.vending.AssetBrowserActivity}
+          mObscuringWindow=Window{33ca9c8 u0 com.android.vending/com.android.vending.AssetBrowserActivity}
+          mObscuringWindow=Window{3d1854f u0 com.google.android.apps.photos/com.google.android.apps.photos.home.HomeActivity}
+          mObscuringWindow=Window{4f2fc72 u0 com.android.systemui.ImageWallpaper}
+          ...
+        """
+        with open(path) as f:
+            line = f.read().strip()
+        match = re.search(r"u0 ([\w./]+)|mObscuringWindow=(null)", line)
+        extracted_activity = match.group(1) if match.group(1) else match.group(2)
+        return extracted_activity
+
+    def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
+        self.logger.debug(f"loading groundtruth trace in path: {path}")
+        ep_trace_list: TaskTrace = []
+        # the task trace folder may contain png-format images
+        # their name could be 0.png, 1.png, and 0_drawed.png, 1_drawed.png
+        # 0_drawed.png and 1_drawed.png are used in the annotation process
+        # we only want to get 0.png and 1.png
+        files = [
+            f for f in os.listdir(path) if f.endswith(".png") and "drawed" not in f
+        ]
+        files.sort()
+
+        action_path = os.path.join(path, "eventStructs.txt")
+        action_list = self._extract_actions_from_file(action_path)
+
         self.logger.debug(
             f"{len(action_list)} actions detected, # of screenshots/vhs: {len(files)}"
         )
         for file, action in zip(files, action_list):
             img_path = os.path.join(path, file)
-            xml_path = os.path.join(path, file.replace("png_image.png", "png_xml.txt"))
+            xml_path = img_path.replace("png", "xml")
+            json_path = img_path.replace("png", "json")
+            activity_file = img_path.replace("png", "activity")
+            activity = self._extract_activity_from_file(activity_file)
             self.logger.debug(f"processing screenshot file: {img_path}")
 
             ep_trace_list.append(
-                UIState(screenshot_path=img_path, vh_path=xml_path, action=action)
+                UIState(
+                    screenshot_path=img_path,
+                    vh_path=xml_path,
+                    vh_json_path=json_path,
+                    activity=activity,
+                    action=action,
+                )
             )
 
         return ep_trace_list

@@ -34,9 +34,6 @@ def comparison_algorithm(
     checkpoints = CrucialStates(episode, checkpoint_dir)
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
-    for item in checkpoint_fuzzy_match_list:
-        print(item)
-
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
     captured_xml_path_list = _get_xml_path_list(os.path.join(captured_dir, "xml"))
     for i in range(len(checkpoint_fuzzy_match_list)):

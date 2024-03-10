@@ -1,6 +1,13 @@
 import pytest
 
-from ..task_trace import DatasetHelper, TaskCategory, TaskTrace
+from ..task_trace import (
+    DatasetHelper,
+    TaskCategory,
+    TaskTrace,
+    get_all_actions,
+    get_all_screenshot_paths,
+    get_all_vh_paths,
+)
 
 
 def test_init_epi_metadata():
@@ -43,10 +50,30 @@ def test_load_groundtruth_trace():
         trace: TaskTrace = DatasetHelper().load_groundtruth_trace_by_episode(epi)
 
         # assert all items in two lists are identiacl
-        screen_paths = [ui_state[0].split("/")[-1] for ui_state in trace]
+        screen_paths = get_all_screenshot_paths(trace)
         sorted_screen_paths = sorted(screen_paths)
         assert screen_paths == sorted_screen_paths
 
-        vh_paths = [ui_state[1].split("/")[-1] for ui_state in trace]
+        vh_paths = get_all_vh_paths(trace)
         sorted_vh_paths = sorted(vh_paths)
         assert vh_paths == sorted_vh_paths
+
+
+def test_load_activities():
+    gt_trace = DatasetHelper()._load_groundtruth_trace_by_category(TaskCategory.GENERAL)
+
+    for epi in gt_trace.keys():
+        # catch exception
+        if epi not in DatasetHelper().epi_metadata_dict.keys():
+            with pytest.raises(KeyError):
+                trace: TaskTrace = DatasetHelper().load_groundtruth_trace_by_episode(
+                    epi
+                )
+            continue
+
+        trace: TaskTrace = DatasetHelper().load_groundtruth_trace_by_episode(epi)
+
+        for ui_state in trace:
+            print(ui_state.activity)
+
+    assert False
