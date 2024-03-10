@@ -150,15 +150,29 @@ class DatasetHelper:
     # ---- action: [-1.action, 0.action, 1.action, ...]    #
     # ---- screenshot: [0.png, 1.png, ...]                 #
     # ---------------------------------------------------- #
-    def _proc_testbed_trace_action_file(self, action_file):
+    def _proc_testbed_trace_action_file(self, action_file) -> Action:
         """
-        action_type: "CLICK", "SWIPE", "TYPE", "PRESS_BACK", "PRESS_HOME",
-                    "PRESS_ENTER", "STATUS_TASK_COMPLETE", "STATUS_TASK_IMPOSSIBLE"
+        action_type:
+            - "CLICK"
+            - "SWIPE"
+            - "TYPE"
+            - "PRESS_BACK"
+            - "PRESS_HOME"
+            - "PRESS_ENTER"
+            - "STATUS_TASK_COMPLETE"
+            - "STATUS_TASK_IMPOSSIBLE"
+
         action_param:
             - "CLICK": [x, y]
             - "SWIPE": [st_x, st_y, end_x, end_y]
-            - "TEXT": str
+            - "TYPE": str
             - others: None
+
+        examples:
+            - "TYPE|good burger place|NULL|1080|2400"
+            - "CLICK|[0.0879 0.9069]|NULL|1080|2400"
+            - "SWIPE|[0.8 0.5]|[0.2 0.5]|1080|2400"
+            - "PRESS_HOME|NULL|NULL|1080|2400"
         """
         with open(action_file) as f:
             action_repr = f.read()
@@ -172,14 +186,36 @@ class DatasetHelper:
             action_param = ast.literal_eval(action_repr[1]) + ast.literal_eval(
                 action_repr[2]
             )
-        elif action_repr[1] != "NULL":
+        elif action_repr[1] != "NULL" and (action_type == "CLICK" or action_type == "SWIPE"):
             action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
             action_param = ast.literal_eval(action_repr[1])
+        elif action_type == "TYPE":
+            action_param = action_repr[1]
         else:
             action_param = None
         screen_width = int(action_repr[-2])
         screen_height = int(action_repr[-1])
-        return action_type, action_param
+
+        typed_text = ""
+        touch_point_yx = lift_point_yx = (-1, -1)
+
+        if action_type == "SWIPE":
+            action_type = "DUAL_POINT"
+            touch_point_yx = (action_param[1], action_param[0])
+            lift_point_yx = (action_param[3], action_param[2])
+        elif action_type == "CLICK":
+            action_type = "DUAL_POINT"
+            touch_point_yx = lift_point_yx = (action_param[1], action_param[0])
+        elif action_type == "TYPE":
+            typed_text = action_param[0]
+        action = Action(
+            action_type=ActionType[action_type.upper()],
+            touch_point_yx=touch_point_yx,
+            lift_point_yx=lift_point_yx,
+            typed_text=typed_text
+        )
+
+        return action
 
     def load_testbed_trace_by_path(self, path: str) -> TaskTrace:
         screenshot_folder_path = os.path.join(path, "screenshot")
@@ -189,10 +225,15 @@ class DatasetHelper:
             screenshot_path = os.path.join(screenshot_folder_path, f"{i}.png")
             xml_path = os.path.join(path, "xml", f"{i}.xml")
             vh_json_path = os.path.join(path, "xml", f"{i}.json")
+
             activity_path = os.path.join(path, "activity", f"{i}.activity")
             activity = self._extract_activity_from_file(activity_path)
+
             action_path = os.path.join(path, "action", f"{i}.action")
             action = self._proc_testbed_trace_action_file(action_path)
+            if not os.path.exists(action_path):
+                action = None
+
             ui_state = UIState(
                 screenshot_path=screenshot_path,
                 vh_path=xml_path,
@@ -322,6 +363,12 @@ class DatasetHelper:
                 )
             else:
                 raise ValueError(f"Unknown action type: {action_type}")
+
+        # At the end of list, add one TASK_COMPLETE Action as this is missing in 
+        # the *eventStructure.txt* file.
+        action_list.append(
+            Action(action_type=ActionType.STATUS_TASK_COMPLETE)
+        )
 
         return action_list
 
