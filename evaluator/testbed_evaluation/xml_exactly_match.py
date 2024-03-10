@@ -6,6 +6,7 @@ import re
 from lxml import etree
 
 from .check_install import check_install, check_uninstall
+from .get_crucial_states import CrucialState
 from .sentence_similarity import check_sentence_similarity
 
 
@@ -328,7 +329,7 @@ def _get_resource_id_and_bounds(checkpoint_json_fp, node_id):
     return resource_id, bounds
 
 
-def check_button_state(pic_id, checkpoint_dir, checkpoint, captured_dir, index):
+def check_button_state(cs_json_path, checkpoint, exec_json_path):
     """
     function: check if the button state: on or off
     input: index: the index number of file in captured_dir to make sure the captured file
@@ -337,13 +338,12 @@ def check_button_state(pic_id, checkpoint_dir, checkpoint, captured_dir, index):
     button_map = {"on": True, "off": False}
     checkpoint_node_id, button_state = str(checkpoint.node_id).split(":")
     checkpoint_node_id = int(checkpoint_node_id)
-    checkpoint_json_fp = os.path.join(checkpoint_dir, f"{pic_id}.json")
+    checkpoint_json_fp = cs_json_path
     checkpoint_resource_id, checkpoint_bounds = _get_resource_id_and_bounds(
         checkpoint_json_fp, checkpoint_node_id
     )
-    captured_vh_fp = os.path.join(
-        captured_dir, "captured_data", "view_hierarchy", f"{index}.json"
-    )
+    captured_vh_fp = exec_json_path
+
     flag = False
     with open(captured_vh_fp, "r") as f:
         data = json.load(f)
@@ -370,33 +370,39 @@ def check_button_state(pic_id, checkpoint_dir, checkpoint, captured_dir, index):
 
 
 def exactly_match(
-    checkpoint, checkpoint_dir, pic_id, keyword, node_id, captured_dir, index
+    keyword: str,
+    node_id: str,
+    crucial_state: CrucialState, 
+    exec_vh_path: str,
+    index: str
 ):
     """
-    input:
-    checkpoint_dir: 标注完之后的文件夹
-    pic_id: 图片id
-    keyword: 标注的关键字
-    node_id: 节点id
-    captured_dir: 抓取的文件夹
-    index: 抓取的图片id
-    output: return True or False
+    Args:
+        - keyword: 标注的关键字
+        - node_id: 节点id
+        - crucial_state 
+        - exec_vh_path: vh path of the agent exec trace
+        - index: ???
+
+    Return: boolean
     """
+    cs_vh_path = crucial_state.vh_path
+    cs_json_path = cs_vh_path.replace(".xml", ".json")
+    cs_activity_path = cs_vh_path.replace(".xml", ".activity")
+
+    exec_json_path = exec_vh_path.replace(".xml", ".json")
+    exec_action_path = exec_vh_path.replace(".xml", ".action")
+    exec_activity_path = exec_vh_path.replace(".xml", ".activity")
+
+    captured_dir = exec_vh_path.split("/captured_data")[0]
+
     keyword = str(keyword).lower()
     if keyword == "textbox":
-        checkpoint_json_fp = os.path.join(checkpoint_dir, f"{pic_id}.json")
-        captured_xml_fp = os.path.join(
-            captured_dir, "captured_data", "xml", f"{index}.xml"
-        )
-        state, text = _textbox_exact_match(checkpoint_json_fp, node_id, captured_xml_fp)
+        state, text = _textbox_exact_match(cs_json_path, node_id, exec_vh_path)
         return state
 
     elif keyword == "click":
-        checkpoint_json_fp = os.path.join(checkpoint_dir, f"{pic_id}.json")
-        captured_action_fp = os.path.join(
-            captured_dir, "captured_data", "action", f"{index}.action"
-        )
-        state = _click_exact_match(checkpoint_json_fp, node_id, captured_action_fp)
+        state = _click_exact_match(cs_json_path, node_id, exec_action_path)
         return state
 
     elif keyword == "fuzzy_match":
@@ -404,20 +410,21 @@ def exactly_match(
         return True
 
     elif keyword == "activity":
-        checkpoint_activity_fp = os.path.join(checkpoint_dir, f"{pic_id}.activity")
-        captured_activity_fp = os.path.join(
-            captured_dir, "captured_data", "activity", f"{index}.activity"
-        )
-        state = _activity_exact_match(checkpoint_activity_fp, captured_activity_fp)
+        state = _activity_exact_match(cs_activity_path, exec_activity_path)
         return state
+
     elif keyword == "check_install":
-        state = check_install([checkpoint], captured_dir)
+        state = check_install([crucial_state], captured_dir)
         return state
+
     elif keyword == "check_uninstall":
-        state = check_uninstall([checkpoint], captured_dir)
+        state = check_uninstall([crucial_state], captured_dir)
         return state
+
     elif keyword == "button":
         state = check_button_state(
-            pic_id, checkpoint_dir, checkpoint, captured_dir, index
+            cs_json_path=cs_json_path, 
+            checkpoint=crucial_state, 
+            exec_json_path=exec_json_path
         )
         return state

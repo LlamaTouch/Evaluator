@@ -51,7 +51,10 @@ class BaseEvaluator(ABC):
         for epi in target_episodes:
             completeness, failed_reason = self.eval_episode(epi)
             if failed_reason is not None:
-                self.episode_completion[epi] = (completeness, failed_reason.value)
+                # users may pass string or FailedReason enum as parameter
+                # accept and record both of them
+                failed_reason_str = failed_reason.value if isinstance(failed_reason, FailedReason) else failed_reason
+                self.episode_completion[epi] = (completeness, failed_reason_str)
             else:
                 self.episode_completion[epi] = (completeness, "")
 

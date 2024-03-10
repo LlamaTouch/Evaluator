@@ -39,14 +39,13 @@ class TestbedEvaluator(BaseEvaluator):
         # # for each crucial states, find matching things
 
         # load the ground-truth trace and crucial states
-        testbed_groudtruth_trace_path = (
+        gr_trace_path = (
             self.helper.load_testbed_goundtruth_trace_path_by_episode(episode)
         )
         gr_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(episode)
         gr_vh_paths: List[str] = get_all_vh_paths(gr_trace)
-        print(gr_vh_paths)
 
-        cs: CrucialStates = CrucialStates(episode, testbed_groudtruth_trace_path)
+        cs: CrucialStates = CrucialStates(episode, gr_trace_path)
         cs_fuzzy_list: List[Dict] = cs.get_fuzzy_match_list()
 
         # load the task execution trace
@@ -56,9 +55,8 @@ class TestbedEvaluator(BaseEvaluator):
 
         for cs_fuzzy_element in cs_fuzzy_list:
             pic_id = int(cs_fuzzy_element["pic_id"])
-            node_id = int(
-                cs_fuzzy_element["node_id"]
-            )  # TODO: how to node_id is utilized
+            # TODO: how the node_id is utilized
+            node_id = int(cs_fuzzy_element["node_id"])
 
             gr_vh_path = gr_vh_paths[pic_id]
             print(f"<{gr_vh_path}> node<{node_id}> should be fuzzily matched")
@@ -69,7 +67,7 @@ class TestbedEvaluator(BaseEvaluator):
                     checkpoint_xml_path=gr_vh_path,
                     node_id=node_id,
                     captured_xml_path=exec_vh_path,
-                    COSINE_BOUND=0.75,
+                    cosine_bound=0.75,
                 ):
                     print(
                         f"<{gr_vh_path}> fuzzily matches <{exec_vh_path}> with node<{node_id}>"
@@ -80,16 +78,13 @@ class TestbedEvaluator(BaseEvaluator):
                     for cs_exact_element in cs_exact_list:
                         keyword = cs_exact_element.keyword
                         node_id = cs_exact_element.node_id
-                        # if exactly_match(
-                        #     checkpoint=cs_exact_element,
-                        #     checkpoint_dir=checkpoint_dir,
-                        #     pic_id=pic_id,
-                        #     keyword=keyword,
-                        #     node_id=node_id,
-                        #     captured_dir=captured_dir,
-                        #     index,
-                        # ):
-                        #     matched_elements += 1
+                        if exactly_match(
+                            keyword=keyword,
+                            node_id=node_id,
+                            crucial_state=cs_exact_element,  # this is a CrucialState object
+                            exec_vh_path=exec_vh_path,
+                        ):
+                            matched_elements += 1
 
                     if matched_elements == len(cs_exact_list):
                         # mark all exact match items are matched

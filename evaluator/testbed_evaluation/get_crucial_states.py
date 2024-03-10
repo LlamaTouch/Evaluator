@@ -52,13 +52,13 @@ class CrucialStates:
 
         return fuzzy_match_list
 
-    def get_pic_exactly_match_list(self, pic_id):
+    def get_pic_exactly_match_list(self, pic_id) -> List[CrucialState]:
         """
         function: 根据pic_id, 返回该pic_id下的exactly checkpoint list
         input: pic_id 标准流程中的某一步的state
         output: exactly_match_list: 该pic_id下的exactly checkpoint list
         """
-        exactly_match_list = []
+        exactly_match_list: List[CrucialState] = []
         for i in range(len(self.crucial_states)):
             if (
                 self.crucial_states[i].pic_id == pic_id

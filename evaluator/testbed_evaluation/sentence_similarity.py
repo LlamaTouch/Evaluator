@@ -9,7 +9,8 @@ def compute_sentence_similiarity(sentence1, sentence2):
     """
     # 加载模型
     model = SentenceTransformer(
-        "/data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2"
+        model_name_or_path="/data/jxq/mobile-agent/comparison_algorithm/all-MiniLM-L6-v2",
+        # device="cpu",
     )
 
     # 计算句子的向量

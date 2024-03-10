@@ -51,11 +51,12 @@ class AutoUI(MobileAgent):
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        category = DatasetHelper().get_category_by_episode(episode)
-        epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category.value, episode, "captured_data"
-        )
-        return epi_trace_path
+        # category = DatasetHelper().get_category_by_episode(episode)
+        # epi_trace_path = os.path.join(
+        #     self.agent_exec_trace_path, category.value, episode, "captured_data"
+        # )
+        # return epi_trace_path
+        pass
 
 
 if __name__ == "__main__":
@@ -67,7 +68,9 @@ if __name__ == "__main__":
     t = TestbedEvaluator(
         agent=agent,
         options={
-            "first_n": 1,
+            # "episodes": ["10697484407812183269"],
+            "first_n": 30,
+            # "categories": [TaskCategory.GENERAL],
         },
     )
     t.run_evaluation()
