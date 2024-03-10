@@ -186,7 +186,9 @@ class DatasetHelper:
             action_param = ast.literal_eval(action_repr[1]) + ast.literal_eval(
                 action_repr[2]
             )
-        elif action_repr[1] != "NULL" and (action_type == "CLICK" or action_type == "SWIPE"):
+        elif action_repr[1] != "NULL" and (
+            action_type == "CLICK" or action_type == "SWIPE"
+        ):
             action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
             action_param = ast.literal_eval(action_repr[1])
         elif action_type == "TYPE":
@@ -212,7 +214,7 @@ class DatasetHelper:
             action_type=ActionType[action_type.upper()],
             touch_point_yx=touch_point_yx,
             lift_point_yx=lift_point_yx,
-            typed_text=typed_text
+            typed_text=typed_text,
         )
 
         return action
@@ -364,11 +366,9 @@ class DatasetHelper:
             else:
                 raise ValueError(f"Unknown action type: {action_type}")
 
-        # At the end of list, add one TASK_COMPLETE Action as this is missing in 
+        # At the end of list, add one TASK_COMPLETE Action as this is missing in
         # the *eventStructure.txt* file.
-        action_list.append(
-            Action(action_type=ActionType.STATUS_TASK_COMPLETE)
-        )
+        action_list.append(Action(action_type=ActionType.STATUS_TASK_COMPLETE))
 
         return action_list
 

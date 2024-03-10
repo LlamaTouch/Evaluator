@@ -372,15 +372,15 @@ def check_button_state(cs_json_path, checkpoint, exec_json_path):
 def exactly_match(
     keyword: str,
     node_id: str,
-    crucial_state: CrucialState, 
+    crucial_state: CrucialState,
     exec_vh_path: str,
-    index: str
+    index: str,
 ):
     """
     Args:
         - keyword: 标注的关键字
         - node_id: 节点id
-        - crucial_state 
+        - crucial_state
         - exec_vh_path: vh path of the agent exec trace
         - index: ???
 
@@ -423,8 +423,8 @@ def exactly_match(
 
     elif keyword == "button":
         state = check_button_state(
-            cs_json_path=cs_json_path, 
-            checkpoint=crucial_state, 
-            exec_json_path=exec_json_path
+            cs_json_path=cs_json_path,
+            checkpoint=crucial_state,
+            exec_json_path=exec_json_path,
         )
         return state

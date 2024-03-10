@@ -53,7 +53,11 @@ class BaseEvaluator(ABC):
             if failed_reason is not None:
                 # users may pass string or FailedReason enum as parameter
                 # accept and record both of them
-                failed_reason_str = failed_reason.value if isinstance(failed_reason, FailedReason) else failed_reason
+                failed_reason_str = (
+                    failed_reason.value
+                    if isinstance(failed_reason, FailedReason)
+                    else failed_reason
+                )
                 self.episode_completion[epi] = (completeness, failed_reason_str)
             else:
                 self.episode_completion[epi] = (completeness, "")

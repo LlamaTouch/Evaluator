@@ -39,8 +39,8 @@ class TestbedEvaluator(BaseEvaluator):
         # # for each crucial states, find matching things
 
         # load the ground-truth trace and crucial states
-        gr_trace_path = (
-            self.helper.load_testbed_goundtruth_trace_path_by_episode(episode)
+        gr_trace_path = self.helper.load_testbed_goundtruth_trace_path_by_episode(
+            episode
         )
         gr_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(episode)
         gr_vh_paths: List[str] = get_all_vh_paths(gr_trace)
