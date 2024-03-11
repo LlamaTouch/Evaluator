@@ -39,9 +39,7 @@ class AutoDroid(MobileAgent):
             print(action_param, type(action_param))
 
             if action_type == "BACK":
-                act = Action(
-                     action_type=ActionType.PRESS_BACK
-                )
+                act = Action(action_type=ActionType.PRESS_BACK)
             elif action_type == "CLICK":
                 act = Action(
                     action_type=ActionType.DUAL_POINT,
