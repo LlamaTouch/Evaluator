@@ -67,9 +67,9 @@ class AutoUI(MobileAgent):
 
 if __name__ == "__main__":
     agent = AutoUI()
-    # e = ExactMatchEvaluator(agent=agent)
-    # e.run_evaluation()
-    # e.report_stats()
+    e = ExactMatchEvaluator(agent=agent)
+    e.run_evaluation()
+    e.report_stats()
 
     t = TestbedEvaluator(
         agent=agent,

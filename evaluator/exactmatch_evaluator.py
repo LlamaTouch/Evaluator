@@ -8,6 +8,7 @@ from evaluator.agent import MobileAgent
 
 from .evaluator import BaseEvaluator, FailedReason
 from .exactmatch_evaluation.action_matching import check_actions_match
+from .task_trace import get_all_actions, get_all_screenshot_paths, get_all_vh_paths
 from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
@@ -22,10 +23,20 @@ class ExactMatchEvaluator(BaseEvaluator):
     ) -> Tuple[bool, Optional[FailedReason]]:
         """Exact match evaluation using self-defined trace"""
         gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
-        screenshot_paths, vh_paths, gr_actions = zip(*gr_trace)
+        screenshot_paths = get_all_screenshot_paths(gr_trace)
+        vh_paths = get_all_vh_paths(gr_trace)
+        gr_actions = get_all_actions(gr_trace)
         agent_predicted_actions = self.agent.load_predicted_action_by_episode(episode)
         if len(agent_predicted_actions) == 0:
             return False, FailedReason.EXEC_TRACE_NOT_FOUND
+
+        print("=======", len(gr_actions), len(agent_predicted_actions))
+        print(gr_actions[-1])
+        print(agent_predicted_actions[-1])
+
+        if len(gr_actions) > len(agent_predicted_actions):
+            return False, FailedReason.LESS_AGENT_PREDICTED_ACTIONS
+
         for i, gr_action in enumerate(gr_actions):
             real_action = agent_predicted_actions[i]
             try:
