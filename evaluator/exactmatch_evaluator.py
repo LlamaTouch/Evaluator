@@ -1,4 +1,5 @@
 import logging
+from collections import defaultdict
 from typing import Dict, Optional, Tuple
 
 import numpy as np
@@ -13,10 +14,15 @@ from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
 class ExactMatchEvaluator(BaseEvaluator):
+    def __del__(self):
+        for epi, n in self.epi_to_num_correct_action.items():
+            print(f"{epi} has {n} correct actions")
+
     def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
         super().__init__(agent, options)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
+        self.epi_to_num_correct_action = defaultdict(int)
 
     def eval_impl(
         self, episode, task_description
@@ -53,7 +59,9 @@ class ExactMatchEvaluator(BaseEvaluator):
                 gr_action, real_action, ui_positions
             ):
                 return False, FailedReason.STEP_CHECK_FAILED
-            print(f"step{i} passed")
+            else:
+                self.epi_to_num_correct_action[episode] += 1
+                print(f"step{i} passed")
         return True, None
 
     def check_action_match_like_AITW(

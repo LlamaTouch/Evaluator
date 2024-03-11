@@ -32,9 +32,11 @@ class AutoDroid(MobileAgent):
         with open(epi_file) as f:
             data = json.load(f)
         act_list: List[Action] = []
-        for vh_file, v in data.items():
+        for _, v in data.items():
             action_type = v["event_type"]  # BACK, CLICK, SET_TEXT
             action_param = v["param"]
+            screen_height = v["screen_height"]
+            screen_width = v["screen_width"]
 
             print(action_param, type(action_param))
 
@@ -43,8 +45,14 @@ class AutoDroid(MobileAgent):
             elif action_type == "CLICK":
                 act = Action(
                     action_type=ActionType.DUAL_POINT,
-                    touch_point_yx=(action_param[1], action_param[0]),
-                    lift_point_yx=(action_param[1], action_param[0]),
+                    touch_point_yx=(
+                        action_param[1] / screen_height,
+                        action_param[0] / screen_width,
+                    ),
+                    lift_point_yx=(
+                        action_param[1] / screen_height,
+                        action_param[0] / screen_width,
+                    ),
                 )
             elif action_type == "SET_TEXT":
                 act = Action(
