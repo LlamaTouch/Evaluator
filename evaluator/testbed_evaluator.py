@@ -1,10 +1,10 @@
 import logging
-from typing import Dict, List
+from typing import Dict, List, Optional, Tuple
 
 from evaluator.agent import MobileAgent
 
 from .common.action_type import Action
-from .evaluator import BaseEvaluator
+from .evaluator import BaseEvaluator, FailedReason
 from .task_trace import (
     TaskTrace,
     get_all_actions,
@@ -26,7 +26,9 @@ class TestbedEvaluator(BaseEvaluator):
     def load_crucial_states_by_episode(self, episode):
         gt_trace = self.helper.load_groundtruth_trace_by_episode(episode)
 
-    def eval_impl(self, episode, task_description) -> bool:
+    def eval_impl(
+        self, episode, task_description
+    ) -> Tuple[bool, Optional[FailedReason]]:
         # load crucial states
         # crucial_states: CrucialStates = self.load_crucial_states_by_episode(episode)
 
@@ -44,6 +46,9 @@ class TestbedEvaluator(BaseEvaluator):
         )
         gr_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(episode)
         gr_vh_paths: List[str] = get_all_vh_paths(gr_trace)
+
+        if episode == "10019828397132907250":
+            print(gr_vh_paths)
 
         cs: CrucialStates = CrucialStates(episode, gr_trace_path)
         cs_fuzzy_list: List[Dict] = cs.get_fuzzy_match_list()
@@ -103,7 +108,7 @@ class TestbedEvaluator(BaseEvaluator):
         else:
             matched_exec_vh_ids = [int(s.capture_id) for s in cs]
             if matched_exec_vh_ids == sorted(matched_exec_vh_ids):
-                return True
+                return True, None
             else:
                 return (
                     False,

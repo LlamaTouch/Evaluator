@@ -6,7 +6,7 @@ from typing import Dict, List
 from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action, ActionType
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
-from evaluator.task_trace import Agent, DatasetHelper, TaskTrace
+from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 from evaluator.testbed_evaluator import TestbedEvaluator
 
 
@@ -45,8 +45,14 @@ class AutoUI(MobileAgent):
 
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         category = DatasetHelper().get_category_by_episode(episode)
+        if category == TaskCategory.WEBSHOPPING:
+            category_val = "web_shopping"
+        elif category == TaskCategory.GOOGLEAPPS:
+            category_val = "google_apps"
+        else:
+            category_val = category.value
         epi_trace_path = os.path.join(
-            self.agent_exec_trace_path, category.value, episode, "captured_data"
+            self.agent_exec_trace_path, category_val, episode, "captured_data"
         )
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
@@ -68,9 +74,14 @@ if __name__ == "__main__":
     t = TestbedEvaluator(
         agent=agent,
         options={
-            # "episodes": ["10697484407812183269"],
-            "first_n": 30,
-            # "categories": [TaskCategory.GENERAL],
+            # "episodes": ['10774240587109527791'],
+            # "first_n": 30,
+            "categories": [
+                TaskCategory.GENERAL,
+                TaskCategory.GOOGLEAPPS,
+                TaskCategory.INSTALL,
+                TaskCategory.WEBSHOPPING,
+            ]
         },
     )
     t.run_evaluation()

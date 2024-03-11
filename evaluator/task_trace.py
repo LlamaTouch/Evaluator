@@ -179,18 +179,16 @@ class DatasetHelper:
         action_repr = action_repr.split("|")
         action_type = action_repr[0]
         if action_repr[2] != "NULL":
-            # convert [x x] to [x,x]
-            # convert [x, x] to [x,x]
-            action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
-            action_repr[2] = action_repr[2].replace(", ", ",").replace(" ", ",")
-            action_param = ast.literal_eval(action_repr[1]) + ast.literal_eval(
-                action_repr[2]
-            )
+            pattern = r"\[(-?\d+\.\d+)\s+(-?\d+\.\d+)\]"
+            x1, y1 = re.search(pattern, action_repr[1]).groups()
+            x2, y2 = re.search(pattern, action_repr[2]).groups()
+            action_param = [float(x1), float(y1), float(x2), float(y2)]
         elif action_repr[1] != "NULL" and (
             action_type == "CLICK" or action_type == "SWIPE"
         ):
-            action_repr[1] = action_repr[1].replace(", ", ",").replace(" ", ",")
-            action_param = ast.literal_eval(action_repr[1])
+            pattern = r"\[\s*(-?\d+\.\d+)\s+(-?\d+\.\d+)\s*\]"
+            x1, y1 = re.search(pattern, action_repr[1]).groups()
+            action_param = [float(x1), float(y1)]
         elif action_type == "TYPE":
             action_param = action_repr[1]
         else:
@@ -232,9 +230,10 @@ class DatasetHelper:
             activity = self._extract_activity_from_file(activity_path)
 
             action_path = os.path.join(path, "action", f"{i}.action")
-            action = self._proc_testbed_trace_action_file(action_path)
             if not os.path.exists(action_path):
                 action = None
+            else:
+                action = self._proc_testbed_trace_action_file(action_path)
 
             ui_state = UIState(
                 screenshot_path=screenshot_path,
@@ -381,12 +380,17 @@ class DatasetHelper:
           mObscuringWindow=Window{33ca9c8 u0 com.android.vending/com.android.vending.AssetBrowserActivity}
           mObscuringWindow=Window{3d1854f u0 com.google.android.apps.photos/com.google.android.apps.photos.home.HomeActivity}
           mObscuringWindow=Window{4f2fc72 u0 com.android.systemui.ImageWallpaper}
+          io.github.ylimit.droidbotapp/.SettingsActivity
+          com.google.android.apps.nexuslauncher/.NexusLauncherActivity
           ...
         """
         with open(path) as f:
             line = f.read().strip()
-        match = re.search(r"(com\.[\w./]+)|mObscuringWindow=(null)", line)
-        extracted_activity = match.group(1) if match.group(1) else match.group(2)
+        match = re.search(r"(u0 )?([\w./]+)|mObscuringWindow=(null)", line)
+        if match:
+            extracted_activity = match.group(2) if match.group(2) else match.group(3)
+        else:
+            raise Exception(f"failed to extract activity from file: {path}")
         return extracted_activity
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
@@ -404,17 +408,14 @@ class DatasetHelper:
         action_path = os.path.join(path, "eventStructs.txt")
         action_list = self._extract_actions_from_file(action_path)
 
-        self.logger.debug(
-            f"{len(action_list)} actions detected, # of screenshots/vhs: {len(files)}"
-        )
-        for file, action in zip(files, action_list):
-            img_path = os.path.join(path, file)
+        # iterate in [0, 1, 2, 3, ..., # of all ui states]
+        for i in range(len(action_list)):
+            action = action_list[i]
+            img_path = os.path.join(path, f"{i}.png")
             xml_path = img_path.replace("png", "xml")
             json_path = img_path.replace("png", "json")
             activity_file = img_path.replace("png", "activity")
             activity = self._extract_activity_from_file(activity_file)
-            self.logger.debug(f"processing screenshot file: {img_path}")
-
             ep_trace_list.append(
                 UIState(
                     screenshot_path=img_path,
