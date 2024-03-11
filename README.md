@@ -37,12 +37,14 @@ screenshot_paths: List[str] = [ui_state[0] for ui_state in trace]
 vhs: List[str] = [ui_state[1] for ui_state in trace]
 ```
 
-## Usages
-
-Clone this repo as a submodule to the agent, then import it?
-
-```
-git submodule add https://github.com/MATestbed/Evaluator.git
+## Installation
+Below are quick steps for installation:
+```bash
+conda create -n matestbed python=3.9
+conda activate matestbed
+git clone https://github.com/MATestbed/Evaluator.git
+cd Evaluator
+pip install -v -e .
 ```
 
 # Evaluation
