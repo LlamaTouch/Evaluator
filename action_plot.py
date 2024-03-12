@@ -14,7 +14,7 @@ import ast
 from tqdm import tqdm
 import json
 
-'''
+"""
 actions_list_file_path and save_path are the file paths of actions_list and the path to save the plot images.
 
 The format of actions_list is List[Dict], the keys contains "episode_id", "actions".
@@ -36,9 +36,9 @@ Examples:
       }
     ]
     }]
-'''
+"""
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     actions_list_file_path = ""
     save_path = ""
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         "image_channels": 3,
         "ui_positions": None,
         "ui_text": None,
-        "ui_type": None
+        "ui_type": None,
     }
 
     helper = DatasetHelper()
@@ -85,7 +85,7 @@ if __name__ == '__main__':
             img = Image.open(screenshot_path)
             img = img.resize((540, 1140))
             # 确保图像是RGB格式
-            img_rgb = img.convert('RGB')
+            img_rgb = img.convert("RGB")
             # 将图像转换为NumPy数组
             img_array = np.array(img_rgb)
             # 输出数组的形状
@@ -95,7 +95,9 @@ if __name__ == '__main__':
             current_episode["step_id"] = step_id
             current_episode["goal"] = task_description
             action = current_actions["actions"][step_id]
-            current_episode["result_action"][0] = action_type.ActionType[action["action_type"]]
+            current_episode["result_action"][0] = action_type.ActionType[
+                action["action_type"]
+            ]
             current_episode["result_touch_yx"] = ast.literal_eval(action["touch_point"])
             current_episode["result_lift_yx"] = ast.literal_eval(action["lift_point"])
             current_episode["result_action"][1] = action["typed_text"]
