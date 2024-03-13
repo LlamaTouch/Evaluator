@@ -171,7 +171,9 @@ class DatasetHelper:
         examples:
             - "TYPE|good burger place|NULL|1080|2400"
             - "CLICK|[0.0879 0.9069]|NULL|1080|2400"
+            - "CLICK|[0.0879, 0.9069]|NULL|1080|2400"
             - "SWIPE|[0.8 0.5]|[0.2 0.5]|1080|2400"
+            - "SWIPE|[0.8, 0.5]|[0.2 0.5]|1080|2400"
             - "PRESS_HOME|NULL|NULL|1080|2400"
         """
         with open(action_file) as f:
@@ -179,14 +181,14 @@ class DatasetHelper:
         action_repr = action_repr.split("|")
         action_type = action_repr[0]
         if action_repr[2] != "NULL":
-            pattern = r"\[(-?\d+\.\d+)\s+(-?\d+\.\d+)\]"
+            pattern = r"\[(-?\d+\.\d+),?\s+(-?\d+\.\d+)\]"
             x1, y1 = re.search(pattern, action_repr[1]).groups()
             x2, y2 = re.search(pattern, action_repr[2]).groups()
             action_param = [float(x1), float(y1), float(x2), float(y2)]
         elif action_repr[1] != "NULL" and (
             action_type == "CLICK" or action_type == "SWIPE"
         ):
-            pattern = r"\[\s*(-?\d+\.\d+)\s+(-?\d+\.\d+)\s*\]"
+            pattern = r"\[\s*(-?\d+\.\d+),?\s+(-?\d+\.\d+)\s*\]"
             x1, y1 = re.search(pattern, action_repr[1]).groups()
             action_param = [float(x1), float(y1)]
         elif action_type == "TYPE":
@@ -303,7 +305,7 @@ class DatasetHelper:
         【点击事件】屏幕大小：（w320，h720），触摸位置：（x76，y193）
         【键盘输入】bestbuy
         【点击事件】屏幕大小：（w320，h720），触摸位置：（x106，y253）
-         ...
+        ...
         """
         action_list = []
         with open(path, "r") as f:
