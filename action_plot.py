@@ -1,18 +1,16 @@
-from typing import Any, Tuple, List, Dict
-import os
-import sys
-import re
+import ast
 import copy
 import pickle
-from matplotlib import pyplot as plt
-from visualizations import action_type, action_matching
-from visualizations.visualization_utils import plot_episode
-from evaluator.task_trace import DatasetHelper, TaskTrace
-from PIL import Image
+from typing import List
+
 import numpy as np
-import ast
+from matplotlib import pyplot as plt
+from PIL import Image
 from tqdm import tqdm
-import json
+
+from evaluator.common import action_type
+from evaluator.task_trace import DatasetHelper, TaskTrace
+from evaluator.utils.visualization import plot_episode
 
 """
 actions_list_file_path and save_path are the file paths of actions_list and the path to save the plot images.

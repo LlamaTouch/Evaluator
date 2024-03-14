@@ -1,6 +1,7 @@
 import os
 import pickle
 from typing import Dict, List
+
 import pandas as pd
 
 from evaluator.agent import MobileAgent
@@ -8,7 +9,6 @@ from evaluator.common.action_type import Action, ActionType
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 from evaluator.testbed_evaluator import TestbedEvaluator
-
 
 APPAGENT_PREDICTED_ACTION_PATH = os.getenv(
     "APPAGENT_PREDICTED_ACTION_PATH",
