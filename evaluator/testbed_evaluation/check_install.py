@@ -1,12 +1,13 @@
 import logging
 import os
+from typing import List
 
 import pandas as pd
 
 from .get_crucial_states import CrucialState
 
 
-def check_install(checkpoint_installed_ls, captured_dir):
+def check_install(checkpoint_installed_ls: List[CrucialState], captured_dir: str):
     """
     function: check agent install task is success or not
     input: checkpoint_installed_ls: each element is a checkpoint object
@@ -46,7 +47,7 @@ def check_install(checkpoint_installed_ls, captured_dir):
         return False
 
 
-def check_uninstall(checkpoint_installed_ls, captured_dir):
+def check_uninstall(checkpoint_installed_ls: List[CrucialState], captured_dir: str):
     """
     function: check agent uninstall task is success or not
     input: checkpoint_installed_ls: each element is a checkpoint object

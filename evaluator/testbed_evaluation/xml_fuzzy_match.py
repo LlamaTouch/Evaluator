@@ -8,7 +8,7 @@ from .sentence_similarity import check_sentence_similarity
 from .xml_exactly_match import _is_in_bounds
 
 
-def get_bounds(checkpoint_xml_path, node_id):
+def get_bounds(checkpoint_xml_path: str, node_id: int):
     """
     function: 根据node_id, 获取bounds str "[x1,y1][x2,y2]"
     """
@@ -59,9 +59,9 @@ def simplify_xml(xml_path, bounds):
 
 
 def get_xml_fuzzy_match(
-    checkpoint_xml_path, node_id, captured_xml_path, cosine_bound=0.65
+    checkpoint_xml_path: str, node_id: int, captured_xml_path: str, cosine_bound=0.65
 ):
-    """ "
+    """
     根据cosine similarity和tree edit distance match xml
     input xml path
     return true or false

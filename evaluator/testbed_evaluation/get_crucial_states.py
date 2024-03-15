@@ -4,9 +4,9 @@ from typing import List, NamedTuple
 
 
 class CrucialState(NamedTuple):
-    pic_id: str
+    pic_id: int
+    node_id: int
     keyword: str
-    node_id: str
     vh_path: str  # represent which vh file this crucial state belongs to
     matched: bool = False
     capture_id = None
@@ -52,7 +52,7 @@ class CrucialStates:
 
         return fuzzy_match_list
 
-    def get_pic_exactly_match_list(self, pic_id) -> List[CrucialState]:
+    def get_pic_exactly_match_list(self, pic_id: int) -> List[CrucialState]:
         """
         function: 根据pic_id, 返回该pic_id下的exactly checkpoint list
         input: pic_id 标准流程中的某一步的state
@@ -76,7 +76,7 @@ class CrucialStates:
         # Result will be [5_drawed.png.text, 8_drawed.png.text]
         checkpoint_file_list.sort(key=lambda x: int(x.split("_")[0]))
         for checkpoint_file in checkpoint_file_list:
-            pic_id = checkpoint_file.split("_")[0]
+            pic_id: int = int(checkpoint_file.split("_")[0])
             checkpoint_file_path = os.path.join(self.checkpoint_dir, checkpoint_file)
             with open(checkpoint_file_path, "r") as f:
                 content = f.read()
@@ -85,8 +85,8 @@ class CrucialStates:
                 for item in split_content:
                     match = re.search(r"(?P<keyword>\w+)<(?P<content>.+)>", item)
                     if match:
-                        keyword = match.group("keyword")
-                        content = match.group("content")
+                        keyword: str = match.group("keyword")
+                        content: int = int(match.group("content"))
                         self.crucial_states.append(
                             CrucialState(
                                 pic_id=pic_id,

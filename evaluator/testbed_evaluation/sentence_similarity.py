@@ -1,9 +1,7 @@
-import logging
-
 from sentence_transformers import SentenceTransformer, util
 
 
-def compute_sentence_similiarity(sentence1, sentence2):
+def compute_sentence_similiarity(sentence1: str, sentence2: str):
     """
     计算两个句子的相似度
     """
@@ -23,7 +21,7 @@ def compute_sentence_similiarity(sentence1, sentence2):
     return similarity
 
 
-def check_sentence_similarity(sentence1, sentence2, threshold=0.8):
+def check_sentence_similarity(sentence1: str, sentence2: str, threshold: float = 0.8):
     """
     检查两个句子是否相似
     """

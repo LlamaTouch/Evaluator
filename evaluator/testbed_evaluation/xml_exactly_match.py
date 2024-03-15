@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import re
+from typing import List
 
 from lxml import etree
 
@@ -10,11 +11,10 @@ from .get_crucial_states import CrucialState
 from .sentence_similarity import check_sentence_similarity
 
 
-def _get_bounds_and_text(checkpoint_json_fp, node_id):
+def _get_bounds_and_text(checkpoint_json_fp: str, node_id: int):
     """
     function: 根据node_id, 获取bounds和text
     """
-    node_id = int(node_id)
     checkpoint_json_data = json.load(open(checkpoint_json_fp))
     bounds = str(checkpoint_json_data[node_id]["bounds"])
 
@@ -46,7 +46,7 @@ def _parse_bounds(bounds):
     return result
 
 
-def _expand_bounds(bounds, expand_ratio=10):
+def _expand_bounds(bounds: List[int], expand_ratio: int = 10):
     """
     input: list of int [x1,y1,x2,y2]
     output: list of int [x1,y1,x2,y2]
@@ -68,7 +68,7 @@ def _expand_bounds(bounds, expand_ratio=10):
     return [x1, y1, x2, y2]
 
 
-def _is_in_bounds(captured_bounds, checkpoint_bounds, expand_ratio=10):
+def _is_in_bounds(captured_bounds: str, checkpoint_bounds: str, expand_ratio: int = 10):
     """
     function: check if captured_bounds is in expand checkpoint_bounds
     input: str([12,14][1080,2274]), str([12,14][1080,2274])
@@ -151,12 +151,10 @@ def _find_EditText_and_TextView(xml_fp, bounds, allowed_resource_id):
         return result_resource_id
 
 
-def _textbox_exact_match(checkpoint_json_fp, node_id, captured_xml_fp):
+def _textbox_exact_match(checkpoint_json_fp: str, node_id: int, captured_xml_fp: str):
     """
     function: check if the textbox exactly match
     """
-    node_id = int(node_id)
-
     bounds, text = _get_bounds_and_text(checkpoint_json_fp, node_id)
     resource_id, _ = _get_resource_id_and_bounds(checkpoint_json_fp, node_id)
     allowed_resource_id = {resource_id, "XSqSsc"}
@@ -182,7 +180,7 @@ def _textbox_exact_match(checkpoint_json_fp, node_id, captured_xml_fp):
     return False, ""
 
 
-def _get_click_point(captured_action_fp):
+def _get_click_point(captured_action_fp: str):
     """
     function: get the click point from captured action file
     """
@@ -201,7 +199,7 @@ def _get_click_point(captured_action_fp):
     return click_x, click_y
 
 
-def _is_click(captured_action_fp):
+def _is_click(captured_action_fp: str):
     """
     function: check if the action is click
     """
@@ -214,11 +212,10 @@ def _is_click(captured_action_fp):
         return False
 
 
-def _get_bound(checkpoint_json_fp, node_id):
+def _get_bound(checkpoint_json_fp: str, node_id: int):
     """
     function: 根据node_id, 获取bounds
     """
-    node_id = int(node_id)
     checkpoint_json_data = json.load(open(checkpoint_json_fp))
     bounds = str(checkpoint_json_data[node_id]["bounds"])
     # bounds = "[0,0][1080,1920]"
@@ -229,11 +226,10 @@ def _get_bound(checkpoint_json_fp, node_id):
     return x1, y1, x2, y2
 
 
-def _click_exact_match(checkpoint_json_fp, node_id, captured_action_fp):
+def _click_exact_match(checkpoint_json_fp: str, node_id: int, captured_action_fp: str):
     """
     function: check if the click exactly match
     """
-    node_id = int(node_id)
     # 防止最后一个界面fuzzy match成功，但是没有action文件
     if not os.path.exists(captured_action_fp):
         return False
@@ -266,7 +262,7 @@ def _click_exact_match(checkpoint_json_fp, node_id, captured_action_fp):
 
 
 # activity
-def _parse_checkpoint_activity(checkpoint_activity_fp):
+def _parse_checkpoint_activity(checkpoint_activity_fp: str):
     """
     function: parse the activity from checkpoint activity file
     """
@@ -286,7 +282,7 @@ def _parse_checkpoint_activity(checkpoint_activity_fp):
     return checkpoint_activity
 
 
-def _activity_exact_match(checkpoint_activity_fp, captured_activity_fp):
+def _activity_exact_match(checkpoint_activity_fp: str, captured_activity_fp: str):
     """
     function: check if the activity exactly match
     """
@@ -318,18 +314,19 @@ def _activity_exact_match(checkpoint_activity_fp, captured_activity_fp):
 
 
 #
-def _get_resource_id_and_bounds(checkpoint_json_fp, node_id):
+def _get_resource_id_and_bounds(checkpoint_json_fp: str, node_id: int):
     """
     function: 根据node_id, 获取resource-id和bounds
     """
-    node_id = int(node_id)
     checkpoint_json_data = json.load(open(checkpoint_json_fp))
     resource_id = str(checkpoint_json_data[node_id]["resource-id"])
     bounds = str(checkpoint_json_data[node_id]["bounds"])
     return resource_id, bounds
 
 
-def check_button_state(cs_json_path, checkpoint, exec_json_path):
+def check_button_state(
+    cs_json_path: str, checkpoint: CrucialState, exec_json_path: str
+):
     """
     function: check if the button state: on or off
     input: index: the index number of file in captured_dir to make sure the captured file
@@ -371,10 +368,9 @@ def check_button_state(cs_json_path, checkpoint, exec_json_path):
 
 def exactly_match(
     keyword: str,
-    node_id: str,
+    node_id: int,
     crucial_state: CrucialState,
     exec_vh_path: str,
-    index: str,
 ):
     """
     Args:
@@ -382,10 +378,10 @@ def exactly_match(
         - node_id: 节点id
         - crucial_state
         - exec_vh_path: vh path of the agent exec trace
-        - index: ???
 
     Return: boolean
     """
+    # TODO: there is an path error here to be fixed
     cs_vh_path = crucial_state.vh_path
     cs_json_path = cs_vh_path.replace(".xml", ".json")
     cs_activity_path = cs_vh_path.replace(".xml", ".activity")

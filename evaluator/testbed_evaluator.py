@@ -35,9 +35,9 @@ class TestbedEvaluator(BaseEvaluator):
         # TODO: pass exec trace as a whole?
 
         for cs_fuzzy_element in cs_fuzzy_list:
-            pic_id = int(cs_fuzzy_element["pic_id"])
+            pic_id: int = int(cs_fuzzy_element["pic_id"])
             # TODO: how the node_id is utilized
-            node_id = int(cs_fuzzy_element["node_id"])
+            node_id: int = int(cs_fuzzy_element["node_id"])
 
             gr_vh_path = gr_vh_paths[pic_id]
             print(f"<{gr_vh_path}> node<{node_id}> should be fuzzily matched")
@@ -54,7 +54,7 @@ class TestbedEvaluator(BaseEvaluator):
                         f"<{gr_vh_path}> fuzzily matches <{exec_vh_path}> with node<{node_id}>"
                     )
 
-                    cs_exact_list = cs.get_pic_exactly_match_list(pic_id)
+                    cs_exact_list = crucial_states.get_pic_exactly_match_list(pic_id)
                     matched_elements = 0
                     for cs_exact_element in cs_exact_list:
                         keyword = cs_exact_element.keyword
