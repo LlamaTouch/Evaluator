@@ -3,16 +3,9 @@ from typing import Dict, List, Optional, Tuple
 
 from evaluator.agent import MobileAgent
 
-from .common.action_type import Action
 from .evaluator import BaseEvaluator, FailedReason
-from .task_trace import (
-    TaskTrace,
-    get_all_actions,
-    get_all_screenshot_paths,
-    get_all_vh_paths,
-)
-from .testbed_evaluation.comparison_algorithm import comparison_algorithm
-from .testbed_evaluation.get_crucial_states import CrucialState, CrucialStates
+from .task_trace import TaskTrace, get_all_vh_paths
+from .testbed_evaluation.get_crucial_states import CrucialStates
 from .testbed_evaluation.xml_exactly_match import exactly_match
 from .testbed_evaluation.xml_fuzzy_match import get_xml_fuzzy_match
 
@@ -23,23 +16,9 @@ class TestbedEvaluator(BaseEvaluator):
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
 
-    def load_crucial_states_by_episode(self, episode):
-        gt_trace = self.helper.load_groundtruth_trace_by_episode(episode)
-
     def eval_impl(
         self, episode, task_description
     ) -> Tuple[bool, Optional[FailedReason]]:
-        # load crucial states
-        # crucial_states: CrucialStates = self.load_crucial_states_by_episode(episode)
-
-        # # load task execution trace of a specific mobile agent
-        # task_exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
-        # screenshot_paths: List[str] = get_all_screenshot_paths(task_exec_trace)
-        # vh_paths: List[str] = get_all_vh_paths(task_exec_trace)
-        # actions: List[Action] = get_all_actions(task_exec_trace)
-
-        # # for each crucial states, find matching things
-
         # load the ground-truth trace and crucial states
         gr_trace_path = self.helper.load_testbed_goundtruth_trace_path_by_episode(
             episode
@@ -47,11 +26,8 @@ class TestbedEvaluator(BaseEvaluator):
         gr_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(episode)
         gr_vh_paths: List[str] = get_all_vh_paths(gr_trace)
 
-        if episode == "10019828397132907250":
-            print(gr_vh_paths)
-
-        cs: CrucialStates = CrucialStates(episode, gr_trace_path)
-        cs_fuzzy_list: List[Dict] = cs.get_fuzzy_match_list()
+        crucial_states: CrucialStates = CrucialStates(episode, gr_trace_path)
+        cs_fuzzy_list: List[Dict] = crucial_states.get_fuzzy_match_list()
 
         # load the task execution trace
         exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
@@ -100,7 +76,9 @@ class TestbedEvaluator(BaseEvaluator):
                             ].split(".")[0]
 
         cs = [
-            state for state in cs.get_crucial_states() if state.keyword != "fuzzy_match"
+            state
+            for state in crucial_states.get_crucial_states()
+            if state.keyword != "fuzzy_match"
         ]
         matched_state = [s.matched for s in cs]
         if False in matched_state:

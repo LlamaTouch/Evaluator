@@ -36,12 +36,9 @@ class ExactMatchEvaluator(BaseEvaluator):
         if len(agent_predicted_actions) == 0:
             return False, FailedReason.EXEC_TRACE_NOT_FOUND
 
-        print("=======", len(gr_actions), len(agent_predicted_actions))
-        print(gr_actions[-1])
-        print(agent_predicted_actions[-1])
-
-        if len(gr_actions) > len(agent_predicted_actions):
-            return False, FailedReason.LESS_AGENT_PREDICTED_ACTIONS
+        # print("=======", len(gr_actions), len(agent_predicted_actions))
+        # print(gr_actions[-1])
+        # print(agent_predicted_actions[-1])
 
         for i, gr_action in enumerate(gr_actions):
             real_action = agent_predicted_actions[i]
@@ -52,13 +49,10 @@ class ExactMatchEvaluator(BaseEvaluator):
             except:
                 print(f"failed to extract ui positions from file: {vh_paths[i]}")
                 return False, FailedReason.UI_POSITIONS_NOT_FOUND
-            # print(f"step{i}, {gr_action}")
-            # print(f"step{i}, {real_action}")
-            # print(f"step{i}, {ui_positions}")
             if not self.check_action_match_like_AITW(
                 gr_action, real_action, ui_positions
             ):
-                return False, FailedReason.STEP_CHECK_FAILED
+                return False, FailedReason.STEP_CHECK_FAILED.value + f" on step {i}"
             else:
                 self.epi_to_num_correct_action[episode] += 1
                 print(f"step{i} passed")

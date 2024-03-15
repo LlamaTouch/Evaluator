@@ -1,4 +1,5 @@
 import ast
+import json
 import os
 import pickle
 from typing import Dict, List
@@ -24,15 +25,13 @@ class AutoUI(MobileAgent):
         if episode in self.epi_to_action_list.keys():
             return self.epi_to_action_list[episode]
 
-        eval_serialized_file = (
-            "/data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator.obj"
-        )
-        with open(eval_serialized_file, "rb") as f:
-            eval_results: List[Dict] = pickle.load(f)
-        for item in eval_results:
-            epi = item["episode_id"]
+        eval_result_file = "/data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator_last_screen.json"
+        with open(eval_result_file) as f:
+            data = json.load(f)
+
+        for epi_data in data:
             act_list: List[Action] = []
-            for action in item["actions"]:
+            for action in epi_data["actions"]:
                 act = Action(
                     action_type=ActionType[action["action_type"].upper()],
                     touch_point_yx=tuple(ast.literal_eval(action["touch_point"])),
@@ -40,8 +39,9 @@ class AutoUI(MobileAgent):
                     typed_text=action["typed_text"],
                 )
                 act_list.append(act)
-            self.epi_to_action_list[epi] = act_list
-        return self.epi_to_action_list[epi]
+            self.epi_to_action_list[epi_data["episode_id"]] = act_list
+
+        return self.epi_to_action_list[episode]
 
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         category = DatasetHelper().get_category_by_episode(episode)
@@ -71,18 +71,18 @@ if __name__ == "__main__":
     e.run_evaluation()
     e.report_stats()
 
-    t = TestbedEvaluator(
-        agent=agent,
-        options={
-            # "episodes": ['10774240587109527791'],
-            # "first_n": 30,
-            "categories": [
-                TaskCategory.GENERAL,
-                TaskCategory.GOOGLEAPPS,
-                TaskCategory.INSTALL,
-                TaskCategory.WEBSHOPPING,
-            ]
-        },
-    )
-    t.run_evaluation()
-    t.report_stats()
+    # t = TestbedEvaluator(
+    #     agent=agent,
+    #     options={
+    #         # "episodes": ['10774240587109527791'],
+    #         # "first_n": 30,
+    #         "categories": [
+    #             TaskCategory.GENERAL,
+    #             TaskCategory.GOOGLEAPPS,
+    #             TaskCategory.INSTALL,
+    #             TaskCategory.WEBSHOPPING,
+    #         ]
+    #     },
+    # )
+    # t.run_evaluation()
+    # t.report_stats()

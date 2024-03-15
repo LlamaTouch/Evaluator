@@ -14,7 +14,6 @@ class FailedReason(Enum):
     REF_TRACE_NOT_FOUND = "reference trace not found"
     STEP_CHECK_FAILED = "step checking failed"
     UI_POSITIONS_NOT_FOUND = "ui positions not found"
-    LESS_AGENT_PREDICTED_ACTIONS = "agent predicts less action than the ground-truth"
 
 
 class BaseEvaluator(ABC):
