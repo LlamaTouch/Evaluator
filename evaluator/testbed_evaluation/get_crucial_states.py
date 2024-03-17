@@ -8,6 +8,8 @@ class CrucialState(NamedTuple):
     node_id: int
     keyword: str
     vh_path: str  # represent which vh file this crucial state belongs to
+    json_path: str  # TODO: ???
+    activity_path: str  # represent current activity
     matched: bool = False
     capture_id = None
 
@@ -92,7 +94,15 @@ class CrucialStates:
                                 pic_id=pic_id,
                                 keyword=keyword,
                                 node_id=content,
-                                vh_path=f"{pic_id}.xml",
+                                vh_path=os.path.join(
+                                    self.checkpoint_dir, f"{pic_id}.xml"
+                                ),
+                                json_path=os.path.join(
+                                    self.checkpoint_dir, f"{pic_id}.json"
+                                ),
+                                activity_path=os.path.join(
+                                    self.checkpoint_dir, f"{pic_id}.activity"
+                                ),
                             )
                         )
 

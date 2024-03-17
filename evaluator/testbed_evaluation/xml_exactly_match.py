@@ -374,17 +374,15 @@ def exactly_match(
 ):
     """
     Args:
-        - keyword: 标注的关键字
-        - node_id: 节点id
+        - keyword
+        - node_id
         - crucial_state
-        - exec_vh_path: vh path of the agent exec trace
+        - exec_vh_path
 
     Return: boolean
     """
-    # TODO: there is an path error here to be fixed
-    cs_vh_path = crucial_state.vh_path
-    cs_json_path = cs_vh_path.replace(".xml", ".json")
-    cs_activity_path = cs_vh_path.replace(".xml", ".activity")
+    cs_json_path = crucial_state.json_path
+    cs_activity_path = crucial_state.activity_path
 
     exec_json_path = exec_vh_path.replace(".xml", ".json")
     exec_action_path = exec_vh_path.replace(".xml", ".action")
