@@ -37,12 +37,17 @@ ACTION_SPACE = {
 
 
 class EssentialStateKeyword(Enum):
+    """fuzzy match item"""
+
     FUZZY_MATCH = "fuzzy_match"
 
+    """exact match items"""
     TEXTBOX = "textbox"
     ACTIVITY = "activity"
     CLICK = "click"
     BUTTON = "button"
+
+    """system state items"""
     CHECK_INSTALL = "check_install"
     CHECK_UNINSTALL = "check_uninstall"
 

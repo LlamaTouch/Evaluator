@@ -67,22 +67,25 @@ class AutoUI(MobileAgent):
 
 if __name__ == "__main__":
     agent = AutoUI()
-    e = ExactMatchEvaluator(agent=agent)
-    e.run_evaluation()
-    e.report_stats()
+    # e = ExactMatchEvaluator(agent=agent)
+    # e.run_evaluation()
+    # e.report_stats()
 
-    # t = TestbedEvaluator(
-    #     agent=agent,
-    #     options={
-    #         # "episodes": ['10774240587109527791'],
-    #         # "first_n": 5,
-    #         "categories": [
-    #             TaskCategory.GENERAL,
-    #             # TaskCategory.GOOGLEAPPS,
-    #             # TaskCategory.INSTALL,
-    #             # TaskCategory.WEBSHOPPING,
-    #         ]
-    #     },
-    # )
-    # t.run_evaluation()
-    # t.report_stats()
+    t = TestbedEvaluator(
+        agent=agent,
+        options={
+            # "episodes": ['10774240587109527791'],
+            # "first_n": 5,
+            "categories": [
+                TaskCategory.GENERAL,
+                # TaskCategory.GOOGLEAPPS,
+                # TaskCategory.INSTALL,
+                # TaskCategory.WEBSHOPPING,
+            ],
+            "check_fuzzy_match": True,
+            "check_exact_match": False,
+            "check_system_state": True,
+        },
+    )
+    t.run_evaluation()
+    t.report_stats()
