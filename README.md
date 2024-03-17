@@ -2,7 +2,7 @@
 
 ## Docs
 
-The `DatasetHelper` class defined in [task_trace.py](./task_trace.py) helps to retrieve the dataset and annotated crucial states.
+The `DatasetHelper` class defined in [task_trace.py](./task_trace.py) helps to retrieve the dataset and annotated essential states.
 
 The following APIs are provided to build a mobile agent that ingests
 - task description
@@ -51,9 +51,9 @@ pip install -v -e .
 
 To evaluate the mobile agents, the following traces should be prepared:
 
-- **The ground-truth trace with annotated crucial states.**
+- **The ground-truth trace with annotated essential states.**
 It contains screenshot, view hierarchy, and actions on each UI representation.
-For each task (episode), it includes crucial states that a agent should go through to finish the task.
+For each task (episode), it includes essential states that a agent should go through to finish the task.
 This is used as the ground-truth trace for evaluating mobile agents using <ins>*exact match evaluator*</ins> and our <ins>*testbed evaluator*</ins>.
 - **The agent-predicted action trace.**
 This is used by the <ins>*exact match evaluator*</ins>.
@@ -62,7 +62,7 @@ These predicted actions can be compared with the actions in the ground-truth tra
 - **The task execution trace.**
 This is used by the <ins>*testbed evaluator*</ins>.
 This is recorded during a mobile agent operating on a real device.
-It will be compared with the crucial stats in the ground-truth trace, aiming to revealing the real capability of mobile agents operating on a real environment.
+It will be compared with the essential stats in the ground-truth trace, aiming to revealing the real capability of mobile agents operating on a real environment.
 
 ## Usages
 

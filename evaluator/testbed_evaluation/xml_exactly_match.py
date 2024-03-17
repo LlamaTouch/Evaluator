@@ -7,7 +7,7 @@ from typing import List
 from lxml import etree
 
 from .check_install import check_install, check_uninstall
-from .get_crucial_states import CrucialState
+from .get_essential_states import EssentialState
 from .sentence_similarity import check_sentence_similarity
 
 
@@ -325,7 +325,7 @@ def _get_resource_id_and_bounds(checkpoint_json_fp: str, node_id: int):
 
 
 def check_button_state(
-    cs_json_path: str, checkpoint: CrucialState, exec_json_path: str
+    cs_json_path: str, checkpoint: EssentialState, exec_json_path: str
 ):
     """
     function: check if the button state: on or off
@@ -369,20 +369,20 @@ def check_button_state(
 def exactly_match(
     keyword: str,
     node_id: int,
-    crucial_state: CrucialState,
+    essential_state: EssentialState,
     exec_vh_path: str,
 ):
     """
     Args:
         - keyword
         - node_id
-        - crucial_state
+        - essential_state
         - exec_vh_path
 
     Return: boolean
     """
-    cs_json_path = crucial_state.json_path
-    cs_activity_path = crucial_state.activity_path
+    cs_json_path = essential_state.json_path
+    cs_activity_path = essential_state.activity_path
 
     exec_json_path = exec_vh_path.replace(".xml", ".json")
     exec_action_path = exec_vh_path.replace(".xml", ".action")
@@ -408,17 +408,17 @@ def exactly_match(
         return state
 
     elif keyword == "check_install":
-        state = check_install([crucial_state], captured_dir)
+        state = check_install([essential_state], captured_dir)
         return state
 
     elif keyword == "check_uninstall":
-        state = check_uninstall([crucial_state], captured_dir)
+        state = check_uninstall([essential_state], captured_dir)
         return state
 
     elif keyword == "button":
         state = check_button_state(
             cs_json_path=cs_json_path,
-            checkpoint=crucial_state,
+            checkpoint=essential_state,
             exec_json_path=exec_json_path,
         )
         return state

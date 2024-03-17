@@ -4,10 +4,10 @@ from typing import List
 
 import pandas as pd
 
-from .get_crucial_states import CrucialState
+from .get_essential_states import EssentialState
 
 
-def check_install(checkpoint_installed_ls: List[CrucialState], captured_dir: str):
+def check_install(checkpoint_installed_ls: List[EssentialState], captured_dir: str):
     """
     function: check agent install task is success or not
     input: checkpoint_installed_ls: each element is a checkpoint object
@@ -47,7 +47,7 @@ def check_install(checkpoint_installed_ls: List[CrucialState], captured_dir: str
         return False
 
 
-def check_uninstall(checkpoint_installed_ls: List[CrucialState], captured_dir: str):
+def check_uninstall(checkpoint_installed_ls: List[EssentialState], captured_dir: str):
     """
     function: check agent uninstall task is success or not
     input: checkpoint_installed_ls: each element is a checkpoint object

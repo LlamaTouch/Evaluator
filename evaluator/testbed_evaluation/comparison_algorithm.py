@@ -2,7 +2,7 @@ import logging
 import os
 from typing import List
 
-from .get_crucial_states import CrucialState, CrucialStates
+from .get_essential_states import EssentialState, EssentialStates
 from .xml_exactly_match import exactly_match
 from .xml_fuzzy_match import get_xml_fuzzy_match
 
@@ -31,7 +31,7 @@ def comparison_algorithm(
            captured_dir: captured文件夹
     output: True or False
     """
-    checkpoints = CrucialStates(episode, checkpoint_dir)
+    checkpoints = EssentialStates(episode, checkpoint_dir)
     checkpoint_fuzzy_match_list = checkpoints.get_fuzzy_match_list()
 
     checkpoint_xml_path_list = _get_xml_path_list(checkpoint_dir)
@@ -102,7 +102,7 @@ def comparison_algorithm(
     # 判断checkpoints.checkpoint_ls中的matched是不是全是True
     checkpoints_ls = [
         checkpoint
-        for checkpoint in checkpoints.get_crucial_states()
+        for checkpoint in checkpoints.get_essential_states()
         if checkpoint.keyword != "fuzzy_match"
     ]
     matched_state = [checkpoint.matched for checkpoint in checkpoints_ls]
