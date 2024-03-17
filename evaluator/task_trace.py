@@ -3,7 +3,7 @@ import logging
 import os
 import re
 from enum import Enum
-from typing import Dict, List, NamedTuple, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Union
 
 from .common.action_type import Action, ActionType
 
@@ -36,20 +36,79 @@ ACTION_SPACE = {
 }
 
 
-class UIState(NamedTuple):
+class EssentialStateKeyword(Enum):
+    FUZZY_MATCH = "fuzzy_match"
+
+    TEXTBOX = "textbox"
+    ACTIVITY = "activity"
+    CLICK = "click"
+    BUTTON = "button"
+    CHECK_INSTALL = "check_install"
+    CHECK_UNINSTALL = "check_uninstall"
+
+
+class UIState:
     """
+    - index: int, index of the UIState in a trace
     - screenshot_path: string
-    - vh_path: string (dumped through `uiautomator`)
-    - vh_json_path: string (dumped through `droidbot`)
-    - activity: activity of the current screen
+    - vh_path: string, dumped through `uiautomator`
+    - vh_json_path: string, dumped through `droidbot`
+    - activity: stirng, activity of the current screen
     - action: Action
+    - state_type: string ["groundtruth", "execution"], type of the UIState
+    - essential_state: Dict[
+        "fuzzy_match": ["0", "1"],
+        "check_install": ["Microsoft Excel"],
+        "button": ["2:on", "3:off"],
+        ...
+        ]
     """
 
-    screenshot_path: str
-    vh_path: str
-    vh_json_path: str
-    activity: str
-    action: Action
+    def __init__(
+        self,
+        index: int,
+        screenshot_path: str,
+        vh_path: str,
+        vh_json_path: str,
+        activity: str,
+        action: Action,
+        state_type: str,
+    ) -> None:
+        assert type(index) == int
+        self.index: int = index
+
+        assert state_type in ["groundtruth", "execution"]
+        self.state_type: str = state_type
+
+        self.screenshot_path: str = screenshot_path
+        self.vh_path: str = vh_path
+        self.vh_json_path: str = vh_json_path
+        self.activity: str = activity
+        self.action: Action = action
+
+        # load annotated essential_state if it is ground-truth UIState
+        self.essential_state: Optional[
+            DefaultDict[EssentialStateKeyword, List[str]]
+        ] = None
+        if self.state_type == "groundtruth":
+            # check whether this UIState has annotated essential states
+            # if so, load the essential state
+            potential_es_file = self.screenshot_path.replace(".png", "_drawed.png.text")
+            if os.path.exists(potential_es_file):
+                with open(potential_es_file, "r") as f:
+                    content = f.read()
+                self.essential_state = DefaultDict(list)
+                # split_content: ['textbox<1>', 'fuzzy_match<-1>', 'button<-2:on>',
+                #                 'check_install<Microsoft Excel>', ...]
+                split_content = [item.strip() for item in content.split("|")]
+                for item in split_content:
+                    match = re.search(r"(?P<keyword>\w+)<(?P<content>.+)>", item)
+                    if match:
+                        keyword: str = match.group("keyword")
+                        content: str = match.group("content")
+                        self.essential_state[
+                            EssentialStateKeyword[keyword.upper()]
+                        ].append(content)
 
 
 TaskTrace = List[UIState]
@@ -238,11 +297,13 @@ class DatasetHelper:
                 action = self._proc_testbed_trace_action_file(action_path)
 
             ui_state = UIState(
+                index=i,
                 screenshot_path=screenshot_path,
                 vh_path=xml_path,
                 vh_json_path=vh_json_path,
                 activity=activity,
                 action=action,
+                state_type="execution",
             )
             task_trace.append(ui_state)
         return task_trace
@@ -420,14 +481,15 @@ class DatasetHelper:
             activity = self._extract_activity_from_file(activity_file)
             ep_trace_list.append(
                 UIState(
+                    index=i,
                     screenshot_path=img_path,
                     vh_path=xml_path,
                     vh_json_path=json_path,
                     activity=activity,
                     action=action,
+                    state_type="groundtruth",
                 )
             )
-
         return ep_trace_list
 
     def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:

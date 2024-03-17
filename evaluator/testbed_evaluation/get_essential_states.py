@@ -1,15 +1,57 @@
 import os
 import re
-from typing import List, NamedTuple
+from typing import Dict, List, NamedTuple, Optional
+
+from ..task_trace import DatasetHelper, UIState
 
 
-class EssentialState(NamedTuple):
-    pic_id: int
-    node_id: int
+class EssentialState(UIState):
+    """pic_id, ui_state represents what UI state this essential state belongs to,
+    e.g., 1.png, 2.png, 3.png"""
+
+    pic_id: Optional[int] = None
+    ui_state: Optional[UIState] = None
+
+    """[keyword, node_id] colloborately represent the essential state it self
+    that should be matched.
+
+        - keyword (str): 
+        [
+            fuzzy_match, 
+            activity, textbox, button, click, 
+            check_install, check_uninstall
+        ], 
+        in which "textbox", "button", "click", "activity" should be exactly
+        matched.
+
+        - node_id (int):
+        for keyword "fuzzy_match", "textbox", "click", node_id
+        is an integer representing one specific UI components.
+        example: "fuzzy_match<0>", "textbox<10>", "click<3>"
+
+        for keyword "activity", the integer is always -1
+
+        for keyword "button", it contains an integer with a string "on" or "off"
+        to indicate whether this button is on or off.
+        example: "button<4:on>", "button<13:off>"
+
+        for keyword "check_install" and "check_uninstall", the value will be an
+        app's name
+        example: "check_install<Mircosoft Excel>"
+
+    """
     keyword: str
-    vh_path: str  # represent which vh file this essential state belongs to
-    json_path: str  # TODO: ???
+    node_id: int
+
+    """all three paths are used to locate the ground-truth data in the 
+    established dataset of this essential state
+    """
+    # vh_path: str  # represent which vh file this essential state belongs to
+    # json_path: str  # TODO: ???
     activity_path: str  # represent current activity
+
+    """indicating whether this essential state has been matched by agent's task
+    execution traces"""
     matched: bool = False
     capture_id = None
 
@@ -24,10 +66,21 @@ class EssentialStates:
     def get_essential_states(self) -> List[EssentialState]:
         return self.essential_states
 
-    def get_fuzzy_match_list(self):
+    def get_fuzzy_match_essential_states(self) -> List[EssentialState]:
+        return [es for es in self.essential_states if es.keyword == "fuzzy_match"]
+
+    def get_fuzzy_match_list(self) -> List[Dict[str, int]]:
         """
-        function:返回fuzzy match list, each item contains pic_id and node_id
-        output: list of pair of pic_id and node_id
+        Return: a fuzzy match list, each item contains pic_id and node_id
+
+        Example: [
+            {
+                "pic_id": int,
+                "node_id": int,
+            },
+            {},
+            ...
+        ]
         """
         fuzzy_match_list = []
         pic_id_dict = dict()
@@ -57,11 +110,7 @@ class EssentialStates:
         return fuzzy_match_list
 
     def get_pic_exactly_match_list(self, pic_id: int) -> List[EssentialState]:
-        """
-        function: 根据pic_id, 返回该pic_id下的exactly checkpoint list
-        input: pic_id 标准流程中的某一步的state
-        output: exactly_match_list: 该pic_id下的exactly checkpoint list
-        """
+        """Except for fuzzy_match, all keywords should be exactly matched."""
         exactly_match_list: List[EssentialState] = []
         for i in range(len(self.essential_states)):
             if (
@@ -94,14 +143,29 @@ class EssentialStates:
                         self.essential_states.append(
                             EssentialState(
                                 pic_id=pic_id,
+                                ui_state=UIState(
+                                    screenshot_path=os.path.join(
+                                        self.checkpoint_dir, f"{pic_id}.png"
+                                    ),
+                                    vh_path=os.path.join(
+                                        self.checkpoint_dir, f"{pic_id}.xml"
+                                    ),
+                                    vh_json_path=os.path.join(
+                                        self.checkpoint_dir, f"{pic_id}.json"
+                                    ),
+                                    activity=DatasetHelper._extract_activity_from_file(
+                                        os.path.join(
+                                            self.checkpoint_dir, f"{pic_id}.activity"
+                                        )
+                                    ),
+                                    action=DatasetHelper._extract_actions_from_file(
+                                        os.path.join(
+                                            self.checkpoint_dir, f"{pic_id}.action"
+                                        )
+                                    ),
+                                ),
                                 keyword=keyword,
                                 node_id=content,
-                                vh_path=os.path.join(
-                                    self.checkpoint_dir, f"{pic_id}.xml"
-                                ),
-                                json_path=os.path.join(
-                                    self.checkpoint_dir, f"{pic_id}.json"
-                                ),
                                 activity_path=os.path.join(
                                     self.checkpoint_dir, f"{pic_id}.activity"
                                 ),

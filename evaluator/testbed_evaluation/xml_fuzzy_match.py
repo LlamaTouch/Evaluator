@@ -4,6 +4,7 @@ import os
 
 from lxml import etree
 
+from .get_essential_states import EssentialState
 from .sentence_similarity import check_sentence_similarity
 from .xml_exactly_match import _is_in_bounds
 
@@ -59,23 +60,26 @@ def simplify_xml(xml_path, bounds):
 
 
 def get_xml_fuzzy_match(
-    checkpoint_xml_path: str, node_id: int, captured_xml_path: str, cosine_bound=0.65
-):
+    fuzzy_essential_state: EssentialState, exec_vh_path: str, cosine_bound=0.7
+) -> bool:
     """
-    根据cosine similarity和tree edit distance match xml
-    input xml path
-    return true or false
+    Args:
+        - fuzzy_essential_state: an EssentialState object that should be fuzzily matched
+        - captured_xml_path: path of the XML file in agent execution trace
+        - cosine_bound: the threshold of cosine similarity
     """
-    if node_id == -2:
+    if fuzzy_essential_state.node_id == -2:
         logging.info(f"check_install dont need fuzzy match")
         return True
 
-    bounds = get_bounds(checkpoint_xml_path, node_id)
+    bounds = get_bounds(
+        fuzzy_essential_state.ui_state.vh_path, fuzzy_essential_state.node_id
+    )
     # bounds = "[-1,-1][-1,-1]"
-    simp_tree1 = simplify_xml(checkpoint_xml_path, bounds)
+    simp_tree1 = simplify_xml(fuzzy_essential_state.ui_state.vh_path, bounds)
     # print(f"simp_tree1{simp_tree1}")
     # print("----------")
-    simp_tree2 = simplify_xml(captured_xml_path, bounds)
+    simp_tree2 = simplify_xml(exec_vh_path, bounds)
     # print(f"simp_tree2{simp_tree2}")
 
     # logging.info(f"xml similarity COSINE_BOUND: {COSINE_BOUND}")
@@ -86,7 +90,7 @@ def get_xml_fuzzy_match(
     )
     # print(f"similarity: {similarity}")
     logging.info(
-        f"fuzzy match: {checkpoint_xml_path} vs {captured_xml_path}: cosine_similarity: {cosine_similarity}"
+        f"fuzzy match: {fuzzy_essential_state.ui_state.vh_path} vs {exec_vh_path}: cosine_similarity: {cosine_similarity}"
     )
 
     return status

@@ -366,21 +366,15 @@ def check_button_state(
     return False
 
 
-def exactly_match(
-    keyword: str,
-    node_id: int,
-    essential_state: EssentialState,
-    exec_vh_path: str,
-):
+def exactly_match(essential_state: EssentialState, exec_vh_path: str) -> bool:
     """
     Args:
-        - keyword
-        - node_id
         - essential_state
         - exec_vh_path
 
     Return: boolean
     """
+    keyword, node_id = essential_state.keyword, essential_state.node_id
     cs_json_path = essential_state.json_path
     cs_activity_path = essential_state.activity_path
 
