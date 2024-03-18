@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformer, util
 
 
-def compute_sentence_similiarity(sentence1: str, sentence2: str):
+def compute_sentence_similiarity(sentence1: str, sentence2: str) -> float:
     """
     计算两个句子的相似度
     """
