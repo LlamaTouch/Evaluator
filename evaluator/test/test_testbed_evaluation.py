@@ -1,5 +1,6 @@
 from ..task_trace import DatasetHelper
-from ..testbed_evaluation.get_essential_states import EssentialStates
+from ..testbed_evaluation.get_essential_states import EssentialState, EssentialStates
+from ..testbed_evaluation.xml_fuzzy_match import get_xml_fuzzy_match
 
 
 def test_essential_state_initialization():

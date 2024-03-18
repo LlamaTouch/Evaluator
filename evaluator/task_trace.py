@@ -115,6 +115,14 @@ class UIState:
                             EssentialStateKeyword[keyword.upper()]
                         ].append(content)
 
+        self.installed_app_path: Optional[str] = None
+        if self.state_type == "execution":
+            self.installed_app_path = os.path.join(
+                self.screenshot_path.split("screenshot")[0],
+                "installed_apps",
+                "installed_apps.txt",
+            )
+
 
 TaskTrace = List[UIState]
 
@@ -374,8 +382,7 @@ class DatasetHelper:
         ...
         """
         action_list = []
-        with open(path, "r") as f:
-            action_texts = f.readlines()
+        action_texts = open(path, "r").readlines()
 
         # this for-range is for processing the action record
         for action_text in action_texts:

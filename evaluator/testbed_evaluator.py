@@ -5,9 +5,17 @@ from evaluator.agent import MobileAgent
 
 from .evaluator import BaseEvaluator, FailedReason
 from .task_trace import EssentialStateKeyword, TaskTrace, UIState
-from .testbed_evaluation.get_essential_states import EssentialState, EssentialStates
-from .testbed_evaluation.xml_exactly_match import exactly_match
-from .testbed_evaluation.xml_fuzzy_match import get_xml_fuzzy_match
+from .testbed_evaluation.exact_match import (
+    check_activity_match,
+    check_button_match,
+    check_click_match,
+    check_textbox_match,
+)
+from .testbed_evaluation.fuzzy_match import check_fuzzy_match
+from .testbed_evaluation.system_state_match import (
+    check_install_match,
+    check_uninstall_match,
+)
 
 
 class TestbedEvaluator(BaseEvaluator):
@@ -48,6 +56,7 @@ class TestbedEvaluator(BaseEvaluator):
             if i == len(exec_trace):
                 return False, "Remaining essential states are not matched"
 
+            gr_ui_state_matched = False
             # when there is remaining UIState in the ground-truth trace and
             # remaining UIState in the task exec trace, compare and find two
             # matched UIState
@@ -63,7 +72,13 @@ class TestbedEvaluator(BaseEvaluator):
                     # current essential state matches UIState in the exec trace,
                     # go to the next essential state in the ground-truth trace
                     # and the next UIState in the exec trace
+                    gr_ui_state_matched = True
                     break
+
+            if gr_ui_state_matched:
+                continue
+            else:
+                return False, None
 
         return True, None
 
@@ -80,11 +95,8 @@ class TestbedEvaluator(BaseEvaluator):
             fuzzy_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.FUZZY_MATCH, None
             )
-            if fuzzy_match_states:
-                # the implementation of fuzzy match of all states in the list
-                # 1. parse the states
-                # 2. match every single state
-                pass
+            if fuzzy_match_states and not check_fuzzy_match(gr_ui_state, exec_ui_state):
+                return False
 
         if self.check_exact_match:
             textbox_match_states: List[str] = es_dict.get(
@@ -100,17 +112,23 @@ class TestbedEvaluator(BaseEvaluator):
                 EssentialStateKeyword.BUTTON, None
             )
 
-            if textbox_match_states:
-                pass
+            if textbox_match_states and not check_textbox_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
-            if activity_match_states:
-                pass
+            if activity_match_states and not check_activity_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
-            if click_match_states:
-                pass
+            if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
+                return False
 
-            if button_match_states:
-                pass
+            if button_match_states and not check_button_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
         if self.check_system_state:
             install_match_states: List[str] = es_dict.get(
@@ -120,10 +138,14 @@ class TestbedEvaluator(BaseEvaluator):
                 EssentialStateKeyword.CHECK_UNINSTALL, None
             )
 
-            if install_match_states:
-                pass
+            if install_match_states and not check_install_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
-            if uninstall_match_states:
-                pass
+            if uninstall_match_states and not check_uninstall_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
         return True

@@ -78,12 +78,12 @@ if __name__ == "__main__":
             # "first_n": 5,
             "categories": [
                 TaskCategory.GENERAL,
-                # TaskCategory.GOOGLEAPPS,
-                # TaskCategory.INSTALL,
-                # TaskCategory.WEBSHOPPING,
+                TaskCategory.GOOGLEAPPS,
+                TaskCategory.INSTALL,
+                TaskCategory.WEBSHOPPING,
             ],
             "check_fuzzy_match": True,
-            "check_exact_match": False,
+            "check_exact_match": True,
             "check_system_state": True,
         },
     )
