@@ -15,15 +15,11 @@
 
 """Tools for visualizing AndroidInTheWild data."""
 
-from typing import Optional
-
-from matplotlib import patches
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
+from matplotlib import patches
 
-import action_type
-
+from ..common import action_type
 
 _NUM_EXS_PER_ROW = 5
 _ACTION_COLOR = "blue"
@@ -34,35 +30,6 @@ def is_tap_action(normalized_start_yx, normalized_end_yx):
         np.array(normalized_start_yx) - np.array(normalized_end_yx)
     )
     return distance <= 0.04
-
-
-def _decode_image(
-    example,
-    image_height,
-    image_width,
-    image_channels,
-):
-    """Decodes image from example and reshapes.
-
-    Args:
-      example: Example which contains encoded image.
-      image_height: The height of the raw image.
-      image_width: The width of the raw image.
-      image_channels: The number of channels in the raw image.
-
-    Returns:
-      Decoded and reshaped image tensor.
-    """
-    image = tf.io.decode_raw(
-        example.features.feature["image/encoded"].bytes_list.value[0],
-        out_type=tf.uint8,
-    )
-
-    height = tf.cast(image_height, tf.int32)
-    width = tf.cast(image_width, tf.int32)
-    n_channels = tf.cast(image_channels, tf.int32)
-
-    return tf.reshape(image, (height, width, n_channels))
 
 
 def _get_annotation_positions(example, image_height, image_width):
@@ -202,6 +169,8 @@ def plot_example(
         _, ax = plt.subplots(figsize=(8, 8))
 
     ax.imshow(image)
+    ax.set_xticks([])
+    ax.set_yticks([])
 
     if show_annotations:
         raise NotImplementedError("show_annotations is not implemented yet.")
@@ -266,8 +235,9 @@ def plot_episode(
         ax.remove()
 
     fig.suptitle(
-        goal,
-        size=20,
+        f"{episode[0]['category']} {episode[0]['episode_id'][:6]}: {goal}",
+        size=38,
         y=1.0,
+        weight="bold",
     )
     plt.tight_layout()
