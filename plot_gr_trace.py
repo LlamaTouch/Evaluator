@@ -4,7 +4,6 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from tqdm import tqdm
 
 from evaluator.task_trace import DatasetHelper, TaskTrace
 from evaluator.utils.visualization import plot_episode
@@ -78,10 +77,11 @@ def plot_all():
 
     with ProcessPoolExecutor(max_workers=60) as e:
         for epi in helper.get_all_episodes():
+            category = helper.get_category_by_episode(epi).value
             e.submit(
                 plot_single_trace,
                 episode=epi,
-                output_file=os.path.join(output_path, f"{epi}.png"),
+                output_file=os.path.join(output_path, f"{category}_{epi}.png"),
             )
 
 
