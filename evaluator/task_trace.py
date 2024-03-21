@@ -1,9 +1,10 @@
 import ast
+import json
 import logging
 import os
 import re
 from enum import Enum
-from typing import DefaultDict, Dict, List, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Tuple, Union
 
 from .common.action_type import Action, ActionType
 
@@ -122,6 +123,19 @@ class UIState:
                 "installed_apps",
                 "installed_apps.txt",
             )
+
+    def get_bbox_bounds_by_keyword_id(self, keyword_id: int) -> Tuple[float]:
+        """
+        Get the bounding box of the keyword_id-th essential state
+        """
+        assert self.essential_state is not None
+
+        data: List[Dict] = json.load(open(self.vh_json_path, "r"))
+        bounds: str = data[keyword_id]["bounds"]
+        left, top, right, bottom = map(
+            float, re.findall(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", bounds)[0]
+        )
+        return left, top, right, bottom
 
 
 TaskTrace = List[UIState]

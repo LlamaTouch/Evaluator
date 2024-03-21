@@ -81,7 +81,7 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         if bounds is None:
             continue
         left, top, right, bottom = map(
-            float, re.findall(r"[(\d+),(\d+)][(\d+),(\d+)]", bounds)
+            float, re.findall(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", bounds)[0]
         )
         if left <= x <= right and top <= y <= bottom:
             area = (right - left) * (bottom - top)

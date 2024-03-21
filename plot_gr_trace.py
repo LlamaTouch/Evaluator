@@ -33,6 +33,8 @@ def plot_single_trace(episode: str, output_file: str):
             "ui_positions": None,
             "ui_text": None,
             "ui_type": None,
+            "ui_state": None,
+            "essential_states": None,
         }
         img = Image.open(ui_state.screenshot_path).convert("RGB")
         img_arr = np.array(img)
@@ -50,8 +52,20 @@ def plot_single_trace(episode: str, output_file: str):
         current_ui_state["result_action"][1] = ui_state.action.typed_text
         current_ui_state["result_touch_yx"] = ui_state.action.touch_point_yx
         current_ui_state["result_lift_yx"] = ui_state.action.lift_point_yx
+
+        if ui_state.state_type == "groundtruth":
+            ess = ui_state.essential_state
+            current_ui_state["essential_states"] = ess
+            # passing the whole ui_state for a quick implementation
+            current_ui_state["ui_state"] = ui_state
+
         ui_infos_for_plot.append(copy.deepcopy(current_ui_state))
-    plot_episode(ui_infos_for_plot, show_annotations=False, show_actions=True)
+    plot_episode(
+        ui_infos_for_plot,
+        show_essential_states=True,
+        show_annotations=False,
+        show_actions=True,
+    )
     plt.savefig(output_file, pad_inches=0, bbox_inches="tight")
 
 

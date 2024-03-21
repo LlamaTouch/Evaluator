@@ -20,6 +20,7 @@ import numpy as np
 from matplotlib import patches
 
 from ..common import action_type
+from ..task_trace import EssentialStateKeyword
 
 _NUM_EXS_PER_ROW = 5
 _ACTION_COLOR = "blue"
@@ -71,6 +72,20 @@ def _add_text(text, screen_width, screen_height, ax):
         verticalalignment="center",
     )
     t.set_bbox(dict(facecolor=_ACTION_COLOR, alpha=0.9))
+
+
+def _add_ess_text(text_list, screen_width, screen_height, ax):
+    t = ax.text(
+        0.5 * screen_width,
+        0.05 * screen_height,
+        "\n".join(text_list),
+        color="black",
+        size=20,
+        horizontalalignment="center",
+        verticalalignment="center",
+        weight="bold",
+    )
+    t.set_bbox(dict(facecolor="yellow", alpha=0.4))
 
 
 def _plot_dual_point(
@@ -143,6 +158,7 @@ def _plot_action(
 
 def plot_example(
     example,
+    show_essential_staets=False,
     show_annotations=False,
     show_action=False,
     ax=None,
@@ -172,6 +188,8 @@ def plot_example(
     ax.set_xticks([])
     ax.set_yticks([])
 
+    assert ax is not None
+
     if show_annotations:
         raise NotImplementedError("show_annotations is not implemented yet.")
         positions = _get_annotation_positions(example, image_height, image_width)
@@ -186,7 +204,7 @@ def plot_example(
         lift_y, lift_x = example["result_lift_yx"]
         ex_action_type = example["result_action"][0]
         type_text = example["result_action"][1]
-        ax = _plot_action(
+        _plot_action(
             ex_action_type,
             image_height,
             image_width,
@@ -197,12 +215,82 @@ def plot_example(
             type_text,
             ax,
         )
+    assert ax is not None
 
+    if show_essential_staets and example["essential_states"]:
+        ess = example["essential_states"]
+        ess_all_texts = []
+        if EssentialStateKeyword.FUZZY_MATCH in ess:
+            for bbox_id in ess[EssentialStateKeyword.FUZZY_MATCH]:
+                if bbox_id == -2:
+                    continue
+                if bbox_id == -1:
+                    ess_all_texts.append(f"FUZZY: {bbox_id}")
+                else:
+                    left, top, right, bottom = example[
+                        "ui_state"
+                    ].get_bbox_bounds_by_keyword_id(int(bbox_id))
+                    _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax)
+                    ess_all_texts.append(f"FUZZY: {bbox_id}")
+
+        keys = [
+            EssentialStateKeyword.TEXTBOX,
+            EssentialStateKeyword.CLICK,
+            EssentialStateKeyword.BUTTON,
+        ]
+        for k in keys:
+            if not k in ess:
+                continue
+            for bbox_id in ess[k]:
+                left, top, right, bottom = example[
+                    "ui_state"
+                ].get_bbox_bounds_by_keyword_id(int(bbox_id))
+                _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax)
+                ess_all_texts.append(f"{k.value}: {bbox_id}")
+
+        keys = [
+            EssentialStateKeyword.ACTIVITY,
+            EssentialStateKeyword.CHECK_INSTALL,
+            EssentialStateKeyword.CHECK_UNINSTALL,
+        ]
+        for k in keys:
+            if not k in ess:
+                continue
+            ess_all_texts.append(f"{k.value.upper()}")
+
+        _add_ess_text(ess_all_texts, image_width, image_height, ax)
+
+    return ax
+
+
+def _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax):
+    rect = patches.Rectangle(
+        (left, top),
+        right - left,
+        bottom - top,
+        linewidth=3,
+        edgecolor="r",
+        facecolor="none",
+    )
+    ax.add_patch(rect)
+
+    offset = 10
+    ax.text(
+        left + offset,
+        top + offset,
+        str(bbox_id),
+        fontsize=25,
+        ha="right",
+        va="bottom",
+        color="r",
+        weight="bold",
+    )
     return ax
 
 
 def plot_episode(
     episode,
+    show_essential_states=True,
     show_annotations=False,
     show_actions=False,
 ):
@@ -225,6 +313,7 @@ def plot_episode(
         goal = ex["goal"]
         plot_example(
             ex,
+            show_essential_staets=show_essential_states,
             show_annotations=show_annotations,
             show_action=show_actions,
             ax=axs[i],
