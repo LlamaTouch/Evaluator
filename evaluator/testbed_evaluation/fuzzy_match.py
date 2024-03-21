@@ -11,9 +11,13 @@ def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     gr_vh_content = open(gr_ui_state.vh_path, "r", encoding="utf-8").read()
     exec_vh_content = open(exec_ui_state.vh_path, "r", encoding="utf-8").read()
 
-    similarity, similar = check_sentence_similarity(gr_vh_content, exec_vh_content, threshold=0.8)
+    similarity, similar = check_sentence_similarity(
+        gr_vh_content, exec_vh_content, threshold=0.8
+    )
     if similar:
-        print(f"[entire screen fuzzy match] success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}', similarity: {similarity}")
+        print(
+            f"[entire screen fuzzy match] success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}', similarity: {similarity}"
+        )
     return similar
 
 

@@ -49,12 +49,9 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
 def check_activity_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     if gr_ui_state.activity == "null":
-        print(
-            f"[Warning] annotated activity is null in the ground truth trace. Skipping activity check."
-        )
-        return True
+        raise Exception("[activity] match required; but annotated activity is null.")
 
-    match = gr_ui_state.activity == exec_ui_state.activity
+    match = True if (gr_ui_state.activity == exec_ui_state.activity) else False
     if match:
         print(
             f"[actvity] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
