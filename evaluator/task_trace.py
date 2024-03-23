@@ -1,10 +1,11 @@
-import ast
 import json
 import logging
 import os
 import re
 from enum import Enum
 from typing import DefaultDict, Dict, List, Optional, Tuple, Union
+
+import pandas as pd
 
 from .common.action_type import Action, ActionType
 
@@ -47,6 +48,7 @@ class EssentialStateKeyword(Enum):
     ACTIVITY = "activity"
     CLICK = "click"
     BUTTON = "button"
+    TYPE = "type"
 
     """system state items"""
     CHECK_INSTALL = "check_install"
@@ -191,9 +193,7 @@ class DatasetHelper:
         with open(self.epi_to_category_file, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
-                epi, category, path, task_description, _ = line.strip().split(
-                    ",", maxsplit=4
-                )
+                epi, category, path, task_description, _ = line.strip().split(";")
                 self.epi_metadata_dict[epi] = {
                     # convert string-format category to TaskCategory,
                     # e.g., "general" -> TaskCategory.GENERAL

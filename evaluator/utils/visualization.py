@@ -222,16 +222,27 @@ def plot_example(
         ess_all_texts = []
         if EssentialStateKeyword.FUZZY_MATCH in ess:
             for bbox_id in ess[EssentialStateKeyword.FUZZY_MATCH]:
+                bbox_id = int(bbox_id)
+
                 if bbox_id == -2:
                     continue
                 if bbox_id == -1:
                     ess_all_texts.append(f"FUZZY: {bbox_id}")
+                    _plot_bbox_with_id(0, 0, image_width, image_height, bbox_id, ax)
                 else:
                     left, top, right, bottom = example[
                         "ui_state"
-                    ].get_bbox_bounds_by_keyword_id(int(bbox_id))
+                    ].get_bbox_bounds_by_keyword_id(bbox_id)
                     _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax)
                     ess_all_texts.append(f"FUZZY: {bbox_id}")
+
+        keys = [
+            EssentialStateKeyword.TYPE,
+        ]
+        for k in keys:
+            if not k in ess:
+                continue
+            ess_all_texts.append(f"{k.value.upper(): {ess[k][0]}}")
 
         keys = [
             EssentialStateKeyword.TEXTBOX,
@@ -264,27 +275,30 @@ def plot_example(
 
 
 def _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax):
+    linewidth = 3 if bbox_id != -1 else 6
+
     rect = patches.Rectangle(
         (left, top),
         right - left,
         bottom - top,
-        linewidth=3,
+        linewidth=linewidth,
         edgecolor="r",
         facecolor="none",
     )
     ax.add_patch(rect)
 
-    offset = 10
-    ax.text(
-        left + offset,
-        top + offset,
-        str(bbox_id),
-        fontsize=25,
-        ha="right",
-        va="bottom",
-        color="r",
-        weight="bold",
-    )
+    if bbox_id != -1:
+        offset = 10
+        ax.text(
+            left + offset,
+            top + offset,
+            str(bbox_id),
+            fontsize=25,
+            ha="right",
+            va="bottom",
+            color="r",
+            weight="bold",
+        )
     return ax
 
 
