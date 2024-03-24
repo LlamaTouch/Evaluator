@@ -19,10 +19,11 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
     for node_id in match_node_ids:
         node_id = int(node_id)
-        gr_vh_json_path = gr_ui_state.vh_json_path
+        gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
         annotated_ui_repr: Dict = json.load(
-            open(gr_vh_json_path, "r", encoding="utf-8")
+            open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[node_id]
+        target_resource_id = annotated_ui_repr["resource-id"]
         target_text = annotated_ui_repr["text"]
         target_content_desc = annotated_ui_repr["content-desc"]
         assert target_text != "" or target_content_desc != ""
@@ -30,7 +31,8 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         node_with_text = False
         for node in exec_ui_tree.iter():
             if (
-                node.get("text") == target_text
+                node.get("resource-id") == target_resource_id
+                and node.get("text") == target_text
                 and node.get("content-desc") == target_content_desc
             ):
                 node_with_text = True
@@ -94,11 +96,11 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
                 smallest_area = area
 
     # there will be only one click action on the screen
-    gr_vh_json_path = gr_ui_state.vh_json_path
+    gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
     node_id: int = int(gr_ui_state.essential_state[EssentialStateKeyword.CLICK][0])
-    annotated_ui_repr: Dict = json.load(open(gr_vh_json_path, "r", encoding="utf-8"))[
-        node_id
-    ]
+    annotated_ui_repr: Dict = json.load(
+        open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
+    )[node_id]
     target_class = annotated_ui_repr["class"]
     target_text = annotated_ui_repr["text"]
     target_resource_id = annotated_ui_repr["resource-id"]
@@ -129,9 +131,9 @@ def check_button_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         id = int(id)
         assert state in ["on", "off"], f"annotation for button state error: {node_id}"
 
-        gr_vh_json_path = gr_ui_state.vh_json_path
+        gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
         annotated_ui_repr: Dict = json.load(
-            open(gr_vh_json_path, "r", encoding="utf-8")
+            open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[id]
         # extract whether this button is checked or not
         # annotated_ui_repr["check"] is a boolean variable

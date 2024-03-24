@@ -4,15 +4,18 @@ from typing import Dict, List
 from lxml import etree
 
 from ..task_trace import EssentialStateKeyword, UIState
+from ..utils.autodroid_vh2html import parse_views, simplify_views
 from .sentence_similarity import check_sentence_similarity
 
 
 def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
-    gr_vh_content = open(gr_ui_state.vh_path, "r", encoding="utf-8").read()
-    exec_vh_content = open(exec_ui_state.vh_path, "r", encoding="utf-8").read()
+    gr_vh_json_path = gr_ui_state.vh_json_path
+    exec_vh_json_path = exec_ui_state.vh_json_path
+    gr_views: str = simplify_views(json.load(open(gr_vh_json_path)))
+    exec_views: str = simplify_views(json.load(open(exec_vh_json_path)))
 
     similarity, similar = check_sentence_similarity(
-        gr_vh_content, exec_vh_content, threshold=0.8
+        gr_views, exec_views, threshold=0.95
     )
     if similar:
         print(
@@ -53,7 +56,7 @@ def check_fuzzy_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
                 return False
 
         """
-        # file content of *gr_vh_json_path*
+        # file content of *gr_vh_simp_ui_json_path*
         [
             {
                 "id": 0,
@@ -84,9 +87,9 @@ def check_fuzzy_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
             "bounds": "[189,266][890,323]"
         }
         """
-        gr_vh_json_path = gr_ui_state.vh_json_path
+        gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
         annotated_ui_repr: Dict = json.load(
-            open(gr_vh_json_path, "r", encoding="utf-8")
+            open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[node_id]
         target_text = annotated_ui_repr["text"]
         target_class = annotated_ui_repr["class"]

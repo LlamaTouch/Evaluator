@@ -60,6 +60,8 @@ class UIState:
     - screenshot_path: string
     - vh_path: string, dumped through `uiautomator`
     - vh_json_path: string, dumped through `droidbot`
+    - vh_simp_ui_json_path: string|None, only exist in the ground-truth dataset;
+        used to visualize important UI components
     - activity: stirng, activity of the current screen
     - action: Action
     - state_type: string ["groundtruth", "execution"], type of the UIState
@@ -80,6 +82,7 @@ class UIState:
         activity: str,
         action: Action,
         state_type: str,
+        vh_simp_ui_json_path: Optional[str] = None,  # only gr-trace contains this field
     ) -> None:
         assert type(index) == int
         self.index: int = index
@@ -89,7 +92,8 @@ class UIState:
 
         self.screenshot_path: str = screenshot_path
         self.vh_path: str = vh_path
-        self.vh_json_path: str = vh_json_path
+        self.vh_json_path = vh_json_path
+        self.vh_simp_ui_json_path: str = vh_simp_ui_json_path
         self.activity: str = activity
         self.action: Action = action
 
@@ -98,6 +102,7 @@ class UIState:
             DefaultDict[EssentialStateKeyword, List[str]]
         ] = None
         if self.state_type == "groundtruth":
+            assert self.vh_simp_ui_json_path is not None
             # check whether this UIState has annotated essential states
             # if so, load the essential state
             potential_es_file = self.screenshot_path.replace(".png", "_drawed.png.text")
@@ -116,6 +121,10 @@ class UIState:
                         self.essential_state[
                             EssentialStateKeyword[keyword.upper()]
                         ].append(content)
+        elif self.state_type == "execution":
+            assert self.vh_simp_ui_json_path is None
+        else:
+            pass
 
         self.installed_app_path: Optional[str] = None
         if self.state_type == "execution":
@@ -131,7 +140,7 @@ class UIState:
         """
         assert self.essential_state is not None
 
-        data: List[Dict] = json.load(open(self.vh_json_path, "r"))
+        data: List[Dict] = json.load(open(self.vh_simp_ui_json_path, "r"))
         bounds: str = data[keyword_id]["bounds"]
         left, top, right, bottom = map(
             float, re.findall(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", bounds)[0]
@@ -322,7 +331,7 @@ class DatasetHelper:
         for i in range(num_UIState):
             screenshot_path = os.path.join(screenshot_folder_path, f"{i}.png")
             xml_path = os.path.join(path, "xml", f"{i}.xml")
-            vh_json_path = os.path.join(path, "xml", f"{i}.json")
+            vh_json_path = os.path.join(path, "view_hierarchy", f"{i}.json")
 
             activity_path = os.path.join(path, "activity", f"{i}.activity")
             activity = self._extract_activity_from_file(activity_path)
@@ -502,7 +511,8 @@ class DatasetHelper:
             action = action_list[i]
             img_path = os.path.join(path, f"{i}.png")
             xml_path = img_path.replace("png", "xml")
-            json_path = img_path.replace("png", "json")
+            vh_json_path = img_path.replace("png", "vh")
+            vh_simp_ui_json_path = img_path.replace("png", "json")
             activity_file = img_path.replace("png", "activity")
             activity = self._extract_activity_from_file(activity_file)
             ep_trace_list.append(
@@ -510,7 +520,8 @@ class DatasetHelper:
                     index=i,
                     screenshot_path=img_path,
                     vh_path=xml_path,
-                    vh_json_path=json_path,
+                    vh_json_path=vh_json_path,
+                    vh_simp_ui_json_path=vh_simp_ui_json_path,
                     activity=activity,
                     action=action,
                     state_type="groundtruth",
