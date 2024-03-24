@@ -77,6 +77,8 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     parser = etree.XMLParser(recover=True, encoding="utf-8")
     exec_ui_tree = etree.parse(exec_ui_state.vh_path, parser)
 
+    smallest_node = None
+
     for node in exec_ui_tree.iter():
         bounds = node.get("bounds")
         if bounds is None:
@@ -125,15 +127,16 @@ def check_button_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     for node_id in match_node_ids:
         id, state = node_id.split(":")
         id = int(id)
-        assert state in ["on", "off"]
+        assert state in ["on", "off"], f"annotation for button state error: {node_id}"
 
         gr_vh_json_path = gr_ui_state.vh_json_path
         annotated_ui_repr: Dict = json.load(
             open(gr_vh_json_path, "r", encoding="utf-8")
-        )[node_id]
+        )[id]
         # extract whether this button is checked or not
-        target_button_state = annotated_ui_repr["checked"]
-        assert state == target_button_state
+        # annotated_ui_repr["check"] is a boolean variable
+        target_button_state = "on" if annotated_ui_repr["checked"] else "off"
+        assert state == target_button_state, f"{state=} != {target_button_state=}"
         target_button_class = annotated_ui_repr["class"]
         target_button_resource_id = annotated_ui_repr["resource-id"]
 

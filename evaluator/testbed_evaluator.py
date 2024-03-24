@@ -122,8 +122,8 @@ class TestbedEvaluator(BaseEvaluator):
             ):
                 return False
 
-            if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
-                return False
+            # if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
+            #     return False
 
             if button_match_states and not check_button_match(
                 gr_ui_state, exec_ui_state

@@ -84,7 +84,10 @@ if __name__ == "__main__":
         t = TestbedEvaluator(
             agent=agent,
             options={
-                # "episodes": ['10774240587109527791'],
+                # "episodes": [
+                #     "11137766304201944618",
+                #     "84143002711104077",
+                # ],
                 # "first_n": 5,
                 "categories": [
                     TaskCategory.GENERAL,

@@ -471,12 +471,16 @@ class DatasetHelper:
         return action_list
 
     def _extract_activity_from_file(self, path: str) -> str:
+        """convert com.android.settings/.Settings to com.android.settings.Settings"""
         with open(path) as f:
             line = f.read().strip()
         if "mObscuringWindow" in line:
             raise Exception(f"Activity format error: {line}")
-        else:
-            return line
+
+        if "/." in line:
+            line = line.replace("/.", ".")
+
+        return line
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         self.logger.debug(f"loading groundtruth trace in path: {path}")
