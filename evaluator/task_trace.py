@@ -471,26 +471,12 @@ class DatasetHelper:
         return action_list
 
     def _extract_activity_from_file(self, path: str) -> str:
-        """A single activity file may contain one of the following lines.
-        Format:
-          mObscuringWindow=Window{5fc0ca7 u0 com.android.systemui.ImageWallpaper}
-          mObscuringWindow=null
-          mObscuringWindow=Window{33ca9c8 u0 com.android.vending/com.android.vending.AssetBrowserActivity}
-          mObscuringWindow=Window{33ca9c8 u0 com.android.vending/com.android.vending.AssetBrowserActivity}
-          mObscuringWindow=Window{3d1854f u0 com.google.android.apps.photos/com.google.android.apps.photos.home.HomeActivity}
-          mObscuringWindow=Window{4f2fc72 u0 com.android.systemui.ImageWallpaper}
-          io.github.ylimit.droidbotapp/.SettingsActivity
-          com.google.android.apps.nexuslauncher/.NexusLauncherActivity
-          ...
-        """
         with open(path) as f:
             line = f.read().strip()
-        match = re.search(r"(u0 )?([\w./]+)|mObscuringWindow=(null)", line)
-        if match:
-            extracted_activity = match.group(2) if match.group(2) else match.group(3)
+        if "mObscuringWindow" in line:
+            raise Exception(f"Activity format error: {line}")
         else:
-            raise Exception(f"failed to extract activity from file: {path}")
-        return extracted_activity
+            return line
 
     def _load_groundtruth_trace_by_path(self, path: str) -> TaskTrace:
         self.logger.debug(f"loading groundtruth trace in path: {path}")

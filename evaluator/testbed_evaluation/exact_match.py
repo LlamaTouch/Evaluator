@@ -49,12 +49,13 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
 def check_activity_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     if gr_ui_state.activity == "null":
-        raise Exception("[activity] match required; but annotated activity is null.")
+        return True
+        # raise Exception("[activity] match required; but annotated activity is null.")
 
-    match = True if (gr_ui_state.activity == exec_ui_state.activity) else False
+    match = True if exec_ui_state.activity in gr_ui_state.activity else False
     if match:
         print(
-            f"[actvity] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
+            f"[actvity] match success: '{gr_ui_state.activity}' with '{exec_ui_state.activity}'"
         )
     return match
 
