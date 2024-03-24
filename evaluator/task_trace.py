@@ -2,10 +2,9 @@ import json
 import logging
 import os
 import re
+from collections import OrderedDict
 from enum import Enum
 from typing import DefaultDict, Dict, List, Optional, Tuple, Union
-
-import pandas as pd
 
 from .common.action_type import Action, ActionType
 
@@ -169,13 +168,24 @@ class DatasetHelper:
         self.logger = logging.getLogger(self.__class__.__name__)
         # load task metadata
         self.epi_to_category_file = os.path.join(
-            GROUNDTRUTH_DATASET_PATH, "epi_metadata.csv"
+            GROUNDTRUTH_DATASET_PATH, "epi_metadata_simplified.tsv"
         )
         assert os.path.exists(
             self.epi_to_category_file
         ), f"The file {self.epi_to_category_file} does not exist"
 
-        self.epi_metadata_dict: Dict[str, Dict[str, Union[TaskCategory, str]]] = {}
+        """Example of epi_metadata_dict: 
+        {
+            "episode": {
+                "category": TaskCategory,
+                "task_description": str,
+            },
+            ...
+        }
+        """
+        self.epi_metadata_dict: OrderedDict[
+            str, Dict[str, Union[TaskCategory, str]]
+        ] = OrderedDict()
         self.init_epi_to_category()
 
     def init_epi_to_category(self) -> None:
@@ -193,7 +203,7 @@ class DatasetHelper:
         with open(self.epi_to_category_file, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
-                epi, category, path, task_description, _ = line.strip().split(";")
+                epi, category, path, task_description = line.strip().split("\t")[:4]
                 self.epi_metadata_dict[epi] = {
                     # convert string-format category to TaskCategory,
                     # e.g., "general" -> TaskCategory.GENERAL

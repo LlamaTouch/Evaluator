@@ -42,7 +42,7 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
             continue
 
     print(
-        f"[textbox] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+        f"[textbox] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
     )
     return True
 
@@ -54,7 +54,7 @@ def check_activity_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     match = True if (gr_ui_state.activity == exec_ui_state.activity) else False
     if match:
         print(
-            f"[actvity] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+            f"[actvity] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
         )
     return match
 
@@ -106,7 +106,7 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         and smallest_node.get("resource-id") == target_resource_id
     ):
         print(
-            f"[click] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+            f"[click] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
         )
         return True
     else:
@@ -152,6 +152,6 @@ def check_button_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
             return False
 
     print(
-        f"[button] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+        f"[button] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
     )
     return True

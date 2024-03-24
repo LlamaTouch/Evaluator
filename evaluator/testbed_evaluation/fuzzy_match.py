@@ -16,7 +16,7 @@ def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     )
     if similar:
         print(
-            f"[entire screen fuzzy match] success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}', similarity: {similarity}"
+            f"[entire screen fuzzy match] success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}', similarity: {similarity}"
         )
     return similar
 

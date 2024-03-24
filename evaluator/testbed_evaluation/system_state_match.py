@@ -42,7 +42,7 @@ def check_install_match(gr_ui_state: UIState, exec_ui_state: UIState):
             return False
 
     print(
-        f"[app installation] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+        f"[app installation] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
     )
     return True
 
@@ -65,6 +65,6 @@ def check_uninstall_match(gr_ui_state: UIState, exec_ui_state: UIState):
             continue
 
     print(
-        f"[app uninstallation] match success: '{gr_ui_state.vh_path}' with '{exec_ui_state.vh_path}'"
+        f"[app uninstallation] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
     )
     return True
