@@ -9,6 +9,10 @@ from ..common.action_type import ActionType
 from ..task_trace import EssentialStateKeyword, UIState
 
 
+def check_img_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+    pass
+
+
 def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.TEXTBOX
@@ -23,17 +27,18 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         annotated_ui_repr: Dict = json.load(
             open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[node_id]
-        target_resource_id = annotated_ui_repr["resource-id"]
-        target_text = annotated_ui_repr["text"]
-        target_content_desc = annotated_ui_repr["content-desc"]
-        assert target_text != "" or target_content_desc != ""
+        # target_resource_id = annotated_ui_repr["resource-id"]
+        # target_text = annotated_ui_repr["text"]
+        # target_content_desc = annotated_ui_repr["content-desc"]
+        # assert target_text != "" or target_content_desc != ""
 
         node_with_text = False
         for node in exec_ui_tree.iter():
             if (
-                node.get("resource-id") == target_resource_id
-                and node.get("text") == target_text
-                and node.get("content-desc") == target_content_desc
+                node.get("class") == annotated_ui_repr["class"]
+                and node.get("resource-id") == annotated_ui_repr["resource-id"]
+                and node.get("text") == annotated_ui_repr["text"]
+                and node.get("content-desc") == annotated_ui_repr["content-desc"]
             ):
                 node_with_text = True
                 break

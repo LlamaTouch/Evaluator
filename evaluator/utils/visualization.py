@@ -158,6 +158,7 @@ def _plot_action(
 
 def plot_example(
     example,
+    example_index: int,
     show_essential_staets=False,
     show_annotations=False,
     show_action=False,
@@ -187,6 +188,20 @@ def plot_example(
     ax.imshow(image)
     ax.set_xticks([])
     ax.set_yticks([])
+
+    # add example_index at the top left corner with white background and black text
+    ax.text(
+        0.02,
+        0.98,
+        f"{example_index}",
+        color="white",
+        size=20,
+        weight="bold",
+        horizontalalignment="left",
+        verticalalignment="top",
+        transform=ax.transAxes,
+        bbox=dict(facecolor=_ACTION_COLOR, alpha=0.9),
+    )
 
     assert ax is not None
 
@@ -242,20 +257,20 @@ def plot_example(
         for k in keys:
             if not k in ess:
                 continue
-            ess_all_texts.append(f"{k.value.upper(): {ess[k][0]}}")
+            ess_all_texts.append(f"{k.value.upper()}: {ess[k][0]}")
 
         keys = [
             EssentialStateKeyword.TEXTBOX,
             EssentialStateKeyword.CLICK,
-            EssentialStateKeyword.BUTTON,
         ]
         for k in keys:
             if not k in ess:
                 continue
             for bbox_id in ess[k]:
+                bbox_id = int(bbox_id)
                 left, top, right, bottom = example[
                     "ui_state"
-                ].get_bbox_bounds_by_keyword_id(int(bbox_id))
+                ].get_bbox_bounds_by_keyword_id(bbox_id)
                 _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax)
                 ess_all_texts.append(f"{k.value}: {bbox_id}")
 
@@ -304,6 +319,7 @@ def _plot_bbox_with_id(left, top, right, bottom, bbox_id, ax):
 
 def plot_episode(
     episode,
+    output_file=None,
     show_essential_states=True,
     show_annotations=False,
     show_actions=False,
@@ -327,6 +343,7 @@ def plot_episode(
         goal = ex["goal"]
         plot_example(
             ex,
+            i,
             show_essential_staets=show_essential_states,
             show_annotations=show_annotations,
             show_action=show_actions,
@@ -344,3 +361,6 @@ def plot_episode(
         weight="bold",
     )
     plt.tight_layout()
+
+    if output_file:
+        plt.savefig(output_file, pad_inches=0, bbox_inches="tight")

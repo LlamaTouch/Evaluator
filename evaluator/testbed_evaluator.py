@@ -7,8 +7,8 @@ from .evaluator import BaseEvaluator, FailedReason
 from .task_trace import EssentialStateKeyword, TaskTrace, UIState
 from .testbed_evaluation.exact_match import (
     check_activity_match,
-    check_button_match,
     check_click_match,
+    check_img_match,
     check_textbox_match,
 )
 from .testbed_evaluation.fuzzy_match import check_fuzzy_match
@@ -108,9 +108,7 @@ class TestbedEvaluator(BaseEvaluator):
             click_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.CLICK, None
             )
-            button_match_states: List[str] = es_dict.get(
-                EssentialStateKeyword.BUTTON, None
-            )
+            img_match_states: List[str] = es_dict.get(EssentialStateKeyword.IMAGE, None)
 
             if textbox_match_states and not check_textbox_match(
                 gr_ui_state, exec_ui_state
@@ -125,10 +123,8 @@ class TestbedEvaluator(BaseEvaluator):
             # if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
             #     return False
 
-            if button_match_states and not check_button_match(
-                gr_ui_state, exec_ui_state
-            ):
-                return False
+            # if img_match_states and not check_img_match(gr_ui_state, exec_ui_state):
+            #     return False
 
         if self.check_system_state:
             install_match_states: List[str] = es_dict.get(

@@ -46,8 +46,8 @@ class EssentialStateKeyword(Enum):
     TEXTBOX = "textbox"
     ACTIVITY = "activity"
     CLICK = "click"
-    BUTTON = "button"
     TYPE = "type"
+    IMAGE = "image"
 
     """system state items"""
     CHECK_INSTALL = "check_install"
