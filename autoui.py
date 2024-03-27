@@ -93,7 +93,7 @@ if __name__ == "__main__":
                     TaskCategory.GENERAL,
                     TaskCategory.GOOGLEAPPS,
                     TaskCategory.INSTALL,
-                    TaskCategory.WEBSHOPPING,
+                    # TaskCategory.WEBSHOPPING,
                 ],
                 "check_fuzzy_match": True,
                 "check_exact_match": True,

@@ -29,11 +29,11 @@ GROUNDTRUTH_DATASET_PATH = os.getenv(
 )
 
 ACTION_SPACE = {
-    "Home键": ActionType.PRESS_HOME,
-    "Back键": ActionType.PRESS_BACK,
-    "点击事件": ActionType.DUAL_POINT,
-    "滑动事件": ActionType.DUAL_POINT,
-    "键盘输入": ActionType.TYPE,
+    "Home": ActionType.PRESS_HOME,
+    "Back": ActionType.PRESS_BACK,
+    "Click": ActionType.DUAL_POINT,
+    "Swipe": ActionType.DUAL_POINT,
+    "Input": ActionType.TYPE,
 }
 
 
@@ -408,10 +408,15 @@ class DatasetHelper:
     def _extract_actions_from_file(self, path: str) -> List[Action]:
         """Actions for one episode are recorded in one file.
         Format:
-        【点击事件】屏幕大小：（w320，h720），触摸位置：（x196，y558）
-        【点击事件】屏幕大小：（w320，h720），触摸位置：（x76，y193）
-        【键盘输入】bestbuy
-        【点击事件】屏幕大小：（w320，h720），触摸位置：（x106，y253）
+        [Home]
+        [Click] Screen Resolution (320, 720), Click Position (176, 564)
+        [Click] Screen Resolution (320, 720), Click Position (112, 46)
+        [Input] bestbuy.com
+        [Click] Screen Resolution (320, 720), Click Position (100, 83)
+        [Click] Screen Resolution (320, 720), Click Position (158, 232)
+        [Input] best rated video games
+        [Swipe] Screen Resolution (320, 720), Start Position (153, 664), End Position (164, 69)
+        [Click] Screen Resolution (320, 720), Click Position (275, 545)        
         ...
         """
         action_list = []
@@ -419,14 +424,14 @@ class DatasetHelper:
 
         # this for-range is for processing the action record
         for action_text in action_texts:
-            action_type = re.search("【(?P<action_type>.+)】", action_text).groupdict()[
+            action_type = re.search("\[(?P<action_type>.+)\]", action_text).groupdict()[
                 "action_type"
             ]
-            if action_type == "Home键" or action_type == "Back键":
+            if action_type == "Home" or action_type == "Back":
                 action_list.append(Action(action_type=ACTION_SPACE[action_type]))
-            elif action_type == "点击事件":
+            elif action_type == "Click":
                 pattern = re.compile(
-                    "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），触摸位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)）"
+                    "Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Click Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\)"
                 )
                 re_dict = re.search(pattern, action_text).groupdict()
                 screen_width = int(re_dict["screen_width"])
@@ -444,9 +449,9 @@ class DatasetHelper:
                         ),
                     )
                 )
-            elif action_type == "滑动事件":
+            elif action_type == "Swipe":
                 pattern = re.compile(
-                    "屏幕大小：（w(?P<screen_width>\d+)，h(?P<screen_height>\d+)），起始位置：（x(?P<position_1_x>\d+)，y(?P<position_1_y>\d+)），结束位置：（x(?P<position_2_x>\d+)，y(?P<position_2_y>\d+)）"
+                    "Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Start Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\), End Position \((?P<position_2_x>\d+), (?P<position_2_y>\d+)\)"
                 )
                 re_dict = re.search(pattern, action_text).groupdict()
                 screen_width = int(re_dict["screen_width"])
@@ -464,8 +469,8 @@ class DatasetHelper:
                         ),
                     )
                 )
-            elif action_type == "键盘输入":
-                pattern = re.compile("【键盘输入】(?P<text>.*)")
+            elif action_type == "Input":
+                pattern = re.compile("\[Input\] (?P<text>.*)")
                 text = re.search(pattern, action_text).groupdict()["text"]
                 action_list.append(
                     Action(action_type=ACTION_SPACE[action_type], typed_text=text)

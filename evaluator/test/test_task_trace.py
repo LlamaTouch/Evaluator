@@ -4,7 +4,6 @@ from ..task_trace import (
     DatasetHelper,
     TaskCategory,
     TaskTrace,
-    get_all_actions,
     get_all_screenshot_paths,
     get_all_vh_paths,
 )
@@ -77,3 +76,23 @@ def test_load_activities():
             print(ui_state.activity)
 
     assert False
+
+
+def test_task_trace_cnts():
+    helper = DatasetHelper()
+    all_episodes = helper.get_all_episodes()
+    from collections import defaultdict
+    cat_dict = defaultdict(0)
+    for epi in all_episodes:
+        cat = helper.get_category_by_episode(epi)
+        cat_dict[cat] += 1
+    print(cat_dict)
+
+    assert False
+
+
+def test_extract_action():
+    helper = DatasetHelper()
+    path = "/home/zl/mobile-agent/testbed/groundtruth-traces/eventStructs.txt"
+    acts = helper._extract_actions_from_file(path)
+    print(acts)
