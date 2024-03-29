@@ -13,17 +13,19 @@ def check_img_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     pass
 
 
-def _check_textbox_single_node_match(annotated_ui_node: Dict, exec_ui_node: etree.ElementTree) -> bool:
-    """Compare whether current UI representation in the execution trace matches 
+def _check_textbox_single_node_match(
+    annotated_ui_node: Dict, exec_ui_node: etree.ElementTree
+) -> bool:
+    """Compare whether current UI representation in the execution trace matches
     the annotated UI component.
-    The annotated UI component should be matched only when all attributes like 
+    The annotated UI component should be matched only when all attributes like
     'text', 'content-desc', 'checked', 'resource-id', etc. are matched.
 
     Args:
         annotated_ui_node: annotated essential state that represents a UI node
         exec_ui_node: UI hierarchy tree of one screen in the execution trace
-    
-    Return: 
+
+    Return:
         boolean value indicating whether there is one node in the current UI
         matches the annotated one
     """
@@ -67,7 +69,7 @@ def _check_textbox_single_node_match(annotated_ui_node: Dict, exec_ui_node: etre
             if not node_attr == annotated_ui_node.get(attr):
                 find_node_match = False
                 break
-        
+
         if find_node_match:
             return True
 
@@ -90,7 +92,7 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         )[node_id]
 
         # if there is one annotated UI component (indicated by node_id) has no
-        # matched counterpart, directly return False to indicate 
+        # matched counterpart, directly return False to indicate
         if not _check_textbox_single_node_match(annotated_ui_repr, exec_ui_tree):
             # print(f"[textbox] match failed: '{gr_ui_state.screenshot_path}', essential state: {annotated_ui_repr}")
             return False

@@ -93,7 +93,7 @@ class BaseEvaluator(ABC):
         if to_stdout:
             print("".join(stats))
             exit(0)
-        
+
         if not os.path.exists("dumped_stats"):
             os.mkdir("dumped_stats")
         # construct stats file using current time, evaluator name, and agent name
