@@ -82,6 +82,7 @@ def test_task_trace_cnts():
     helper = DatasetHelper()
     all_episodes = helper.get_all_episodes()
     from collections import defaultdict
+
     cat_dict = defaultdict(0)
     for epi in all_episodes:
         cat = helper.get_category_by_episode(epi)

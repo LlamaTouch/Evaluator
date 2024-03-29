@@ -1,0 +1,7 @@
+groundtruth_dataset:
+  path: /home/zl/mobile-agent/testbed/groundtruth-traces
+  index_file: epi_metadata.tsv
+
+autoui:
+  predicted_actions: /data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator_last_screen.json
+  testbed_exec_trace_path: /data/zzh/mobile-agent/Auto-UI/agentenv/agent_result

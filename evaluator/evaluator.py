@@ -10,6 +10,7 @@ from .task_trace import DatasetHelper
 
 
 class FailedReason(Enum):
+    GR_TRACE_NOT_FOUND = "ground-truth trace not found"
     EXEC_TRACE_NOT_FOUND = "execution trace not found"
     REF_TRACE_NOT_FOUND = "reference trace not found"
     STEP_CHECK_FAILED = "step checking failed"
@@ -73,7 +74,7 @@ class BaseEvaluator(ABC):
     ) -> Tuple[bool, Optional[FailedReason]]:
         pass
 
-    def report_stats(self) -> None:
+    def report_stats(self, to_stdout=False) -> None:
         num_true, num_false = 0, 0
         for v, _ in self.episode_completion.values():
             if v:
@@ -81,13 +82,18 @@ class BaseEvaluator(ABC):
             else:
                 num_false += 1
         print(f"Completed tasks: {num_true}, failed tasks: {num_false}")
-        self.dump_stats()
+        self.dump_stats(to_stdout=to_stdout)
 
-    def dump_stats(self) -> None:
+    def dump_stats(self, to_stdout) -> None:
         stats = [
             f"{epi},{success},{reason}\n"
             for epi, (success, reason) in self.episode_completion.items()
         ]
+
+        if to_stdout:
+            print("".join(stats))
+            exit(0)
+        
         if not os.path.exists("dumped_stats"):
             os.mkdir("dumped_stats")
         # construct stats file using current time, evaluator name, and agent name

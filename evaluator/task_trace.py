@@ -4,6 +4,7 @@ import os
 import re
 from collections import OrderedDict
 from enum import Enum
+from functools import lru_cache
 from typing import DefaultDict, Dict, List, Optional, Tuple, Union
 
 from .common.action_type import Action, ActionType
@@ -177,7 +178,7 @@ class DatasetHelper:
         self.logger = logging.getLogger(self.__class__.__name__)
         # load task metadata
         self.epi_to_category_file = os.path.join(
-            GROUNDTRUTH_DATASET_PATH, "epi_metadata_simplified.tsv"
+            GROUNDTRUTH_DATASET_PATH, "epi_metadata.tsv"
         )
         assert os.path.exists(
             self.epi_to_category_file
@@ -368,6 +369,7 @@ class DatasetHelper:
         else:
             return None
 
+    @lru_cache(maxsize=None)
     def _load_groundtruth_trace_by_category(
         self, category: TaskCategory
     ) -> Dict[str, TaskTrace]:
@@ -416,7 +418,7 @@ class DatasetHelper:
         [Click] Screen Resolution (320, 720), Click Position (158, 232)
         [Input] best rated video games
         [Swipe] Screen Resolution (320, 720), Start Position (153, 664), End Position (164, 69)
-        [Click] Screen Resolution (320, 720), Click Position (275, 545)        
+        [Click] Screen Resolution (320, 720), Click Position (275, 545)
         ...
         """
         action_list = []
@@ -536,5 +538,5 @@ class DatasetHelper:
 
     def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
         return os.path.join(
-            GROUNDTRUTH_DATASET_PATH, self.epi_metadata_dict[episode]["path"]
+            GT_DATASET_PATH, self.epi_metadata_dict[episode]["path"]
         )

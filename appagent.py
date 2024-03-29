@@ -46,7 +46,7 @@ class AppAgent(MobileAgent):
                 epi = eval(f.read())["epi"]
             self.epi_to_trace_path[epi] = trace_folder
 
-    def load_predicted_action_by_episode(self, episode: str) -> List[Action]:
+    def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         """Predicted actions on dataset.
         If there is no corresponding action file, return an empty list"""
         if not self.epi_to_trace_path:
@@ -55,7 +55,7 @@ class AppAgent(MobileAgent):
         trace_path = self.epi_to_trace_path[episode]
         predicted_action_file = os.path.join(trace_path, "appagent_action.obj")
         if not os.path.exists(predicted_action_file):
-            return []
+            return None
 
         with open(os.path.join(trace_path, "appagent_action.obj"), "rb") as f:
             """actions: [

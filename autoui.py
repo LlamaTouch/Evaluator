@@ -2,7 +2,7 @@ import argparse
 import ast
 import json
 import os
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action, ActionType
@@ -20,7 +20,7 @@ class AutoUI(MobileAgent):
         )
         self.epi_to_action_list: Dict[str, List[Action]] = {}
 
-    def load_predicted_action_by_episode(self, episode: str) -> List[Action]:
+    def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         # check if the action list is already loaded
         if episode in self.epi_to_action_list.keys():
             return self.epi_to_action_list[episode]
@@ -41,9 +41,9 @@ class AutoUI(MobileAgent):
                 act_list.append(act)
             self.epi_to_action_list[epi_data["episode_id"]] = act_list
 
-        return self.epi_to_action_list[episode]
+        return self.epi_to_action_list.get(episode)
 
-    def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
+    def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
         category = DatasetHelper().get_category_by_episode(episode)
         if category == TaskCategory.WEBSHOPPING:
             category_val = "web_shopping"
@@ -54,6 +54,8 @@ class AutoUI(MobileAgent):
         epi_trace_path = os.path.join(
             self.agent_exec_trace_path, category_val, episode, "captured_data"
         )
+        if not os.path.exists(epi_trace_path):
+            return None
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
@@ -66,11 +68,11 @@ class AutoUI(MobileAgent):
 
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description="Run AutoUI evaluation.")
     parser.add_argument(
         "--eval", type=str, help='Evaluation type: "testbed (t)" or "exact (e)"'
     )
-
     args = parser.parse_args()
 
     agent = AutoUI()
@@ -85,8 +87,11 @@ if __name__ == "__main__":
             agent=agent,
             options={
                 # "episodes": [
-                #     "11137766304201944618",
-                #     "84143002711104077",
+                #     # "11137766304201944618",
+                #     # "10036634329889164652",
+                #     # "10774240587109527791",
+                #     # "615146254683807741",
+                #     # "1014188285004997961",
                 # ],
                 # "first_n": 5,
                 "categories": [
@@ -101,7 +106,7 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(to_stdout=True)
     else:
         raise Exception(
             f"Invalid evaluation type: {args.eval}, expected: testbed/t and exact/e"

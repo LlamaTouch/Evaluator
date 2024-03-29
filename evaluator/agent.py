@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from .task_trace import Agent, TaskTrace
 
@@ -19,11 +19,11 @@ class MobileAgent(ABC):
         self.agent_name = self._agent.value
 
     @abstractmethod
-    def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
+    def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
         pass
 
     @abstractmethod
-    def load_predicted_action_by_episode(self, episode: str) -> List[Dict]:
+    def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Dict]]:
         pass
 
     @abstractmethod

@@ -29,11 +29,13 @@ class ExactMatchEvaluator(BaseEvaluator):
     ) -> Tuple[bool, Optional[FailedReason]]:
         """Exact match evaluation using self-defined trace"""
         gr_trace = self.helper.load_groundtruth_trace_by_episode(episode)
+        if not gr_trace:
+            return False, FailedReason.GR_TRACE_NOT_FOUND
         screenshot_paths = get_all_screenshot_paths(gr_trace)
         vh_paths = get_all_vh_paths(gr_trace)
         gr_actions = get_all_actions(gr_trace)
         agent_predicted_actions = self.agent.load_predicted_action_by_episode(episode)
-        if len(agent_predicted_actions) == 0:
+        if not agent_predicted_actions:
             return False, FailedReason.EXEC_TRACE_NOT_FOUND
 
         # print("=======", len(gr_actions), len(agent_predicted_actions))

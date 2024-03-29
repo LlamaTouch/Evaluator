@@ -13,6 +13,67 @@ def check_img_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     pass
 
 
+def _check_textbox_single_node_match(annotated_ui_node: Dict, exec_ui_node: etree.ElementTree) -> bool:
+    """Compare whether current UI representation in the execution trace matches 
+    the annotated UI component.
+    The annotated UI component should be matched only when all attributes like 
+    'text', 'content-desc', 'checked', 'resource-id', etc. are matched.
+
+    Args:
+        annotated_ui_node: annotated essential state that represents a UI node
+        exec_ui_node: UI hierarchy tree of one screen in the execution trace
+    
+    Return: 
+        boolean value indicating whether there is one node in the current UI
+        matches the annotated one
+    """
+    checked_attrs = [
+        "class",
+        "text",
+        "resource-id",
+        "content-desc",
+        "enabled",
+        "checked",
+        "checkable",
+        "selected",
+        "focused",
+        "focusable",
+        "clickable",
+        "long-clickable",
+        "password",
+        "scrollable",
+    ]
+
+    # for each node, we need to check all attributes listed above
+    for node in exec_ui_node.iter():
+
+        # modify this variable to False until current node doesnot match the annotated one
+        find_node_match = True
+        for attr in checked_attrs:
+            assert attr in annotated_ui_node
+            node_attr = node.get(attr)
+            if node_attr is None:
+                find_node_match = False
+                break
+
+            if node_attr == "true":
+                node_attr = True
+            if node_attr == "false":
+                node_attr = False
+
+            if node_attr == annotated_ui_node.get(attr):
+                pass
+
+            if not node_attr == annotated_ui_node.get(attr):
+                find_node_match = False
+                break
+        
+        if find_node_match:
+            return True
+
+    return False
+
+
 def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.TEXTBOX
@@ -27,26 +88,12 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         annotated_ui_repr: Dict = json.load(
             open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[node_id]
-        # target_resource_id = annotated_ui_repr["resource-id"]
-        # target_text = annotated_ui_repr["text"]
-        # target_content_desc = annotated_ui_repr["content-desc"]
-        # assert target_text != "" or target_content_desc != ""
 
-        node_with_text = False
-        for node in exec_ui_tree.iter():
-            if (
-                node.get("class") == annotated_ui_repr["class"]
-                and node.get("resource-id") == annotated_ui_repr["resource-id"]
-                and node.get("text") == annotated_ui_repr["text"]
-                and node.get("content-desc") == annotated_ui_repr["content-desc"]
-            ):
-                node_with_text = True
-                break
-
-        if not node_with_text:
+        # if there is one annotated UI component (indicated by node_id) has no
+        # matched counterpart, directly return False to indicate 
+        if not _check_textbox_single_node_match(annotated_ui_repr, exec_ui_tree):
+            # print(f"[textbox] match failed: '{gr_ui_state.screenshot_path}', essential state: {annotated_ui_repr}")
             return False
-        else:
-            continue
 
     print(
         f"[textbox] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
@@ -65,6 +112,19 @@ def check_activity_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
             f"[actvity] match success: '{gr_ui_state.activity}' with '{exec_ui_state.activity}'"
         )
     return match
+
+
+def check_type_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+    if exec_ui_state.action.action_type != ActionType.TYPE:
+        return False
+
+    if (
+        exec_ui_state.action.typed_text
+        == gr_ui_state.essential_state[EssentialStateKeyword.TYPE][0]
+    ):
+        return True
+    else:
+        return False
 
 
 def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
@@ -124,6 +184,9 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
 
 def check_button_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+    raise Exception(
+        "This method has been replaced by *check_textbox_match* for concrete UI component attributes."
+    )
     match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.BUTTON
     ]

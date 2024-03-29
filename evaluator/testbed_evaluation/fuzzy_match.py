@@ -4,7 +4,7 @@ from typing import Dict, List
 from lxml import etree
 
 from ..task_trace import EssentialStateKeyword, UIState
-from ..utils.autodroid_vh2html import parse_views, simplify_views
+from ..utils.autodroid_vh2html import simplify_views
 from .sentence_similarity import check_sentence_similarity
 
 
@@ -15,12 +15,13 @@ def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     exec_views: str = simplify_views(json.load(open(exec_vh_json_path)))
 
     similarity, similar = check_sentence_similarity(
-        gr_views, exec_views, threshold=0.95
+        gr_views, exec_views, threshold=0.85
     )
     if similar:
         print(
-            f"[entire screen fuzzy match] success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}', similarity: {similarity}"
+            f"[screen fuzzy match] success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}', similarity: {similarity}"
         )
+
     return similar
 
 

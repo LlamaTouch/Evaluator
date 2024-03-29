@@ -40,7 +40,11 @@ class TestbedEvaluator(BaseEvaluator):
         self, episode, task_description
     ) -> Tuple[bool, Optional[FailedReason]]:
         gr_trace: TaskTrace = self.helper.load_groundtruth_trace_by_episode(episode)
+        if not gr_trace:
+            return False, FailedReason.GR_TRACE_NOT_FOUND
         exec_trace: TaskTrace = self.agent.load_exec_trace_by_episode(episode)
+        if not exec_trace:
+            return False, FailedReason.EXEC_TRACE_NOT_FOUND
 
         # index for iterating exec_trace
         i = 0
@@ -108,16 +112,20 @@ class TestbedEvaluator(BaseEvaluator):
             click_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.CLICK, None
             )
+            type_match_states: List[str] = es_dict.get(EssentialStateKeyword.TYPE, None)
             img_match_states: List[str] = es_dict.get(EssentialStateKeyword.IMAGE, None)
+
+            if activity_match_states and not check_activity_match(
+                gr_ui_state, exec_ui_state
+            ):
+                return False
 
             if textbox_match_states and not check_textbox_match(
                 gr_ui_state, exec_ui_state
             ):
                 return False
 
-            if activity_match_states and not check_activity_match(
-                gr_ui_state, exec_ui_state
-            ):
+            if type_match_states and not check_type_match(gr_ui_state, exec_ui_state):
                 return False
 
             # if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
