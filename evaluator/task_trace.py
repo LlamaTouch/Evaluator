@@ -180,9 +180,6 @@ class DatasetHelper:
         self.epi_to_category_file = os.path.join(
             GROUNDTRUTH_DATASET_PATH, "epi_metadata.tsv"
         )
-        assert os.path.exists(
-            self.epi_to_category_file
-        ), f"The file {self.epi_to_category_file} does not exist"
 
         """Example of epi_metadata_dict: 
         {
@@ -192,11 +189,18 @@ class DatasetHelper:
             },
             ...
         }
+
+        this dict will only be loaded when *self.epi_metadata_dict* is accessed
         """
-        self.epi_metadata_dict: OrderedDict[
+        self._epi_metadata_dict: OrderedDict[
             str, Dict[str, Union[TaskCategory, str]]
         ] = OrderedDict()
-        self.init_epi_to_category()
+
+    @property
+    def epi_metadata_dict(self):
+        if not self._epi_metadata_dict:
+            self.init_epi_to_category()
+        return self._epi_metadata_dict
 
     def init_epi_to_category(self) -> None:
         """Load episode metadata from the file {self.epi_to_category_file}
@@ -210,11 +214,15 @@ class DatasetHelper:
             ...
         }
         """
+        assert os.path.exists(
+            self.epi_to_category_file
+        ), f"The file {self.epi_to_category_file} does not exist"
+
         with open(self.epi_to_category_file, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
                 epi, category, path, task_description = line.strip().split("\t")[:4]
-                self.epi_metadata_dict[epi] = {
+                self._epi_metadata_dict[epi] = {
                     # convert string-format category to TaskCategory,
                     # e.g., "general" -> TaskCategory.GENERAL
                     "category": TaskCategory[category.upper()],
