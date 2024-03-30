@@ -364,3 +364,5 @@ def plot_episode(
 
     if output_file:
         plt.savefig(output_file, pad_inches=0, bbox_inches="tight")
+
+    plt.close()
