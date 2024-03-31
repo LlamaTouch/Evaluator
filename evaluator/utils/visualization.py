@@ -214,7 +214,8 @@ def plot_example(
             )
             ax.add_patch(rect)
 
-    if show_action:
+    # if the action on the current screen is None, skip
+    if show_action and example["result_action"][0]:
         touch_y, touch_x = example["result_touch_yx"]
         lift_y, lift_x = example["result_lift_yx"]
         ex_action_type = example["result_action"][0]
