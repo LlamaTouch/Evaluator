@@ -1,6 +1,6 @@
 import os
 import pickle
-from typing import Dict, List
+from typing import Optional, Dict, List
 
 import pandas as pd
 
@@ -12,7 +12,7 @@ from evaluator.testbed_evaluator import TestbedEvaluator
 
 APPAGENT_PREDICTED_ACTION_PATH = os.getenv(
     "APPAGENT_PREDICTED_ACTION_PATH",
-    "/data/wangshihe/AgentTestbed/AppAgent/tasks-240306-all",
+    "/data/wangshihe/AgentTestbed/AppAgent/tasks-240318-all",
 )
 
 APPAGENT_EXEC_TRACE_PATH = os.getenv(
@@ -25,11 +25,11 @@ class AppAgent(MobileAgent):
         super().__init__()
         self.agent = Agent.APPAGENT
         self.appagent_category_to_trace_folder_name = {
-            TaskCategory.GENERAL: "tasks-240214-1-general",
-            TaskCategory.GOOGLEAPPS: "tasks-240216-1-googleapp",
-            TaskCategory.INSTALL: "tasks-240215-2-install",
-            TaskCategory.WEBSHOPPING: "tasks-240215-1-webshopping",
-            TaskCategory.GENERATED: None,
+            # TaskCategory.GENERAL: "tasks-240214-1-general",
+            # TaskCategory.GOOGLEAPPS: "tasks-240216-1-googleapp",
+            # TaskCategory.INSTALL: "tasks-240215-2-install",
+            # TaskCategory.WEBSHOPPING: "tasks-240215-1-webshopping",
+            TaskCategory.GENERATED: "tasks-240330-2-generated",
         }
         self.epi_to_trace_path: Dict[str, str] = {}
         self.epi_to_exec_trace_path: Dict[str, str] = {}
@@ -52,10 +52,14 @@ class AppAgent(MobileAgent):
         if not self.epi_to_trace_path:
             self._proc_all_predicted_action()
 
-        trace_path = self.epi_to_trace_path[episode]
-        predicted_action_file = os.path.join(trace_path, "appagent_action.obj")
-        if not os.path.exists(predicted_action_file):
-            return None
+        try:
+            trace_path = self.epi_to_trace_path[episode]
+            predicted_action_file = os.path.join(trace_path, "appagent_action.obj")
+            if not os.path.exists(predicted_action_file):
+                return None
+        except KeyError as e:
+            print(f"epi = {episode} KeyError! {e}")
+            return []
 
         with open(os.path.join(trace_path, "appagent_action.obj"), "rb") as f:
             """actions: [
@@ -71,9 +75,9 @@ class AppAgent(MobileAgent):
         # convert evnery action in actions to Action
         act_list: List[Action] = []
         for action in actions:
-            # WARNING: deprecated feature used
-            if isinstance(action["action_type"], type):
-                action["action_type"] = "type"
+            # removed the deprecated feature used
+            # if isinstance(action["action_type"], type):
+            #     action["action_type"] = "type"
 
             act = Action(
                 action_type=ActionType[action["action_type"].upper()],
@@ -128,6 +132,7 @@ if __name__ == "__main__":
                 TaskCategory.GOOGLEAPPS,
                 TaskCategory.INSTALL,
                 TaskCategory.WEBSHOPPING,
+                TaskCategory.GENERATED,
             ]
         },
     )

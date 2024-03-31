@@ -66,7 +66,13 @@ class BaseEvaluator(ABC):
     def eval_episode(self, episode: str) -> Tuple[bool, Optional[FailedReason]]:
         self.logger.info(f"Evaluating episode: {episode}")
         task_description = self.helper.get_task_description_by_episode(episode)
-        return self.eval_impl(episode, task_description)
+        try:
+            ret = self.eval_impl(episode, task_description)
+        except Exception as e:
+            self.logger.error(f"Failed to evaluate episode {episode}: {str(e)}")
+            # TODO: add FailedReason for this case
+            return False, FailedReason.UI_POSITIONS_NOT_FOUND
+        return ret
 
     @abstractmethod
     def eval_impl(
