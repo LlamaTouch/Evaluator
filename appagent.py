@@ -60,7 +60,9 @@ class AppAgent(MobileAgent):
             self._proc_all_predicted_action()
 
         try:
-            trace_path = os.path.join(self.epi_to_trace_path[episode], episode, "captured_data")
+            trace_path = os.path.join(
+                self.epi_to_trace_path[episode], episode, "captured_data"
+            )
             trace = DatasetHelper().load_testbed_trace_by_path(trace_path)
         except KeyError as e:
             return None
