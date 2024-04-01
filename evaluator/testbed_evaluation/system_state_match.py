@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 from ..task_trace import EssentialStateKeyword, UIState
@@ -29,6 +30,8 @@ app_to_package_name = {
 def check_install_match(gr_ui_state: UIState, exec_ui_state: UIState):
     # collect all installed apps in during task execution under the current UIState
     installed_apps: List[str] = []
+    if not os.path.exists(exec_ui_state.installed_app_path):
+        return False
     for line in open(exec_ui_state.installed_app_path):
         installed_apps.append(line.strip().lower())
 
@@ -50,6 +53,8 @@ def check_install_match(gr_ui_state: UIState, exec_ui_state: UIState):
 def check_uninstall_match(gr_ui_state: UIState, exec_ui_state: UIState):
     # collect all installed apps in during task execution under the current UIState
     installed_apps: List[str] = []
+    if not os.path.exists(exec_ui_state.installed_app_path):
+        return False
     for line in open(exec_ui_state.installed_app_path):
         installed_apps.append(line.strip().lower())
 

@@ -97,3 +97,18 @@ def test_extract_action():
     path = "/home/zl/mobile-agent/testbed/groundtruth-traces/eventStructs.txt"
     acts = helper._extract_actions_from_file(path)
     print(acts)
+
+
+def test_get_tasks():
+    helper = DatasetHelper()
+
+    i = 0
+    for epi in helper.get_all_episodes():
+        i += 1
+        task = helper.get_task_description_by_episode(epi)
+        cat = helper.get_category_by_episode(epi)
+
+        print(f"{epi=}, {cat=}, {task=}")
+
+    print(f"{i} tasks in total")
+    assert False

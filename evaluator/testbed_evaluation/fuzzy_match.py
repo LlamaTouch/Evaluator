@@ -95,7 +95,7 @@ def check_fuzzy_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         target_text = annotated_ui_repr["text"]
         target_class = annotated_ui_repr["class"]
         target_resource_id = annotated_ui_repr["resource-id"]
-        assert target_text != ""
+        # assert target_text != ""
         # assert target_class != ""
         # assert target_resource_id != ""
 
