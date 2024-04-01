@@ -37,57 +37,34 @@ class AppAgent(MobileAgent):
     def _proc_all_predicted_action(self) -> None:
         """Load all predicted action path"""
         # build the map between episode and path
-        path_list = os.listdir(APPAGENT_PREDICTED_ACTION_PATH)
+        path_list = [
+            item
+            for item in os.listdir(APPAGENT_PREDICTED_ACTION_PATH)
+            if os.path.isdir(os.path.join(APPAGENT_PREDICTED_ACTION_PATH, item))
+        ]
         path_list.sort()
         for folder in path_list:
             trace_folder = os.path.join(APPAGENT_PREDICTED_ACTION_PATH, folder)
-            episode_anno_file = os.path.join(trace_folder, "task_metadata.txt")
-            if not os.path.exists(episode_anno_file):
-                continue
-            with open(episode_anno_file, "r") as f:
-                epi = eval(f.read())["epi"]
+            path_list = [
+                item
+                for item in os.listdir(trace_folder)
+                if os.path.isdir(os.path.join(trace_folder, item))
+            ]
+            epi = path_list[0]
             self.epi_to_trace_path[epi] = trace_folder
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
-        # TODO: function should be unit tested
         """Predicted actions on dataset.
         If there is no corresponding action file, return an empty list"""
         if not self.epi_to_trace_path:
             self._proc_all_predicted_action()
 
         try:
-            trace_path = self.epi_to_trace_path[episode]
-            predicted_action_file = os.path.join(trace_path, "appagent_action.obj")
-            if not os.path.exists(predicted_action_file):
-                return None
+            trace_path = os.path.join(self.epi_to_trace_path[episode], episode, "captured_data")
+            trace = DatasetHelper().load_testbed_trace_by_path(trace_path)
         except KeyError as e:
             return None
-
-        with open(os.path.join(trace_path, "appagent_action.obj"), "rb") as f:
-            """actions: [
-                {
-                    "action_type": ActionType,
-                    "touch_point": [y, x],
-                    "lift_point": [y, x],
-                    "typed_text": "text",
-                },
-                ...
-            ]"""
-            actions = pickle.load(f)
-        # convert evnery action in actions to Action
-        act_list: List[Action] = []
-        for action in actions:
-            # removed the deprecated feature used
-            # if isinstance(action["action_type"], type):
-            #     action["action_type"] = "type"
-
-            act = Action(
-                action_type=ActionType[action["action_type"].upper()],
-                touch_point_yx=tuple(action["touch_point"]),
-                lift_point_yx=tuple(action["lift_point"]),
-                typed_text=action["typed_text"],
-            )
-            act_list.append(act)
+        act_list: List[Action] = [item.action for item in trace]
         return act_list
 
     def _proc_all_exec_trace(self) -> None:
