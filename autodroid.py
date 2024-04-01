@@ -23,7 +23,6 @@ class AutoDroid(MobileAgent):
             return [ui_state.action for ui_state in exec_trace]
         return None
 
-    
     # def load_predicted_action_by_episode(self, episode: str) -> List[Action]:
     #     """Predicted actions on dataset.
     #     If there is no corresponding action file, return an empty list"""
@@ -113,4 +112,3 @@ if __name__ == "__main__":
         raise Exception(
             f"Invalid evaluation type: {args.eval}, expected: testbed/t and exact/e"
         )
-
