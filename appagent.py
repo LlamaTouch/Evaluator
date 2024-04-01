@@ -37,7 +37,9 @@ class AppAgent(MobileAgent):
     def _proc_all_predicted_action(self) -> None:
         """Load all predicted action path"""
         # build the map between episode and path
-        for folder in os.listdir(APPAGENT_PREDICTED_ACTION_PATH):
+        path_list = os.listdir(APPAGENT_PREDICTED_ACTION_PATH)
+        path_list.sort()
+        for folder in path_list:
             trace_folder = os.path.join(APPAGENT_PREDICTED_ACTION_PATH, folder)
             episode_anno_file = os.path.join(trace_folder, "task_metadata.txt")
             if not os.path.exists(episode_anno_file):
@@ -47,6 +49,7 @@ class AppAgent(MobileAgent):
             self.epi_to_trace_path[epi] = trace_folder
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
+        # TODO: function should be unit tested
         """Predicted actions on dataset.
         If there is no corresponding action file, return an empty list"""
         if not self.epi_to_trace_path:
@@ -58,8 +61,7 @@ class AppAgent(MobileAgent):
             if not os.path.exists(predicted_action_file):
                 return None
         except KeyError as e:
-            print(f"epi = {episode} KeyError! {e}")
-            return []
+            return None
 
         with open(os.path.join(trace_path, "appagent_action.obj"), "rb") as f:
             """actions: [
