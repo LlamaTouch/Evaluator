@@ -545,4 +545,4 @@ class DatasetHelper:
         return ep_trace_list
 
     def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
-        return os.path.join(GT_DATASET_PATH, self.epi_metadata_dict[episode]["path"])
+        return os.path.join(GROUNDTRUTH_DATASET_PATH, self.epi_metadata_dict[episode]["path"])

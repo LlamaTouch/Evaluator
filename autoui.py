@@ -20,28 +20,32 @@ class AutoUI(MobileAgent):
         )
         self.epi_to_action_list: Dict[str, List[Action]] = {}
 
-    def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
-        # check if the action list is already loaded
-        if episode in self.epi_to_action_list.keys():
-            return self.epi_to_action_list[episode]
+    def load_predicted_action_by_episode(self, episode: str) -> List[Dict] | None:
+        """TODO: implementation required."""
+        pass
 
-        eval_result_file = "/data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator_last_screen.json"
-        with open(eval_result_file) as f:
-            data = json.load(f)
+    # def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
+    #     # check if the action list is already loaded
+    #     if episode in self.epi_to_action_list.keys():
+    #         return self.epi_to_action_list[episode]
 
-        for epi_data in data:
-            act_list: List[Action] = []
-            for action in epi_data["actions"]:
-                act = Action(
-                    action_type=ActionType[action["action_type"].upper()],
-                    touch_point_yx=tuple(ast.literal_eval(action["touch_point"])),
-                    lift_point_yx=tuple(ast.literal_eval(action["lift_point"])),
-                    typed_text=action["typed_text"],
-                )
-                act_list.append(act)
-            self.epi_to_action_list[epi_data["episode_id"]] = act_list
+    #     eval_result_file = "/data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator_last_screen.json"
+    #     with open(eval_result_file) as f:
+    #         data = json.load(f)
 
-        return self.epi_to_action_list.get(episode)
+    #     for epi_data in data:
+    #         act_list: List[Action] = []
+    #         for action in epi_data["actions"]:
+    #             act = Action(
+    #                 action_type=ActionType[action["action_type"].upper()],
+    #                 touch_point_yx=tuple(ast.literal_eval(action["touch_point"])),
+    #                 lift_point_yx=tuple(ast.literal_eval(action["lift_point"])),
+    #                 typed_text=action["typed_text"],
+    #             )
+    #             act_list.append(act)
+    #         self.epi_to_action_list[epi_data["episode_id"]] = act_list
+
+    #     return self.epi_to_action_list.get(episode)
 
     def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
         category = DatasetHelper().get_category_by_episode(episode)
