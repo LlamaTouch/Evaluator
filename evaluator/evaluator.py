@@ -5,6 +5,9 @@ from datetime import datetime
 from enum import Enum
 from typing import Dict, Optional, Tuple
 
+import numpy as np
+import pandas as pd
+
 from .agent import MobileAgent
 from .task_trace import DatasetHelper
 
@@ -80,17 +83,31 @@ class BaseEvaluator(ABC):
     ) -> Tuple[bool, Optional[FailedReason]]:
         pass
 
-    def report_stats(self, to_stdout=False) -> None:
-        num_true, num_false = 0, 0
-        for v, _ in self.episode_completion.values():
-            if v:
-                num_true += 1
-            else:
-                num_false += 1
-        print(f"Completed tasks: {num_true}, failed tasks: {num_false}")
-        self.dump_stats(to_stdout=to_stdout)
+    def report_stats(
+        self, human_eval_path: str = None, to_stdout: bool = False
+    ) -> None:
+        eval_list = [int(item) for item, _ in self.episode_completion.values()]
+        eval_results = np.array(list(eval_list), dtype=np.int64)
+        eval_true = np.count_nonzero(eval_results == 1)
+        eval_false = np.count_nonzero(eval_results == 0)
+        print(f"Completed tasks: {eval_true}, failed tasks: {eval_false}")
 
-    def dump_stats(self, to_stdout) -> None:
+        if not human_eval_path:
+            self._dump_stats(to_stdout=to_stdout)
+        else:
+            with open(human_eval_path, "r") as f:
+                df = pd.read_csv(f)
+            human_results = df[df.columns[0]].values
+            total = human_results.shape[0]
+            tp = np.sum(human_results == eval_results)
+            human_tcr = np.count_nonzero(human_results == 1) / total
+            tcr = eval_true / total
+            acc = tp / total
+            self._dump_stats(metric=(human_tcr, tcr, acc), to_stdout=to_stdout)
+
+    def _dump_stats(
+        self, metric: Tuple[float, float, float] = None, to_stdout: bool = False
+    ) -> None:
         stats = [
             f"{epi},{success},{reason}\n"
             for epi, (success, reason) in self.episode_completion.items()
@@ -99,6 +116,11 @@ class BaseEvaluator(ABC):
         if to_stdout:
             print("".join(stats))
             exit(0)
+
+        if metric:
+            stats.append(f"human task completion rate: {metric[0]}\n")
+            stats.append(f"end-to-end task completion rate: {metric[1]}\n")
+            stats.append(f"accuracy: {metric[2]}\n")
 
         if not os.path.exists("dumped_stats"):
             os.mkdir("dumped_stats")
