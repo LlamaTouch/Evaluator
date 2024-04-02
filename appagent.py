@@ -7,6 +7,7 @@ import pandas as pd
 from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action, ActionType
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
+from evaluator.lcsmatch_evaluator import LCSMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 from evaluator.testbed_evaluator import TestbedEvaluator
 
@@ -99,23 +100,47 @@ class AppAgent(MobileAgent):
 
 if __name__ == "__main__":
     agent = AppAgent()
-    e = ExactMatchEvaluator(agent=agent)
-    e.run_evaluation()
-    e.report_stats()
+    # e = ExactMatchEvaluator(
+    #     agent=agent,
+    #     options={
+    #         "categories": [
+    #             # TaskCategory.GENERAL,
+    #             # TaskCategory.GOOGLEAPPS,
+    #             # TaskCategory.INSTALL,
+    #             # TaskCategory.WEBSHOPPING,
+    #             TaskCategory.GENERATED,
+    #         ]
+    #     },
+    # )
+    # e.run_evaluation()
+    # e.report_stats()
 
-    t = TestbedEvaluator(
+    l = LCSMatchEvaluator(
         agent=agent,
         options={
-            # "episodes": ['10774240587109527791'],
-            # "first_n": 30,
             "categories": [
-                TaskCategory.GENERAL,
-                TaskCategory.GOOGLEAPPS,
-                TaskCategory.INSTALL,
-                TaskCategory.WEBSHOPPING,
+                # TaskCategory.GENERAL,
+                # TaskCategory.GOOGLEAPPS,
+                # TaskCategory.INSTALL,
+                # TaskCategory.WEBSHOPPING,
                 TaskCategory.GENERATED,
             ]
         },
     )
-    t.run_evaluation()
-    t.report_stats()
+    l.run_evaluation()
+    l.report_stats()
+
+    # t = TestbedEvaluator(
+    #     agent=agent,
+    #     options={
+    #         "categories": [
+    #             # TaskCategory.GENERAL,
+    #             # TaskCategory.GOOGLEAPPS,
+    #             # TaskCategory.INSTALL,
+    #             # TaskCategory.WEBSHOPPING,
+    #             TaskCategory.GENERATED,
+    #         ]
+    #     },
+    # )
+    # t.run_evaluation()
+    # t.report_stats()
