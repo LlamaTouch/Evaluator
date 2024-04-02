@@ -14,7 +14,7 @@ class Agent(Enum):
     APPAGENT = "AppAgent"
     AUTOUI = "Auto-UI"
     AUTODROID = "AutoDroid"
-    COGAGENT = "CogAgent"
+    COCOAGENT = "CoCoAgent"
 
 
 class TaskCategory(Enum):
