@@ -86,22 +86,23 @@ class BaseEvaluator(ABC):
     def report_stats(
         self, human_eval_path: str = None, to_stdout: bool = False
     ) -> None:
-        eval_list = [int(item) for item, _ in self.episode_completion.values()]
-        eval_results = np.array(list(eval_list), dtype=np.int64)
-        eval_true = np.count_nonzero(eval_results == 1)
-        eval_false = np.count_nonzero(eval_results == 0)
-        print(f"Completed tasks: {eval_true}, failed tasks: {eval_false}")
+        exec_dict = {epi: completed for epi, (completed, _) in self.episode_completion.items()}
+        exec_df = pd.DataFrame(exec_dict.items(), columns=['episode', 'execution'])
+        exec_true = (exec_df['execution'] == 1).sum()
+        exec_false = (exec_df['execution'] == 0).sum()
+        print(f"Completed tasks: {exec_true}, failed tasks: {exec_false}")
 
         if not human_eval_path:
             self._dump_stats(to_stdout=to_stdout)
         else:
             with open(human_eval_path, "r") as f:
-                df = pd.read_csv(f)
-            human_results = df[df.columns[0]].values
-            total = human_results.shape[0]
-            tp = np.sum(human_results == eval_results)
-            human_tcr = np.count_nonzero(human_results == 1) / total
-            tcr = eval_true / total
+                human_df = pd.read_csv(f)
+            eval_df = human_df.merge(exec_df, on='episode', how='inner')
+            total = eval_df.shape[0]
+            tp = (eval_df[eval_df.columns[1]] == eval_df['execution']).sum()
+
+            human_tcr = (eval_df[eval_df.columns[1]] == 1).sum() / total
+            tcr = exec_true / total
             acc = tp / total
             self._dump_stats(metric=(human_tcr, tcr, acc), to_stdout=to_stdout)
 
