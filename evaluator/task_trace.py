@@ -178,7 +178,7 @@ class DatasetHelper:
         self.logger = logging.getLogger(self.__class__.__name__)
         # load task metadata
         self.epi_to_category_file = os.path.join(
-            GROUNDTRUTH_DATASET_PATH, "epi_metadata.tsv"
+            GROUNDTRUTH_DATASET_PATH, "epi_metadata_all.tsv"
         )
 
         """Example of epi_metadata_dict: 
