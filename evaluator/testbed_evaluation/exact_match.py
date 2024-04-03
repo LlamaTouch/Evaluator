@@ -63,7 +63,7 @@ def _check_textbox_single_node_match(
             if node_attr == "false":
                 node_attr = False
 
-            annotate_ui_node_attr = annotate_ui_node_attr.get(attr)
+            annotate_ui_node_attr = annotated_ui_node.get(attr)
             if attr == "text" or attr == "content-desc":
                 annotate_ui_node_attr = annotate_ui_node_attr.lower()
                 node_attr = node_attr.lower()
