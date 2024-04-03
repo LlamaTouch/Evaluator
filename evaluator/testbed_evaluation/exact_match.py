@@ -54,30 +54,35 @@ def _check_textbox_single_node_match(
         for attr in checked_attrs:
             assert attr in annotated_ui_node
             node_attr = node.get(attr)
+            annotate_ui_node_attr = annotated_ui_node.get(attr)
+
             if node_attr is None:
-                find_node_match = False
-                break
+                if annotate_ui_node_attr == None or annotate_ui_node_attr in [
+                    "",
+                    " ",
+                    "null",
+                ]:
+                    continue
+                else:
+                    find_node_match = False
+                    break
 
             if node_attr == "true":
                 node_attr = True
             if node_attr == "false":
                 node_attr = False
-
-            annotate_ui_node_attr = annotated_ui_node.get(attr)
             if attr == "text" or attr == "content-desc":
                 annotate_ui_node_attr = annotate_ui_node_attr.lower()
                 node_attr = node_attr.lower()
 
             if node_attr == annotate_ui_node_attr:
-                pass
-
-            if not node_attr == annotate_ui_node_attr:
+                continue
+            else:
                 find_node_match = False
                 break
 
         if find_node_match:
             return True
-
     return False
 
 
