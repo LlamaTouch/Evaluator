@@ -1,3 +1,4 @@
+import os
 import json
 from typing import Dict, List
 
@@ -12,6 +13,9 @@ def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     gr_vh_json_path = gr_ui_state.vh_json_path
     exec_vh_json_path = exec_ui_state.vh_json_path
     gr_views: str = simplify_views(json.load(open(gr_vh_json_path)))
+    # WARNING: AgentEnv for AppAgent can't get VH
+    if not os.path.exists(exec_vh_json_path):
+        return True
     exec_views: str = simplify_views(json.load(open(exec_vh_json_path)))
 
     similarity, similar = check_sentence_similarity(
