@@ -29,7 +29,12 @@ def compare_entire_ui_vh(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     return similar
 
 
-def check_fuzzy_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+def check_fuzzy_match(
+    gr_ui_state: UIState,
+    exec_ui_state: UIState,
+    screen_level_fuzzy_match: bool = True,
+    textbox_fuzzy_match: bool = True,
+) -> bool:
     fuzzy_match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.FUZZY_MATCH
     ]
@@ -54,11 +59,17 @@ def check_fuzzy_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
         # node_id = -1 indicates that the entire UI is to be compared
         if node_id == -1:
-            if compare_entire_ui_vh(gr_ui_state, exec_ui_state):
+            if not screen_level_fuzzy_match or compare_entire_ui_vh(
+                gr_ui_state, exec_ui_state
+            ):
                 # this node has matched, go to the next node
                 continue
             else:
                 return False
+
+        # if node_id != -1 and shouldn't textbox_fuzzy_match, skip this node
+        if not textbox_fuzzy_match:
+            continue
 
         """
         # file content of *gr_vh_simp_ui_json_path*

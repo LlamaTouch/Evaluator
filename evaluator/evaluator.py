@@ -88,6 +88,7 @@ class BaseEvaluator(ABC):
         human_eval_path: str = None,
         only_human_eval_positive: bool = False,
         to_stdout: bool = False,
+        suffix: str = "",
     ) -> None:
         exec_dict = {
             epi: completed for epi, (completed, _) in self.episode_completion.items()
@@ -109,16 +110,21 @@ class BaseEvaluator(ABC):
                 total = 1
 
             human_positive = (eval_df[eval_df.columns[1]] == 1).sum()
-            exec_positive = (exec_df["execution"] == 1).sum()
+            exec_positive = (eval_df["execution"] == 1).sum()
             exec_negative = total - exec_positive
             print(f"Completed tasks: {exec_positive}, failed tasks: {exec_negative}")
             tp = (eval_df[eval_df.columns[1]] == eval_df["execution"]).sum()
             self._dump_stats(
-                metric=(total, human_positive, exec_positive, tp), to_stdout=to_stdout
+                metric=(total, human_positive, exec_positive, tp),
+                to_stdout=to_stdout,
+                suffix=suffix,
             )
 
     def _dump_stats(
-        self, metric: Tuple[int, int, int, int] = None, to_stdout: bool = False
+        self,
+        metric: Tuple[int, int, int, int] = None,
+        to_stdout: bool = False,
+        suffix: str = "",
     ) -> None:
         total, human_positive, exec_positive, tp = metric
         human_tcr = human_positive / total
@@ -146,7 +152,10 @@ class BaseEvaluator(ABC):
             os.mkdir("dumped_stats")
         # construct stats file using current time, evaluator name, and agent name
         # time format: {yyyy}-{mm}-{dd}-{hh}-{mm}-{ss}
-        file_name = f"dumped_stats/{self.evaluator_name}_{self.agent.agent_name}_{datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}.csv"
+        if suffix:
+            file_name = f"dumped_stats/{self.evaluator_name}_{self.agent.agent_name}_{datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}_{suffix}.csv"
+        else:
+            file_name = f"dumped_stats/{self.evaluator_name}_{self.agent.agent_name}_{datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}.csv"
         with open(file_name, "w") as f:
             f.writelines(stats)
         print(f"Evaluation results were dumped to file {file_name}")

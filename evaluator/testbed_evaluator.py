@@ -10,6 +10,7 @@ from .testbed_evaluation.exact_match import (
     check_click_match,
     check_img_match,
     check_textbox_match,
+    check_type_match,
 )
 from .testbed_evaluation.fuzzy_match import check_fuzzy_match
 from .testbed_evaluation.system_state_match import (
@@ -23,15 +24,65 @@ class TestbedEvaluator(BaseEvaluator):
         super().__init__(agent, options)
         self.evaluator_name = self.__class__.__name__
 
-        self.check_fuzzy_match = (
-            options.get("check_fuzzy_match", True) if options else True
+        """Ablation Study
+        1. fuzzy_match
+            - screen_level_fuzzy_match
+            - textbox_fuzzy_match
+        2. exact_match
+            - activity_exact_match
+            - action_exact_match
+            - UI_component_exact_match
+            - system_state_exact_match
+        close [fuzzy_match] means close all related to fuzzy match
+        close [exact_match] means close all related to exact match
+        open [screen_level_fuzzy_match, etc.] means only open itself
+        """
+        self.fuzzy_match = options.get("fuzzy_match", True) if options else True
+        self.exact_match = options.get("exact_match", True) if options else True
+        self.screen_level_fuzzy_match = (
+            options.get("screen_level_fuzzy_match", False) if options else False
         )
-        self.check_exact_match = (
-            options.get("check_exact_match", True) if options else True
+        self.textbox_fuzzy_match = (
+            options.get("textbox_fuzzy_match", False) if options else False
         )
-        self.check_system_state = (
-            options.get("check_system_state", True) if options else True
+        self.activity_exact_match = (
+            options.get("activity_exact_match", False) if options else False
         )
+        self.action_exact_match = (
+            options.get("action_exact_match", False) if options else False
+        )
+        self.UI_component_exact_match = (
+            options.get("UI_component_exact_match", False) if options else False
+        )
+        self.system_state_exact_match = (
+            options.get("system_state_exact_match", False) if options else False
+        )
+
+        if (
+            self.screen_level_fuzzy_match
+            or self.textbox_fuzzy_match
+            or self.activity_exact_match
+            or self.action_exact_match
+            or self.UI_component_exact_match
+            or self.system_state_exact_match
+        ):
+            assert (
+                self.screen_level_fuzzy_match
+                + self.textbox_fuzzy_match
+                + self.activity_exact_match
+                + self.action_exact_match
+                + self.UI_component_exact_match
+                + self.system_state_exact_match
+                <= 1
+            ), "Only one ablation study can be enabled"
+        if self.fuzzy_match:
+            self.screen_level_fuzzy_match = True
+            self.textbox_fuzzy_match = True
+        if self.exact_match:
+            self.activity_exact_match = True
+            self.action_exact_match = True
+            self.UI_component_exact_match = True
+            self.system_state_exact_match = True
 
         self.logger = logging.getLogger(self.evaluator_name)
         logging.getLogger().setLevel(logging.WARNING)
@@ -95,14 +146,19 @@ class TestbedEvaluator(BaseEvaluator):
 
         es_dict = gr_ui_state.essential_state
 
-        if self.check_fuzzy_match:
+        if True:  # fuzzy_match
             fuzzy_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.FUZZY_MATCH, None
             )
-            if fuzzy_match_states and not check_fuzzy_match(gr_ui_state, exec_ui_state):
+            if fuzzy_match_states and not check_fuzzy_match(
+                gr_ui_state,
+                exec_ui_state,
+                self.screen_level_fuzzy_match,
+                self.textbox_fuzzy_match,
+            ):
                 return False
 
-        if self.check_exact_match:
+        if True:  # exact_match:
             textbox_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.TEXTBOX, None
             )
@@ -115,17 +171,25 @@ class TestbedEvaluator(BaseEvaluator):
             type_match_states: List[str] = es_dict.get(EssentialStateKeyword.TYPE, None)
             img_match_states: List[str] = es_dict.get(EssentialStateKeyword.IMAGE, None)
 
-            if activity_match_states and not check_activity_match(
-                gr_ui_state, exec_ui_state
+            if (
+                self.activity_exact_match
+                and activity_match_states
+                and not check_activity_match(gr_ui_state, exec_ui_state)
             ):
                 return False
 
-            if textbox_match_states and not check_textbox_match(
-                gr_ui_state, exec_ui_state
+            if (
+                self.UI_component_exact_match
+                and textbox_match_states
+                and not check_textbox_match(gr_ui_state, exec_ui_state)
             ):
                 return False
 
-            if type_match_states and not check_type_match(gr_ui_state, exec_ui_state):
+            if (
+                self.action_exact_match
+                and type_match_states
+                and not check_type_match(gr_ui_state, exec_ui_state)
+            ):
                 return False
 
             # if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
@@ -134,7 +198,7 @@ class TestbedEvaluator(BaseEvaluator):
             # if img_match_states and not check_img_match(gr_ui_state, exec_ui_state):
             #     return False
 
-        if self.check_system_state:
+        if self.system_state_exact_match:
             install_match_states: List[str] = es_dict.get(
                 EssentialStateKeyword.CHECK_INSTALL, None
             )

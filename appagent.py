@@ -73,8 +73,9 @@ class AppAgent(MobileAgent):
 
 
 if __name__ == "__main__":
-    table_all_successful_FLAG = False
     human_eval_path = "/data/wangshihe/AgentTestbed/Evaluator/human_appagent.csv"
+    table_all_successful_FLAG = False
+    suffix = "only_human_success"
     agent = AppAgent()
 
     e = ExactMatchEvaluator(
@@ -93,6 +94,7 @@ if __name__ == "__main__":
     e.report_stats(
         human_eval_path=human_eval_path,
         only_human_eval_positive=table_all_successful_FLAG,
+        suffix=suffix,
     )
 
     l = LCSMatchEvaluator(
@@ -111,12 +113,78 @@ if __name__ == "__main__":
     l.report_stats(
         human_eval_path=human_eval_path,
         only_human_eval_positive=table_all_successful_FLAG,
+        suffix=suffix,
     )
+
+    options_base = {
+        "categories": [
+            TaskCategory.GENERAL,
+            TaskCategory.GOOGLEAPPS,
+            TaskCategory.INSTALL,
+            TaskCategory.WEBSHOPPING,
+            TaskCategory.GENERATED,
+        ]
+    }
+    ablation_list = [
+        {
+            "fuzzy_match": False,
+            "exact_match": True,
+            "screen_level_fuzzy_match": True,
+        },
+        {
+            "fuzzy_match": False,
+            "exact_match": True,
+            "textbox_fuzzy_match": True,
+        },
+        {
+            "fuzzy_match": True,
+            "exact_match": False,
+            "activity_exact_match": True,
+            "action_exact_match": False,
+            "UI_component_exact_match": False,
+            "system_state_exact_match": False,
+        },
+        {
+            "fuzzy_match": True,
+            "exact_match": False,
+            "activity_exact_match": False,
+            "action_exact_match": True,
+            "UI_component_exact_match": False,
+            "system_state_exact_match": False,
+        },
+        {
+            "fuzzy_match": True,
+            "exact_match": False,
+            "activity_exact_match": False,
+            "action_exact_match": False,
+            "UI_component_exact_match": True,
+            "system_state_exact_match": False,
+        },
+        {
+            "fuzzy_match": True,
+            "exact_match": False,
+            "activity_exact_match": False,
+            "action_exact_match": False,
+            "UI_component_exact_match": False,
+            "system_state_exact_match": True,
+        },
+    ]
+
+    for idx, ablation in enumerate(ablation_list):
+        t = TestbedEvaluator(
+            agent=agent,
+            options={**options_base, **ablation},
+        )
+        t.run_evaluation()
+        t.report_stats(
+            human_eval_path=human_eval_path,
+            only_human_eval_positive=table_all_successful_FLAG,
+            suffix=f"{idx}_th_ablation",
+        )
 
     t = TestbedEvaluator(
         agent=agent,
         options={
-            # "episodes": ["10764637231793248966"],
             "categories": [
                 TaskCategory.GENERAL,
                 TaskCategory.GOOGLEAPPS,
@@ -130,4 +198,5 @@ if __name__ == "__main__":
     t.report_stats(
         human_eval_path=human_eval_path,
         only_human_eval_positive=table_all_successful_FLAG,
+        suffix=suffix,
     )
