@@ -113,7 +113,9 @@ class BaseEvaluator(ABC):
             exec_negative = total - exec_positive
             print(f"Completed tasks: {exec_positive}, failed tasks: {exec_negative}")
             tp = (eval_df[eval_df.columns[1]] == eval_df["execution"]).sum()
-            self._dump_stats(metric=(total, human_positive, exec_positive, tp), to_stdout=to_stdout)
+            self._dump_stats(
+                metric=(total, human_positive, exec_positive, tp), to_stdout=to_stdout
+            )
 
     def _dump_stats(
         self, metric: Tuple[int, int, int, int] = None, to_stdout: bool = False
@@ -133,7 +135,9 @@ class BaseEvaluator(ABC):
             exit(0)
 
         if metric:
-            stats.append(f"total tasks = {total}, human positive = {human_positive}, agent positive = {exec_positive}, true positive = {tp}\n")
+            stats.append(
+                f"total tasks = {total}, human positive = {human_positive}, agent positive = {exec_positive}, true positive = {tp}\n"
+            )
             stats.append(f"human task completion rate: {human_tcr}\n")
             stats.append(f"end-to-end task completion rate: {tcr}\n")
             stats.append(f"accuracy: {acc}\n")
