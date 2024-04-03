@@ -34,11 +34,10 @@ class AppAgent(MobileAgent):
         if not self.epi_to_exec_trace_path:
             self._proc_all_exec_trace()
 
-        try:
-            epi_trace_path = self.epi_to_exec_trace_path[episode]
-            trace = DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
-        except KeyError as e:
+        if episode not in self.epi_to_exec_trace_path:
             return None
+        epi_trace_path = self.epi_to_exec_trace_path[episode]
+        trace = DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
         act_list: List[Action] = [item.action for item in trace]
         return act_list
 
@@ -61,6 +60,9 @@ class AppAgent(MobileAgent):
     def load_exec_trace_by_episode(self, episode: str) -> TaskTrace:
         if not self.epi_to_exec_trace_path:
             self._proc_all_exec_trace()
+
+        if episode not in self.epi_to_exec_trace_path:
+            return None
         epi_trace_path = self.epi_to_exec_trace_path[episode]
         return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
 
@@ -72,7 +74,7 @@ class AppAgent(MobileAgent):
 
 if __name__ == "__main__":
     table_all_successful_FLAG = False
-    human_eval_path = "/data/wangshihe/AgentTestbed/Evaluator/appagent_human_eval.csv"
+    human_eval_path = "/data/wangshihe/AgentTestbed/Evaluator/human_appagent.csv"
     agent = AppAgent()
 
     e = ExactMatchEvaluator(
@@ -114,6 +116,7 @@ if __name__ == "__main__":
     t = TestbedEvaluator(
         agent=agent,
         options={
+            # "episodes": ["10764637231793248966"],
             "categories": [
                 TaskCategory.GENERAL,
                 TaskCategory.GOOGLEAPPS,

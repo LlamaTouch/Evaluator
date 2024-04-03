@@ -108,19 +108,21 @@ class BaseEvaluator(ABC):
             if only_human_eval_positive and total < 1:
                 total = 1
 
-            human_tcr = (eval_df[eval_df.columns[1]] == 1).sum() / total
+            human_positive = (eval_df[eval_df.columns[1]] == 1).sum()
             exec_positive = (exec_df["execution"] == 1).sum()
             exec_negative = total - exec_positive
             print(f"Completed tasks: {exec_positive}, failed tasks: {exec_negative}")
-            tcr = exec_positive / total
-
             tp = (eval_df[eval_df.columns[1]] == eval_df["execution"]).sum()
-            acc = tp / total
-            self._dump_stats(metric=(human_tcr, tcr, acc), to_stdout=to_stdout)
+            self._dump_stats(metric=(total, human_positive, exec_positive, tp), to_stdout=to_stdout)
 
     def _dump_stats(
-        self, metric: Tuple[float, float, float] = None, to_stdout: bool = False
+        self, metric: Tuple[int, int, int, int] = None, to_stdout: bool = False
     ) -> None:
+        total, human_positive, exec_positive, tp = metric
+        human_tcr = human_positive / total
+        tcr = exec_positive / total
+        acc = tp / total
+
         stats = [
             f"{epi},{success},{reason}\n"
             for epi, (success, reason) in self.episode_completion.items()
@@ -131,9 +133,10 @@ class BaseEvaluator(ABC):
             exit(0)
 
         if metric:
-            stats.append(f"human task completion rate: {metric[0]}\n")
-            stats.append(f"end-to-end task completion rate: {metric[1]}\n")
-            stats.append(f"accuracy: {metric[2]}\n")
+            stats.append(f"total tasks = {total}, human positive = {human_positive}, agent positive = {exec_positive}, true positive = {tp}\n")
+            stats.append(f"human task completion rate: {human_tcr}\n")
+            stats.append(f"end-to-end task completion rate: {tcr}\n")
+            stats.append(f"accuracy: {acc}\n")
 
         if not os.path.exists("dumped_stats"):
             os.mkdir("dumped_stats")
