@@ -158,9 +158,15 @@ class TestbedEvaluator(BaseEvaluator):
                 return False
 
         if True:  # exact_match:
-            uicomponent_match_states: List[str] = es_dict.get(EssentialStateKeyword.EXACT, None)
-            activity_match_states: List[str] = es_dict.get(EssentialStateKeyword.ACTIVITY, None)
-            click_match_states: List[str] = es_dict.get(EssentialStateKeyword.CLICK, None)
+            uicomponent_match_states: List[str] = es_dict.get(
+                EssentialStateKeyword.EXACT, None
+            )
+            activity_match_states: List[str] = es_dict.get(
+                EssentialStateKeyword.ACTIVITY, None
+            )
+            click_match_states: List[str] = es_dict.get(
+                EssentialStateKeyword.CLICK, None
+            )
             type_match_states: List[str] = es_dict.get(EssentialStateKeyword.TYPE, None)
 
             if (

@@ -40,6 +40,7 @@ ACTION_SPACE = {
 
 class EssentialStateKeyword(Enum):
     """fuzzy match item"""
+
     FUZZY = "fuzzy"
 
     """exact UI component match"""
@@ -106,16 +107,16 @@ class UIState:
         ] = None
         if self.state_type == "groundtruth":
             assert self.vh_simp_ui_json_path is not None
-            # check whether this UIState has annotated essential states (file 
+            # check whether this UIState has annotated essential states (file
             # postfix: .ess). if so, load the essential states
             potential_es_file = self.screenshot_path.replace(".png", ".ess")
             if os.path.exists(potential_es_file):
                 with open(potential_es_file, "r") as f:
                     content = f.read()
                 self.essential_state = DefaultDict(list)
-                # split_content: ['exact<1>', 
+                # split_content: ['exact<1>',
                 #                 'fuzzy_match<-1>',
-                #                 'check_install<Microsoft Excel>', 
+                #                 'check_install<Microsoft Excel>',
                 #                  ...]
                 split_content = [item.strip() for item in content.split("|")]
                 for item in split_content:

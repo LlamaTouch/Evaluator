@@ -38,7 +38,9 @@ class AppAgent(MobileAgent):
             return None
         epi_trace_path = self.epi_to_exec_trace_path[episode]
         trace = DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
-        act_list: List[Action] = [item.action for item in trace if item.action is not None]
+        act_list: List[Action] = [
+            item.action for item in trace if item.action is not None
+        ]
         return act_list
 
     def _proc_all_exec_trace(self) -> None:
