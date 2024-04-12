@@ -40,17 +40,20 @@ ACTION_SPACE = {
 
 class EssentialStateKeyword(Enum):
     """fuzzy match item"""
+    FUZZY = "fuzzy"
 
-    FUZZY_MATCH = "fuzzy_match"
+    """exact UI component match"""
+    EXACT = "exact"
+    EXCLUDE = "exclude"
 
-    """exact match items"""
-    TEXTBOX = "textbox"
+    """exact activity match"""
     ACTIVITY = "activity"
+
+    """exact action match"""
     CLICK = "click"
     TYPE = "type"
-    IMAGE = "image"
 
-    """system state items"""
+    """exact system state match"""
     CHECK_INSTALL = "check_install"
     CHECK_UNINSTALL = "check_uninstall"
 
@@ -67,9 +70,8 @@ class UIState:
     - action: Action
     - state_type: string ["groundtruth", "execution"], type of the UIState
     - essential_state: Dict[
-        "fuzzy_match": ["0", "1"],
+        "fuzzy": ["0", "1"],
         "check_install": ["Microsoft Excel"],
-        "button": ["2:on", "3:off"],
         ...
         ]
     """
@@ -104,15 +106,17 @@ class UIState:
         ] = None
         if self.state_type == "groundtruth":
             assert self.vh_simp_ui_json_path is not None
-            # check whether this UIState has annotated essential states
-            # if so, load the essential state
-            potential_es_file = self.screenshot_path.replace(".png", "_drawed.png.text")
+            # check whether this UIState has annotated essential states (file 
+            # postfix: .ess). if so, load the essential states
+            potential_es_file = self.screenshot_path.replace(".png", ".ess")
             if os.path.exists(potential_es_file):
                 with open(potential_es_file, "r") as f:
                     content = f.read()
                 self.essential_state = DefaultDict(list)
-                # split_content: ['textbox<1>', 'fuzzy_match<-1>', 'button<-2:on>',
-                #                 'check_install<Microsoft Excel>', ...]
+                # split_content: ['exact<1>', 
+                #                 'fuzzy_match<-1>',
+                #                 'check_install<Microsoft Excel>', 
+                #                  ...]
                 split_content = [item.strip() for item in content.split("|")]
                 for item in split_content:
                     match = re.search(r"(?P<keyword>\w+)<(?P<content>.+)>", item)
@@ -366,7 +370,7 @@ class DatasetHelper:
     # ---------------------------------------------------- #
     # -- Processing the ground-truth trace we annotated -- #
     # -- Used for the exact evaluator and task execution - #
-    # -- Exposed Methods                                   #
+    # -- Exposed methods                                   #
     # ---- load_groundtruth_trace_by_episode               #
     # ---------------------------------------------------- #
     def load_groundtruth_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:

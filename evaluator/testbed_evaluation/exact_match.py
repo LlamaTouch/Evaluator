@@ -13,7 +13,7 @@ def check_img_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     pass
 
 
-def _check_textbox_single_node_match(
+def _check_exact_single_node_match(
     annotated_ui_node: Dict, exec_ui_node: etree.ElementTree
 ) -> bool:
     """Compare whether current UI representation in the execution trace matches
@@ -86,7 +86,8 @@ def _check_textbox_single_node_match(
     return False
 
 
-def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+def check_uicomponent_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
+    """Exact match on two UI components"""
     match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.TEXTBOX
     ]
@@ -103,7 +104,7 @@ def check_textbox_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
 
         # if there is one annotated UI component (indicated by node_id) has no
         # matched counterpart, directly return False to indicate
-        if not _check_textbox_single_node_match(annotated_ui_repr, exec_ui_tree):
+        if not _check_exact_single_node_match(annotated_ui_repr, exec_ui_tree):
             # print(f"[textbox] match failed: '{gr_ui_state.screenshot_path}', essential state: {annotated_ui_repr}")
             return False
 
@@ -193,51 +194,3 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
         return True
     else:
         return False
-
-
-def check_button_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
-    raise Exception(
-        "This method has been replaced by *check_textbox_match* for concrete UI component attributes."
-    )
-    match_node_ids: List[str] = gr_ui_state.essential_state[
-        EssentialStateKeyword.BUTTON
-    ]
-
-    parser = etree.XMLParser(recover=True, encoding="utf-8")
-    exec_ui_tree = etree.parse(exec_ui_state.vh_path, parser)
-
-    for node_id in match_node_ids:
-        id, state = node_id.split(":")
-        id = int(id)
-        assert state in ["on", "off"], f"annotation for button state error: {node_id}"
-
-        gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
-        annotated_ui_repr: Dict = json.load(
-            open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
-        )[id]
-        # extract whether this button is checked or not
-        # annotated_ui_repr["check"] is a boolean variable
-        target_button_state = "on" if annotated_ui_repr["checked"] else "off"
-        assert state == target_button_state, f"{state=} != {target_button_state=}"
-        target_button_class = annotated_ui_repr["class"]
-        target_button_resource_id = annotated_ui_repr["resource-id"]
-
-        button_state_matched = False
-        for node in exec_ui_tree.iter():
-            if (
-                node.get("checked") == target_button_state
-                and node.get("class") == target_button_class
-                and node.get("resource-id") == target_button_resource_id
-            ):
-                button_state_matched = True
-                break
-
-        if button_state_matched:
-            continue
-        else:
-            return False
-
-    print(
-        f"[button] match success: '{gr_ui_state.screenshot_path}' with '{exec_ui_state.screenshot_path}'"
-    )
-    return True

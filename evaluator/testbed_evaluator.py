@@ -8,9 +8,8 @@ from .task_trace import EssentialStateKeyword, TaskTrace, UIState
 from .testbed_evaluation.exact_match import (
     check_activity_match,
     check_click_match,
-    check_img_match,
-    check_textbox_match,
     check_type_match,
+    check_uicomponent_match,
 )
 from .testbed_evaluation.fuzzy_match import check_fuzzy_match
 from .testbed_evaluation.system_state_match import (
@@ -159,17 +158,10 @@ class TestbedEvaluator(BaseEvaluator):
                 return False
 
         if True:  # exact_match:
-            textbox_match_states: List[str] = es_dict.get(
-                EssentialStateKeyword.TEXTBOX, None
-            )
-            activity_match_states: List[str] = es_dict.get(
-                EssentialStateKeyword.ACTIVITY, None
-            )
-            click_match_states: List[str] = es_dict.get(
-                EssentialStateKeyword.CLICK, None
-            )
+            uicomponent_match_states: List[str] = es_dict.get(EssentialStateKeyword.EXACT, None)
+            activity_match_states: List[str] = es_dict.get(EssentialStateKeyword.ACTIVITY, None)
+            click_match_states: List[str] = es_dict.get(EssentialStateKeyword.CLICK, None)
             type_match_states: List[str] = es_dict.get(EssentialStateKeyword.TYPE, None)
-            img_match_states: List[str] = es_dict.get(EssentialStateKeyword.IMAGE, None)
 
             if (
                 self.activity_exact_match
@@ -180,8 +172,8 @@ class TestbedEvaluator(BaseEvaluator):
 
             if (
                 self.UI_component_exact_match
-                and textbox_match_states
-                and not check_textbox_match(gr_ui_state, exec_ui_state)
+                and uicomponent_match_states
+                and not check_uicomponent_match(gr_ui_state, exec_ui_state)
             ):
                 return False
 
@@ -192,11 +184,12 @@ class TestbedEvaluator(BaseEvaluator):
             ):
                 return False
 
-            # if click_match_states and not check_click_match(gr_ui_state, exec_ui_state):
-            #     return False
-
-            # if img_match_states and not check_img_match(gr_ui_state, exec_ui_state):
-            #     return False
+            if (
+                self.action_exact_match
+                and click_match_states
+                and not check_click_match(gr_ui_state, exec_ui_state)
+            ):
+                return False
 
         if self.system_state_exact_match:
             install_match_states: List[str] = es_dict.get(

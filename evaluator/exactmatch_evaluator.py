@@ -43,6 +43,8 @@ class ExactMatchEvaluator(BaseEvaluator):
         # print(agent_predicted_actions[-1])
 
         for i, gr_action in enumerate(gr_actions):
+            if i >= len(agent_predicted_actions):
+                return False, FailedReason.STEP_CHECK_FAILED.value + f" on step {i}"
             real_action = agent_predicted_actions[i]
             try:
                 ui_positions = self.extract_ui_positions_from_vh(
@@ -51,6 +53,9 @@ class ExactMatchEvaluator(BaseEvaluator):
             except:
                 print(f"failed to extract ui positions from file: {vh_paths[i]}")
                 return False, FailedReason.UI_POSITIONS_NOT_FOUND
+            if len(ui_positions) == 0:
+                return False, FailedReason.UI_POSITIONS_NOT_FOUND
+
             if not self.check_action_match_like_AITW(
                 gr_action, real_action, ui_positions
             ):

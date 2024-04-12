@@ -1,21 +1,21 @@
 import logging
-from typing import Optional, Tuple, List, Dict
-
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 from PIL import Image
 
-from .evaluator import BaseEvaluator, FailedReason
+from evaluator.agent import MobileAgent
+
 from .common.action_type import Action
+from .evaluator import BaseEvaluator, FailedReason
+from .exactmatch_evaluation.action_matching import check_actions_match
 from .task_trace import (
     TaskTrace,
     get_all_actions,
     get_all_screenshot_paths,
     get_all_vh_paths,
 )
-from .exactmatch_evaluation.action_matching import check_actions_match
 from .utils.vh_simplify import extract_ui_positions_from_vh
-from evaluator.agent import MobileAgent
 
 
 class LCSMatchEvaluator(BaseEvaluator):
@@ -125,7 +125,7 @@ class LCSMatchEvaluator(BaseEvaluator):
         """
         screen_width, screen_height = Image.open(screenshot_path).size
         ui_positions = extract_ui_positions_from_vh(vh_path).astype(float)
-        print(f"extracting {len(ui_positions)} UI positions from {vh_path}")
+        # print(f"extracting {len(ui_positions)} UI positions from {vh_path}")
         if len(ui_positions) == 0:
             return np.array([])
         # normalize every single np.ndarray in ui_positions according to w, h
