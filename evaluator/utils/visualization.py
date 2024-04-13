@@ -236,8 +236,8 @@ def plot_example(
     if show_essential_staets and example["essential_states"]:
         ess = example["essential_states"]
         ess_all_texts = []
-        if EssentialStateKeyword.FUZZY_MATCH in ess:
-            for bbox_id in ess[EssentialStateKeyword.FUZZY_MATCH]:
+        if EssentialStateKeyword.FUZZY in ess:
+            for bbox_id in ess[EssentialStateKeyword.FUZZY]:
                 bbox_id = int(bbox_id)
 
                 if bbox_id == -2:
@@ -261,7 +261,7 @@ def plot_example(
             ess_all_texts.append(f"{k.value.upper()}: {ess[k][0]}")
 
         keys = [
-            EssentialStateKeyword.TEXTBOX,
+            EssentialStateKeyword.EXACT,
             EssentialStateKeyword.CLICK,
         ]
         for k in keys:
