@@ -176,15 +176,23 @@ class DatasetHelper:
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(DatasetHelper, cls).__new__(cls, *args, **kwargs)
+            cls._instance = super(DatasetHelper, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self) -> None:
+    def __init__(self, epi_metadata_path: str = None) -> None:
         self.logger = logging.getLogger(self.__class__.__name__)
-        # load task metadata
-        self.epi_to_category_file = os.path.join(
-            GROUNDTRUTH_DATASET_PATH, "epi_metadata_all.tsv"
-        )
+
+        if not epi_metadata_path:
+            self.epi_metadata_path = os.path.join(
+                GROUNDTRUTH_DATASET_PATH, "epi_metadata_all.tsv"
+            )
+            self.logger.info(
+                f"""Using DEFAULT epi_metadata_path: {self.epi_metadata_path}
+                To use a custom epi_metadata_path, please provide it as an argument when initializing DatasetHelper."""
+            )
+        else:
+            self.epi_metadata_path = epi_metadata_path
+            self.logger.info(f"Using epi_metadata_path: {self.epi_metadata_path}")
 
         """Example of epi_metadata_dict: 
         {
@@ -194,7 +202,6 @@ class DatasetHelper:
             },
             ...
         }
-
         this dict will only be loaded when *self.epi_metadata_dict* is accessed
         """
         self._epi_metadata_dict: OrderedDict[
@@ -208,7 +215,7 @@ class DatasetHelper:
         return self._epi_metadata_dict
 
     def init_epi_to_category(self) -> None:
-        """Load episode metadata from the file {self.epi_to_category_file}
+        """Load episode metadata from the file {self.epi_metadata_path}
         Columns: [episode,category,path,description,nsteps]
 
         Format: {
@@ -220,10 +227,10 @@ class DatasetHelper:
         }
         """
         assert os.path.exists(
-            self.epi_to_category_file
-        ), f"The file {self.epi_to_category_file} does not exist"
+            self.epi_metadata_path
+        ), f"The file {self.epi_metadata_path} does not exist"
 
-        with open(self.epi_to_category_file, "r") as f:
+        with open(self.epi_metadata_path, "r") as f:
             next(f)  # f is an iterable file object; skip the header
             for line in f:
                 epi, category, path, task_description = line.strip().split("\t")[:4]
@@ -376,7 +383,7 @@ class DatasetHelper:
     # ---------------------------------------------------- #
     def load_groundtruth_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
         category: TaskCategory = self.get_category_by_episode(episode)
-        print(f"episode: {episode}, category: {category}")
+        self.logger.info(f"episode: {episode}, category: {category}")
         if episode in self._load_groundtruth_trace_by_category(category):
             return self._load_groundtruth_trace_by_category(category)[episode]
         else:
