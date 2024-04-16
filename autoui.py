@@ -16,7 +16,6 @@ class AutoUI(MobileAgent):
         super().__init__()
         self.agent = Agent.AUTOUI
         self.agent_exec_trace_path = CONFIG.AUTOUI_EXEC_TRACE_PATH
-        self.epi_to_action_list: Dict[str, List[Action]] = {}
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         exec_trace: TaskTrace = self.load_exec_trace_by_episode(episode)
