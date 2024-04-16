@@ -446,14 +446,14 @@ class DatasetHelper:
 
         # this for-range is for processing the action record
         for action_text in action_texts:
-            action_type = re.search("\[(?P<action_type>.+)\]", action_text).groupdict()[
+            action_type = re.search(r"\[(?P<action_type>.+)\]", action_text).groupdict()[
                 "action_type"
             ]
             if action_type == "Home" or action_type == "Back":
                 action_list.append(Action(action_type=ACTION_SPACE[action_type]))
             elif action_type == "Click":
                 pattern = re.compile(
-                    "Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Click Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\)"
+                    r"Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Click Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\)"
                 )
                 re_dict = re.search(pattern, action_text).groupdict()
                 screen_width = int(re_dict["screen_width"])
@@ -473,7 +473,7 @@ class DatasetHelper:
                 )
             elif action_type == "Swipe":
                 pattern = re.compile(
-                    "Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Start Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\), End Position \((?P<position_2_x>\d+), (?P<position_2_y>\d+)\)"
+                    r"Screen Resolution \((?P<screen_width>\d+), (?P<screen_height>\d+)\), Start Position \((?P<position_1_x>\d+), (?P<position_1_y>\d+)\), End Position \((?P<position_2_x>\d+), (?P<position_2_y>\d+)\)"
                 )
                 re_dict = re.search(pattern, action_text).groupdict()
                 screen_width = int(re_dict["screen_width"])
@@ -492,7 +492,7 @@ class DatasetHelper:
                     )
                 )
             elif action_type == "Input":
-                pattern = re.compile("\[Input\] (?P<text>.*)")
+                pattern = re.compile(r"\[Input\] (?P<text>.*)")
                 text = re.search(pattern, action_text).groupdict()["text"]
                 action_list.append(
                     Action(action_type=ACTION_SPACE[action_type], typed_text=text)
