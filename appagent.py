@@ -69,11 +69,6 @@ class AppAgent(MobileAgent):
         epi_trace_path = self.epi_to_exec_trace_path[episode]
         return self.helper.load_testbed_trace_by_path(epi_trace_path)
 
-    def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        if not self.epi_to_exec_trace_path:
-            self._proc_all_exec_trace()
-        return self.epi_to_exec_trace_path[episode]
-
 
 if __name__ == "__main__":
     human_eval_path = CONFIG.APPAGENT_HUMANEVAL_PATH

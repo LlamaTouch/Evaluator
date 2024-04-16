@@ -25,7 +25,3 @@ class MobileAgent(ABC):
     @abstractmethod
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Dict]]:
         pass
-
-    @abstractmethod
-    def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        pass

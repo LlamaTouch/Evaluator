@@ -1,8 +1,8 @@
 import argparse
 import os
 from typing import List, Optional
-from config import CONFIG
 
+from config import CONFIG
 from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
@@ -33,9 +33,6 @@ class AutoDroid(MobileAgent):
         return DatasetHelper(CONFIG.EPI_METADATA_PATH).load_testbed_trace_by_path(
             epi_folder
         )
-
-    def load_exec_trace_path_by_episode(self, episode: str) -> str:
-        pass
 
 
 if __name__ == "__main__":
