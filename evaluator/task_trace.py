@@ -446,9 +446,9 @@ class DatasetHelper:
 
         # this for-range is for processing the action record
         for action_text in action_texts:
-            action_type = re.search(r"\[(?P<action_type>.+)\]", action_text).groupdict()[
-                "action_type"
-            ]
+            action_type = re.search(
+                r"\[(?P<action_type>.+)\]", action_text
+            ).groupdict()["action_type"]
             if action_type == "Home" or action_type == "Back":
                 action_list.append(Action(action_type=ACTION_SPACE[action_type]))
             elif action_type == "Click":
