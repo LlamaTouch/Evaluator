@@ -1,9 +1,10 @@
 import argparse
 import os
-from typing import Dict, List, Optional
+from typing import List, Optional
+from config import CONFIG
 
 from evaluator.agent import MobileAgent
-from evaluator.common.action_type import Action, ActionType
+from evaluator.common.action_type import Action
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.lcsmatch_evaluator import LCSMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
@@ -16,7 +17,7 @@ class AutoDroid(MobileAgent):
         super().__init__()
         self.agent = Agent.AUTODROID
         self.epi_to_exec_trace_path = {}
-        self.base_folder = "/home/zl/mobile-agent/testbed/AutoDroid/exec_output"
+        self.base_folder = CONFIG.AUTODROID_EXEC_TRACE_PATH
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         exec_trace: TaskTrace = self.load_exec_trace_by_episode(episode)
@@ -29,7 +30,9 @@ class AutoDroid(MobileAgent):
         if not os.path.exists(epi_folder):
             return None
 
-        return DatasetHelper().load_testbed_trace_by_path(epi_folder)
+        return DatasetHelper(CONFIG.EPI_METADATA_PATH).load_testbed_trace_by_path(
+            epi_folder
+        )
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
         pass
@@ -47,6 +50,7 @@ if __name__ == "__main__":
     if args.eval == "exact" or args.eval == "e":
         e = ExactMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -63,6 +67,7 @@ if __name__ == "__main__":
     elif args.eval == "testbed" or args.eval == "t":
         t = TestbedEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -82,6 +87,7 @@ if __name__ == "__main__":
     elif args.eval == "lcs-exact" or args.eval == "lcse":
         t = LCSMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,

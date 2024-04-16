@@ -25,10 +25,6 @@ class TaskCategory(Enum):
     GENERATED = "generated"
 
 
-GROUNDTRUTH_DATASET_PATH = os.getenv(
-    "GROUNDTRUTH_DATASET_PATH", "/home/zl/mobile-agent/testbed/groundtruth-traces"
-)
-
 ACTION_SPACE = {
     "Home": ActionType.PRESS_HOME,
     "Back": ActionType.PRESS_BACK,
@@ -179,20 +175,11 @@ class DatasetHelper:
             cls._instance = super(DatasetHelper, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, epi_metadata_path: str = None) -> None:
+    def __init__(self, epi_metadata_path: str) -> None:
         self.logger = logging.getLogger(self.__class__.__name__)
 
-        if not epi_metadata_path:
-            self.epi_metadata_path = os.path.join(
-                GROUNDTRUTH_DATASET_PATH, "epi_metadata_all.tsv"
-            )
-            self.logger.info(
-                f"""Using DEFAULT epi_metadata_path: {self.epi_metadata_path}
-                To use a custom epi_metadata_path, please provide it as an argument when initializing DatasetHelper."""
-            )
-        else:
-            self.epi_metadata_path = epi_metadata_path
-            self.logger.info(f"Using epi_metadata_path: {self.epi_metadata_path}")
+        self.epi_metadata_path = epi_metadata_path
+        self.logger.info(f"Using epi_metadata_path: {self.epi_metadata_path}")
 
         """Example of epi_metadata_dict: 
         {
@@ -407,7 +394,7 @@ class DatasetHelper:
         }
         """
         groundtruth_trace_folder = os.path.join(
-            GROUNDTRUTH_DATASET_PATH, category.value
+            os.path.dirname(self.epi_metadata_path), category.value
         )
         gt_trace_dict = {}
         dirs = [
@@ -555,8 +542,3 @@ class DatasetHelper:
                 )
             )
         return ep_trace_list
-
-    def load_testbed_goundtruth_trace_path_by_episode(self, episode: str) -> str:
-        return os.path.join(
-            GROUNDTRUTH_DATASET_PATH, self.epi_metadata_dict[episode]["path"]
-        )

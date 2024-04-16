@@ -1,9 +1,9 @@
 import os
-import pickle
 from typing import Dict, List, Optional
 
 import pandas as pd
 
+from config import CONFIG
 from evaluator.agent import MobileAgent
 from evaluator.common.action_type import Action, ActionType
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
@@ -12,7 +12,7 @@ from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
 from evaluator.testbed_evaluator import TestbedEvaluator
 
 APPAGENT_EXEC_TRACE_PATH = os.getenv(
-    "APPAGENT_EXEC_TRACE_PATH", "/data/wangshihe/AgentTestbed/AgentEnvTestbed/AppAgent"
+    "APPAGENT_EXEC_TRACE_PATH", CONFIG.APPAGENT_EXEC_TRACE_PATH
 )
 
 
@@ -29,6 +29,7 @@ class AppAgent(MobileAgent):
         }
         self.epi_to_trace_path: Dict[str, str] = {}
         self.epi_to_exec_trace_path: Dict[str, str] = {}
+        self.helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         if not self.epi_to_exec_trace_path:
@@ -37,7 +38,7 @@ class AppAgent(MobileAgent):
         if episode not in self.epi_to_exec_trace_path:
             return None
         epi_trace_path = self.epi_to_exec_trace_path[episode]
-        trace = DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
+        trace = self.helper.load_testbed_trace_by_path(epi_trace_path)
         act_list: List[Action] = [
             item.action for item in trace if item.action is not None
         ]
@@ -66,7 +67,7 @@ class AppAgent(MobileAgent):
         if episode not in self.epi_to_exec_trace_path:
             return None
         epi_trace_path = self.epi_to_exec_trace_path[episode]
-        return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
+        return self.helper.load_testbed_trace_by_path(epi_trace_path)
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
         if not self.epi_to_exec_trace_path:
@@ -75,7 +76,7 @@ class AppAgent(MobileAgent):
 
 
 if __name__ == "__main__":
-    human_eval_path = "/data/wangshihe/AgentTestbed/Evaluator/human_appagent.csv"
+    human_eval_path = CONFIG.APPAGENT_HUMANEVAL_PATH
     table_all_successful_FLAG = False
     suffix = "only_human_success"
     agent = AppAgent()

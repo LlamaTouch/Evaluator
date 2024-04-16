@@ -18,8 +18,10 @@ class ExactMatchEvaluator(BaseEvaluator):
         for epi, n in self.epi_to_num_correct_action.items():
             print(f"{epi} has {n} correct actions")
 
-    def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
-        super().__init__(agent, options)
+    def __init__(
+        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+    ) -> None:
+        super().__init__(agent, epi_metadata_path, options)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
         self.epi_to_num_correct_action = defaultdict(int)

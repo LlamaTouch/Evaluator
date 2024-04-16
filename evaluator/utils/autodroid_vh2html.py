@@ -541,13 +541,3 @@ def simplify_views(views, merge_buttons=True) -> str:
 
     views_without_id = _remove_view_ids(view_descs)
     return "\n".join(views_without_id)
-
-
-if __name__ == "__main__":
-    import json
-
-    file = "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result/general/10044090148215207294/captured_data/view_hierarchy/0.json"
-    data = json.load(open(file))
-    views = parse_views(data)
-    sv = simplify_views(views)
-    print(sv)

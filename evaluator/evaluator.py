@@ -5,7 +5,6 @@ from datetime import datetime
 from enum import Enum
 from typing import Dict, Optional, Tuple
 
-import numpy as np
 import pandas as pd
 
 from .agent import MobileAgent
@@ -21,12 +20,14 @@ class FailedReason(Enum):
 
 
 class BaseEvaluator(ABC):
-    def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
+    def __init__(
+        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+    ) -> None:
         logging.basicConfig(level=logging.INFO)
         self.logger = None
         self.agent: MobileAgent = agent
         self.evaluator_name: str = None
-        self.helper = DatasetHelper()
+        self.helper = DatasetHelper(epi_metadata_path)
         self.episode_completion: Dict[str, Tuple[bool, str]] = {}
         # evaluation options: by default, all episodes will be evaluated
         #   - "categories": [TaskCategory.GENERAL, TaskCategory.GOOGLEAPPS, ...]

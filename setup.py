@@ -1,4 +1,3 @@
-import os
 from setuptools import find_packages, setup
 
 
@@ -18,9 +17,6 @@ if __name__ == "__main__":
         packages=find_packages(exclude=()),
         include_package_data=True,
         python_requires=">=3.7",
-        url="https://github.com/MaTestbed/Evaluator",
-        # author="",
-        # author_email="",
-        # license="",
+        url="https://github.com/LlamaTouch/Evaluator",
         install_requires=parse_requirements(),
     )

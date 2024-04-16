@@ -1,9 +1,10 @@
 import argparse
 import os
-from typing import Dict, List, Optional
+from typing import List, Optional
+from config import CONFIG
 
 from evaluator.agent import MobileAgent
-from evaluator.common.action_type import Action, ActionType
+from evaluator.common.action_type import Action
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.lcsmatch_evaluator import LCSMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
@@ -11,14 +12,11 @@ from evaluator.testbed_evaluator import TestbedEvaluator
 
 
 class CoCoAgent(MobileAgent):
-
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.COCOAGENT
         self.epi_to_exec_trace_path = {}
-        self.base_folder = (
-            "/data/zzh/mobile-agent/CoCoAgent/agentenv/agent_result/all_data"
-        )
+        self.base_folder = CONFIG.COCOAGENT_EXEC_TRACE_PATH
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         exec_trace: TaskTrace = self.load_exec_trace_by_episode(episode)
@@ -31,14 +29,16 @@ class CoCoAgent(MobileAgent):
         if not os.path.exists(epi_folder):
             return None
 
-        return DatasetHelper().load_testbed_trace_by_path(epi_folder)
+        return DatasetHelper(CONFIG.EPI_METADATA_PATH).load_testbed_trace_by_path(
+            epi_folder
+        )
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
         pass
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run CoCo-Agent evaluation.")
+    parser = argparse.ArgumentParser(description="Run CoCoAgent evaluation.")
     parser.add_argument(
         "--eval", type=str, help='Evaluation type: "testbed (t)" or "exact (e)"'
     )

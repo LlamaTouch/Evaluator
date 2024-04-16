@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
+from config import CONFIG
 from evaluator.task_trace import DatasetHelper, TaskTrace
 from evaluator.utils.visualization import plot_episode
 
-helper = DatasetHelper()
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
 
 
 def plot_single_trace(episode: str, output_file: str):

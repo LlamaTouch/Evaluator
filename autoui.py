@@ -1,11 +1,10 @@
 import argparse
-import ast
-import json
 import os
 from typing import Dict, List, Optional
+from config import CONFIG
 
 from evaluator.agent import MobileAgent
-from evaluator.common.action_type import Action, ActionType
+from evaluator.common.action_type import Action
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.lcsmatch_evaluator import LCSMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
@@ -16,37 +15,8 @@ class AutoUI(MobileAgent):
     def __init__(self) -> None:
         super().__init__()
         self.agent = Agent.AUTOUI
-        self.agent_exec_trace_path = (
-            "/data/zzh/mobile-agent/Auto-UI/agentenv/agent_result"
-        )
+        self.agent_exec_trace_path = CONFIG.AUTOUI_EXEC_TRACE_PATH
         self.epi_to_action_list: Dict[str, List[Action]] = {}
-
-    def load_predicted_action_by_episode(self, episode: str) -> List[Dict] | None:
-        """TODO: implementation required."""
-        pass
-
-    # def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
-    #     # check if the action list is already loaded
-    #     if episode in self.epi_to_action_list.keys():
-    #         return self.epi_to_action_list[episode]
-
-    #     eval_result_file = "/data/zzh/mobile-agent/Auto-UI/Evaluator/result/auto_ui_evaluator_last_screen.json"
-    #     with open(eval_result_file) as f:
-    #         data = json.load(f)
-
-    #     for epi_data in data:
-    #         act_list: List[Action] = []
-    #         for action in epi_data["actions"]:
-    #             act = Action(
-    #                 action_type=ActionType[action["action_type"].upper()],
-    #                 touch_point_yx=tuple(ast.literal_eval(action["touch_point"])),
-    #                 lift_point_yx=tuple(ast.literal_eval(action["lift_point"])),
-    #                 typed_text=action["typed_text"],
-    #             )
-    #             act_list.append(act)
-    #         self.epi_to_action_list[epi_data["episode_id"]] = act_list
-
-    #     return self.epi_to_action_list.get(episode)
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         exec_trace: TaskTrace = self.load_exec_trace_by_episode(episode)
@@ -55,7 +25,8 @@ class AutoUI(MobileAgent):
         return None
 
     def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
-        category = DatasetHelper().get_category_by_episode(episode)
+        helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+        category = helper.get_category_by_episode(episode)
         if category == TaskCategory.WEBSHOPPING:
             category_val = "web_shopping"
         elif category == TaskCategory.GOOGLEAPPS:
@@ -67,7 +38,7 @@ class AutoUI(MobileAgent):
         )
         if not os.path.exists(epi_trace_path):
             return None
-        return DatasetHelper().load_testbed_trace_by_path(epi_trace_path)
+        return helper.load_testbed_trace_by_path(epi_trace_path)
 
     def load_exec_trace_path_by_episode(self, episode: str) -> str:
         pass
@@ -86,6 +57,7 @@ if __name__ == "__main__":
     if args.eval == "exact" or args.eval == "e":
         e = ExactMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -102,6 +74,7 @@ if __name__ == "__main__":
     elif args.eval == "testbed" or args.eval == "t":
         t = TestbedEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -120,6 +93,7 @@ if __name__ == "__main__":
     elif args.eval == "lcs-exact" or args.eval == "lcse":
         t = LCSMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,

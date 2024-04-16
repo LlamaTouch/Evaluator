@@ -161,3 +161,4 @@ cython_debug/
 *dumped_stats/
 gr_trace_plots/
 human_*.csv
+config_local.py

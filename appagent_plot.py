@@ -1,16 +1,15 @@
 import copy
 import os
-import sys
 
-import matplotlib.pyplot as plt
 import numpy as np
-from evaluator.task_trace import DatasetHelper, TaskTrace
-from evaluator.utils.visualization import plot_episode
 from PIL import Image
-import time
 from tqdm import tqdm
 
-helper = DatasetHelper()
+from config import CONFIG
+from evaluator.task_trace import DatasetHelper, TaskTrace
+from evaluator.utils.visualization import plot_episode
+
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
 
 
 def plot_by_folder(folder_path: str):

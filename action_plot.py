@@ -2,6 +2,7 @@ import ast
 import copy
 import pickle
 from typing import List
+from config import CONFIG
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -60,7 +61,7 @@ if __name__ == "__main__":
         "ui_type": None,
     }
 
-    helper = DatasetHelper()
+    helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
     episodes: List[str] = helper.get_all_episodes()
     current_actions = None
     for epi in tqdm(episodes):
@@ -79,14 +80,10 @@ if __name__ == "__main__":
             print("find episode error:", epi)
             continue
         for screenshot_path in screenshot_paths:
-            # 打开图像文件
             img = Image.open(screenshot_path)
             img = img.resize((540, 1140))
-            # 确保图像是RGB格式
             img_rgb = img.convert("RGB")
-            # 将图像转换为NumPy数组
             img_array = np.array(img_rgb)
-            # 输出数组的形状
             # print(img_array.shape)
             current_episode["image"] = img_array
             current_episode["episode_id"] = epi
@@ -103,9 +100,7 @@ if __name__ == "__main__":
             current_episodes.append(current_episode_copy)
             step_id += 1
         try:
-            # 尝试执行 plot_episode 函数
             plot_episode(current_episodes, show_annotations=False, show_actions=True)
             plt.savefig(f"{save_path}/{epi}.pdf")
         except Exception as e:
-            # 如果发生异常，执行这里的代码
             print(f"An error occurred: {e}")

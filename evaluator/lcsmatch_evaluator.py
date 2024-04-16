@@ -20,11 +20,14 @@ from .utils.vh_simplify import extract_ui_positions_from_vh
 
 class LCSMatchEvaluator(BaseEvaluator):
     """
-    Evaluate the task completion by calculating the Longest Common Subsequence (LCS) of the ground-truth trace and the task execution trace by testbed.
+    Evaluate the task completion by calculating the Longest Common Subsequence
+    (LCS) of the ground-truth trace and the task execution trace by testbed.
     """
 
-    def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
-        super().__init__(agent, options)
+    def __init__(
+        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+    ) -> None:
+        super().__init__(agent, epi_metadata_path, options)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
         logging.getLogger().setLevel(logging.INFO)

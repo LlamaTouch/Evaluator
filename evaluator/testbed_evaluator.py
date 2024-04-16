@@ -19,8 +19,10 @@ from .testbed_evaluation.system_state_match import (
 
 
 class TestbedEvaluator(BaseEvaluator):
-    def __init__(self, agent: MobileAgent, options: Dict = None) -> None:
-        super().__init__(agent, options)
+    def __init__(
+        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+    ) -> None:
+        super().__init__(agent, epi_metadata_path, options)
         self.evaluator_name = self.__class__.__name__
 
         """Ablation Study
