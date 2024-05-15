@@ -54,6 +54,9 @@ class EssentialStateKeyword(Enum):
     CHECK_INSTALL = "check_install"
     CHECK_UNINSTALL = "check_uninstall"
 
+    """exact image match"""
+    IMAGE = "image"
+
 
 class UIState:
     """
