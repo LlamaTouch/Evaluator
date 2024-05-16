@@ -1,4 +1,0 @@
-[Home]
-[Click] Screen Resolution (320, 720), Click Position (204, 170)
-[Click] Screen Resolution (320, 720), Click Position (150, 260)
-[Click] Screen Resolution (320, 720), Click Position (191, 385)

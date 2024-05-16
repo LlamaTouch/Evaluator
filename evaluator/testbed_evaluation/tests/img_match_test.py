@@ -5,30 +5,63 @@ from unittest.mock import Mock
 
 class TestCheckImgMatch(unittest.TestCase):
     def setUp(self):
-        self.image_similarity_bounds = [10]
+        self.image_similarity_bounds = [1,5,10]
         self.test_data = [
+            # """small size of image"""
             {   
-                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.json',
-                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.png',
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
                 "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
-                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.png',
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
                 "expected": True  
             },
             {   
-                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.json', 
-                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.png',
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json', 
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
                 "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
-                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/3.png',
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/3.png',
                 "expected": True
             },
             {   
                 # image don`t match 
-                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.json',
-                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/2.png',
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
                 "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
-                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/trace_18/0.png',
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/0.png',
                 "expected": False
-            }
+            },
+            # """middle size of image"""
+            {
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "expected": True
+            },
+            {
+                # image don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/2.png',
+                "expected": False
+            },
+            # """large size of image"""
+            {
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "expected": True
+            },
+            {
+                # image don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/2.png',
+                "expected": False
+            },
             
         ]
 
