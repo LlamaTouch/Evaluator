@@ -17,6 +17,10 @@ jobs:
         run: pip install black
       - name: Run black
         run: black .
+      - name: Run isort
+        uses: olance/isort-action@v1.0.0
+        with:
+          args: .
       - name: Auto commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
