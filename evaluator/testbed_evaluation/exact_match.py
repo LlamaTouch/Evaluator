@@ -16,7 +16,7 @@ def _get_image_patch(image: Image, bounds: List[int]) -> Image:
 
 def check_img_match(gr_ui_state: UIState, exec_ui_state: UIState, image_similarity_bound: Optional[int] = 1) -> bool:
     match_node_ids: List[str] = gr_ui_state.essential_state[
-        EssentialStateKeyword.IMAGE
+        EssentialStateKeyword.EXACT
     ]
     
     for node_id in match_node_ids:

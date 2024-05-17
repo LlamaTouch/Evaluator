@@ -7,59 +7,185 @@ class TestCheckImgMatch(unittest.TestCase):
     def setUp(self):
         self.image_similarity_bounds = [1,5,10]
         self.test_data = [
-            # """small size of image"""
+            # """small size of EXACT"""
             {   
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
                 "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "image_similarity_bounds": 1,
+                "expected": True  
+            },
+            {   
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "image_similarity_bounds": 5,
+                "expected": True  
+            },
+            {   
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "image_similarity_bounds": 10,
                 "expected": True  
             },
             {   
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json', 
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
                 "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/3.png',
+                "image_similarity_bounds": 1,
                 "expected": True
             },
             {   
-                # image don`t match 
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json', 
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/3.png',
+                "image_similarity_bounds": 5,
+                "expected": True
+            },
+            {   
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json', 
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/3.png',
+                "image_similarity_bounds": 10,
+                "expected": True
+            },
+            {   
+                # EXACT don`t match 
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["0"]},
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
                 "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/0.png',
+                "image_similarity_bounds": 1,                
                 "expected": False
             },
-            # """middle size of image"""
+            {   
+                # EXACT don`t match 
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/0.png',
+                "image_similarity_bounds": 5,                
+                "expected": False
+            },
+            {   
+                # EXACT don`t match 
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/2.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["0"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case1/0.png',
+                "image_similarity_bounds": 10,                
+                "expected": False
+            },
+
+            # """middle size of EXACT"""
             {
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["16"]},
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
                 "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "image_similarity_bounds": 1,
                 "expected": True
             },
             {
-                # image don`t match
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["16"]},
-                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/2.png',
-                "expected": False
-            },
-            # """large size of image"""
-            {
-                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
-                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["22"]},
-                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "image_similarity_bounds": 5,
                 "expected": True
             },
             {
-                # image don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "image_similarity_bounds": 10,
+                "expected": True
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/2.png',
+                "image_similarity_bounds": 1,
+                "expected": False
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/2.png',
+                "image_similarity_bounds": 5,
+                "expected": True
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["16"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case2/2.png',
+                "image_similarity_bounds": 10,
+                "expected": True
+            },
+            # """large size of EXACT"""
+            {
                 "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
                 "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
-                "gr_essential_state": {EssentialStateKeyword.IMAGE: ["22"]},
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "image_similarity_bounds": 1,
+                "expected": True
+            },
+            {
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "image_similarity_bounds": 5,
+                "expected": True
+            },
+            {
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "image_similarity_bounds": 10,
+                "expected": True
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
                 "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/2.png',
+                "image_similarity_bounds": 1,
+                "expected": False
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/2.png',
+                "image_similarity_bounds": 5,
+                "expected": False
+            },
+            {
+                # EXACT don`t match
+                "gr_simp_vh_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.json',
+                "gr_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/1.png',
+                "gr_essential_state": {EssentialStateKeyword.EXACT: ["22"]},
+                "exec_image_path": 'evaluator/testbed_evaluation/tests/test_case/img_test_case/case3/2.png',
+                "image_similarity_bounds": 10,
                 "expected": False
             },
             
@@ -67,8 +193,8 @@ class TestCheckImgMatch(unittest.TestCase):
 
     def test_check_img_match(self):
         for test_case in self.test_data:
-            for bound in self.image_similarity_bounds:
-                with self.subTest(test_case=test_case, bound=bound):
+                with self.subTest(test_case=test_case):
+                    bound = test_case["image_similarity_bounds"]
                     gr_ui_state = Mock()
                     gr_ui_state.vh_simp_ui_json_path = test_case["gr_simp_vh_path"]
                     gr_ui_state.screenshot_path = test_case["gr_image_path"]
