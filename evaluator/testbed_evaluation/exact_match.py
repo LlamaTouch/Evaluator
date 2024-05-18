@@ -140,6 +140,7 @@ def check_uicomponent_match(gr_ui_state: UIState, exec_ui_state: UIState) -> boo
     match_node_ids: List[str] = gr_ui_state.essential_state[
         EssentialStateKeyword.EXACT
     ]
+    null_state = [""," ","null",None]
 
     parser = etree.XMLParser(recover=True, encoding="utf-8")
     exec_ui_tree = etree.parse(exec_ui_state.vh_path, parser)
@@ -151,8 +152,8 @@ def check_uicomponent_match(gr_ui_state: UIState, exec_ui_state: UIState) -> boo
             open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
         )[node_id]
 
-        if annotated_ui_repr.get("text",None) == None and \
-            annotated_ui_repr.get("content-desc",None) == None:
+        if annotated_ui_repr.get("text",None) in null_state and \
+            annotated_ui_repr.get("content-desc",None) in null_state:
              if not _check_img_exact_match(annotated_ui_repr,gr_ui_state.screenshot_path,\
                                            exec_ui_state.screenshot_path):
                  return False
