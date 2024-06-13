@@ -175,11 +175,14 @@ class DatasetHelper:
             cls._instance = super(DatasetHelper, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, epi_metadata_path: str) -> None:
+    def __init__(self, epi_metadata_path: str, gr_dataset_path: str) -> None:
         self.logger = logging.getLogger(self.__class__.__name__)
 
         self.epi_metadata_path = epi_metadata_path
-        self.logger.info(f"Using epi_metadata_path: {self.epi_metadata_path}")
+        self.gr_dataset_path = gr_dataset_path
+        self.logger.info(
+            f"Using epi_metadata_path: {self.epi_metadata_path}, gr_dataset_path: {gr_dataset_path}"
+        )
 
         """Example of epi_metadata_dict: 
         {
@@ -393,18 +396,16 @@ class DatasetHelper:
             ...
         }
         """
-        groundtruth_trace_folder = os.path.join(
-            os.path.dirname(self.epi_metadata_path), category.value
-        )
+        gr_category_path = os.path.join(self.gr_dataset_path, category.value)
         gt_trace_dict = {}
         dirs = [
             d
-            for d in os.listdir(groundtruth_trace_folder)
-            if os.path.isdir(os.path.join(groundtruth_trace_folder, d))
+            for d in os.listdir(gr_category_path)
+            if os.path.isdir(os.path.join(gr_category_path, d))
         ]
         dirs.sort()
         for dir in dirs:
-            path = os.path.join(groundtruth_trace_folder, dir)
+            path = os.path.join(gr_category_path, dir)
             ep_id_path = os.path.join(path, "instruction.txt")
             with open(ep_id_path, "r") as f:
                 ep_id = f.readline().strip()

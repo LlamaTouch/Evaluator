@@ -9,7 +9,7 @@ from config import CONFIG
 from evaluator.task_trace import DatasetHelper, TaskTrace
 from evaluator.utils.visualization import plot_episode
 
-helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
 
 
 def plot_by_folder(folder_path: str):

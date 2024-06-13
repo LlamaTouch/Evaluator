@@ -24,7 +24,7 @@ class AutoUI(MobileAgent):
         return None
 
     def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
-        helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+        helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
         category = helper.get_category_by_episode(episode)
         if category == TaskCategory.WEBSHOPPING:
             category_val = "web_shopping"

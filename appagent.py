@@ -29,7 +29,7 @@ class AppAgent(MobileAgent):
         }
         self.epi_to_trace_path: Dict[str, str] = {}
         self.epi_to_exec_trace_path: Dict[str, str] = {}
-        self.helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+        self.helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
 
     def load_predicted_action_by_episode(self, episode: str) -> Optional[List[Action]]:
         if not self.epi_to_exec_trace_path:

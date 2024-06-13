@@ -2,13 +2,13 @@ import ast
 import copy
 import pickle
 from typing import List
-from config import CONFIG
 
 import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image
 from tqdm import tqdm
 
+from config import CONFIG
 from evaluator.common import action_type
 from evaluator.task_trace import DatasetHelper, TaskTrace
 from evaluator.utils.visualization import plot_episode
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         "ui_type": None,
     }
 
-    helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+    helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
     episodes: List[str] = helper.get_all_episodes()
     current_actions = None
     for epi in tqdm(episodes):

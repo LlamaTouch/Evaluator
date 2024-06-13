@@ -29,9 +29,9 @@ class CoCoAgent(MobileAgent):
         if not os.path.exists(epi_folder):
             return None
 
-        return DatasetHelper(CONFIG.EPI_METADATA_PATH).load_testbed_trace_by_path(
-            epi_folder
-        )
+        return DatasetHelper(
+            CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH
+        ).load_testbed_trace_by_path(epi_folder)
 
 
 if __name__ == "__main__":

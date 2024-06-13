@@ -27,7 +27,7 @@ This class requires the file path of [task metadata](https://github.com/LlamaTou
 ```python
 from config import CONFIG
 
-helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
 ```
 
 The following examples show how to use the dataset with LlamaTouch Evaluator for UI automation task execution (i.e., agent ingests task descriptions from the dataset) and evaluation (i.e., evaluator extracts UI representations, actions, and essential states from the dataset).
@@ -40,7 +40,7 @@ from config import CONFIG
 from evaluator.task_trace import DatasetHelper
 from typing import List
 
-helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
 
 # get all episodes
 episodes: List[str] = helper.get_all_episodes()
@@ -65,7 +65,7 @@ from evaluator.task_trace import (
 )
 from typing import List
 
-helper = DatasetHelper(CONFIG.EPI_METADATA_PATH)
+helper = DatasetHelper(CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH)
 episodes: List[str] = helper.get_all_episodes()
 epi = episodes[0]
 
