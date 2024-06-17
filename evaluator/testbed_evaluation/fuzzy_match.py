@@ -1,5 +1,5 @@
-import os
 import json
+import os
 from typing import Dict, List
 
 from lxml import etree
@@ -36,21 +36,21 @@ def check_fuzzy_match(
     textbox_fuzzy_match: bool = True,
 ) -> bool:
     fuzzy_match_node_ids: List[str] = gr_ui_state.essential_state[
-        EssentialStateKeyword.FUZZY_MATCH
+        EssentialStateKeyword.FUZZY
     ]
 
     for node_id in fuzzy_match_node_ids:
         """
         TODO: can this be optimized?
-        All check_install & check_uninstall keywords are with fuzzy_match<-2>
+        All check_install & check_uninstall keywords are with fuzzy<-2>
 
         Example:
-        check_install<Booking.com>|fuzzy_match<-2>
-        check_uninstall<Microsoft Excel>|fuzzy_match<-2>
+        check_install<Booking.com>|fuzzy<-2>
+        check_uninstall<Microsoft Excel>|fuzzy<-2>
 
-        fuzzy_match<-1> indicates comparing the entire UI representation
+        fuzzy<-1> indicates comparing the entire UI representation
 
-        fuzzy_match<x (x>=0)> indicates comparing only the node with id=x
+        fuzzy<x (x>=0)> indicates comparing only the node with id=x
         """
         node_id = int(node_id)
 

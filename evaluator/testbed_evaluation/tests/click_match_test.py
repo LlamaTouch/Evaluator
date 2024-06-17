@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import Mock
+
+from evaluator.task_trace import ActionType, EssentialStateKeyword
 from evaluator.testbed_evaluation.exact_match import check_click_match
-from evaluator.task_trace import EssentialStateKeyword, ActionType
 
 
 class TestCheckClickMatch(unittest.TestCase):

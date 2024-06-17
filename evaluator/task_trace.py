@@ -111,7 +111,7 @@ class UIState:
                     content = f.read()
                 self.essential_state = DefaultDict(list)
                 # split_content: ['exact<1>',
-                #                 'fuzzy_match<-1>',
+                #                 'fuzzy<-1>',
                 #                 'check_install<Microsoft Excel>',
                 #                  ...]
                 split_content = [item.strip() for item in content.split("|")]

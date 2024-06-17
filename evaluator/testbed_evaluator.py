@@ -5,24 +5,24 @@ from evaluator.agent import MobileAgent
 
 from .evaluator import BaseEvaluator, FailedReason
 from .task_trace import EssentialStateKeyword, TaskTrace, UIState
-from .testbed_evaluation.exact_match import (
-    check_activity_match,
-    check_click_match,
-    check_type_match,
-    check_uicomponent_match,
-)
+from .testbed_evaluation.exact_match import (check_activity_match,
+                                             check_click_match,
+                                             check_type_match,
+                                             check_uicomponent_match)
 from .testbed_evaluation.fuzzy_match import check_fuzzy_match
-from .testbed_evaluation.system_state_match import (
-    check_install_match,
-    check_uninstall_match,
-)
+from .testbed_evaluation.system_state_match import (check_install_match,
+                                                    check_uninstall_match)
 
 
 class TestbedEvaluator(BaseEvaluator):
     def __init__(
-        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+        self,
+        agent: MobileAgent,
+        epi_metadata_path: str,
+        gr_dataset_path: str,
+        options: Dict = None,
     ) -> None:
-        super().__init__(agent, epi_metadata_path, options)
+        super().__init__(agent, epi_metadata_path, gr_dataset_path, options)
         self.evaluator_name = self.__class__.__name__
 
         """Ablation Study
@@ -149,7 +149,7 @@ class TestbedEvaluator(BaseEvaluator):
 
         if True:  # fuzzy_match
             fuzzy_match_states: List[str] = es_dict.get(
-                EssentialStateKeyword.FUZZY_MATCH, None
+                EssentialStateKeyword.FUZZY, None
             )
             if fuzzy_match_states and not check_fuzzy_match(
                 gr_ui_state,

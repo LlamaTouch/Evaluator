@@ -25,7 +25,7 @@ class CoCoAgent(MobileAgent):
         return None
 
     def load_exec_trace_by_episode(self, episode: str) -> Optional[TaskTrace]:
-        epi_folder = os.path.join(self.base_folder, episode)
+        epi_folder = os.path.join(self.base_folder, episode, "captured_data")
         if not os.path.exists(epi_folder):
             return None
 
@@ -46,6 +46,8 @@ if __name__ == "__main__":
     if args.eval == "exact" or args.eval == "e":
         e = ExactMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -57,11 +59,17 @@ if __name__ == "__main__":
             },
         )
         e.run_evaluation()
-        e.report_stats()
+        e.report_stats(
+            human_eval_path=CONFIG.COCOAGENT_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     elif args.eval == "testbed" or args.eval == "t":
         t = TestbedEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -76,11 +84,17 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.COCOAGENT_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     elif args.eval == "lcs-exact" or args.eval == "lcse":
         t = LCSMatchEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -92,7 +106,11 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.COCOAGENT_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     else:
         raise Exception(

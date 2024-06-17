@@ -1,3 +1,4 @@
+import argparse
 import os
 from typing import Dict, List, Optional
 
@@ -5,7 +6,7 @@ import pandas as pd
 
 from config import CONFIG
 from evaluator.agent import MobileAgent
-from evaluator.common.action_type import Action, ActionType
+from evaluator.common.action_type import Action
 from evaluator.exactmatch_evaluator import ExactMatchEvaluator
 from evaluator.lcsmatch_evaluator import LCSMatchEvaluator
 from evaluator.task_trace import Agent, DatasetHelper, TaskCategory, TaskTrace
@@ -71,49 +72,85 @@ class AppAgent(MobileAgent):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run AutoDroid evaluation.")
+    parser.add_argument(
+        "--eval", type=str, help='Evaluation type: "testbed (t)" or "exact (e)"'
+    )
+    args = parser.parse_args()
+
     human_eval_path = CONFIG.APPAGENT_HUMANEVAL_PATH
     table_all_successful_FLAG = False
     suffix = "only_human_success"
     agent = AppAgent()
 
-    e = ExactMatchEvaluator(
-        agent=agent,
-        options={
-            "categories": [
-                TaskCategory.GENERAL,
-                TaskCategory.GOOGLEAPPS,
-                TaskCategory.INSTALL,
-                TaskCategory.WEBSHOPPING,
-                TaskCategory.GENERATED,
-            ]
-        },
-    )
-    e.run_evaluation()
-    e.report_stats(
-        human_eval_path=human_eval_path,
-        only_human_eval_positive=table_all_successful_FLAG,
-        suffix=suffix,
-    )
+    if args.eval == "exact" or args.eval == "e":
+        e = ExactMatchEvaluator(
+            agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
+            options={
+                "categories": [
+                    TaskCategory.GENERAL,
+                    TaskCategory.GOOGLEAPPS,
+                    TaskCategory.INSTALL,
+                    TaskCategory.WEBSHOPPING,
+                    TaskCategory.GENERATED,
+                ]
+            },
+        )
+        e.run_evaluation()
+        e.report_stats(
+            human_eval_path=human_eval_path,
+            only_human_eval_positive=table_all_successful_FLAG,
+            suffix=suffix,
+        )
 
-    l = LCSMatchEvaluator(
-        agent=agent,
-        options={
-            "categories": [
-                TaskCategory.GENERAL,
-                TaskCategory.GOOGLEAPPS,
-                TaskCategory.INSTALL,
-                TaskCategory.WEBSHOPPING,
-                TaskCategory.GENERATED,
-            ]
-        },
-    )
-    l.run_evaluation()
-    l.report_stats(
-        human_eval_path=human_eval_path,
-        only_human_eval_positive=table_all_successful_FLAG,
-        suffix=suffix,
-    )
+    elif args.eval == "lcs-exact" or args.eval == "lcse":
+        l = LCSMatchEvaluator(
+            agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
+            options={
+                "categories": [
+                    TaskCategory.GENERAL,
+                    TaskCategory.GOOGLEAPPS,
+                    TaskCategory.INSTALL,
+                    TaskCategory.WEBSHOPPING,
+                    TaskCategory.GENERATED,
+                ]
+            },
+        )
+        l.run_evaluation()
+        l.report_stats(
+            human_eval_path=human_eval_path,
+            only_human_eval_positive=table_all_successful_FLAG,
+            suffix=suffix,
+        )
 
+    elif args.eval == "testbed" or args.eval == "t":
+        t = TestbedEvaluator(
+            agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
+            options={
+                "categories": [
+                    TaskCategory.GENERAL,
+                    TaskCategory.GOOGLEAPPS,
+                    TaskCategory.INSTALL,
+                    TaskCategory.WEBSHOPPING,
+                    TaskCategory.GENERATED,
+                ]
+            },
+        )
+        t.run_evaluation()
+        t.report_stats(
+            human_eval_path=human_eval_path,
+            only_human_eval_positive=table_all_successful_FLAG,
+            suffix=suffix,
+        )
+
+    """
+    # demo code of ablation study
     options_base = {
         "categories": [
             TaskCategory.GENERAL,
@@ -171,6 +208,8 @@ if __name__ == "__main__":
     for idx, ablation in enumerate(ablation_list):
         t = TestbedEvaluator(
             agent=agent,
+            epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={**options_base, **ablation},
         )
         t.run_evaluation()
@@ -179,22 +218,4 @@ if __name__ == "__main__":
             only_human_eval_positive=table_all_successful_FLAG,
             suffix=f"{idx}_th_ablation",
         )
-
-    t = TestbedEvaluator(
-        agent=agent,
-        options={
-            "categories": [
-                TaskCategory.GENERAL,
-                TaskCategory.GOOGLEAPPS,
-                TaskCategory.INSTALL,
-                TaskCategory.WEBSHOPPING,
-                TaskCategory.GENERATED,
-            ]
-        },
-    )
-    t.run_evaluation()
-    t.report_stats(
-        human_eval_path=human_eval_path,
-        only_human_eval_positive=table_all_successful_FLAG,
-        suffix=suffix,
-    )
+    """

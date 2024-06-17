@@ -1,7 +1,8 @@
-import xml.etree.ElementTree as ET
-import numpy as np
 import ast
-from typing import List, Dict
+import xml.etree.ElementTree as ET
+from typing import Dict, List
+
+import numpy as np
 
 
 def generate_id(element, parent_ids=None):

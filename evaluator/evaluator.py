@@ -21,13 +21,19 @@ class FailedReason(Enum):
 
 class BaseEvaluator(ABC):
     def __init__(
-        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+        self,
+        agent: MobileAgent,
+        epi_metadata_path: str,
+        gr_dataset_path: str,
+        options: Dict = None,
     ) -> None:
         logging.basicConfig(level=logging.INFO)
         self.logger = None
         self.agent: MobileAgent = agent
         self.evaluator_name: str = None
-        self.helper = DatasetHelper(epi_metadata_path)
+        self.helper = DatasetHelper(
+            epi_metadata_path=epi_metadata_path, gr_dataset_path=gr_dataset_path
+        )
         self.episode_completion: Dict[str, Tuple[bool, str]] = {}
         # evaluation options: by default, all episodes will be evaluated
         #   - "categories": [TaskCategory.GENERAL, TaskCategory.GOOGLEAPPS, ...]
@@ -127,11 +133,6 @@ class BaseEvaluator(ABC):
         to_stdout: bool = False,
         suffix: str = "",
     ) -> None:
-        total, human_positive, exec_positive, tp = metric
-        human_tcr = human_positive / total
-        tcr = exec_positive / total
-        acc = tp / total
-
         stats = [
             f"{epi},{success},{reason}\n"
             for epi, (success, reason) in self.episode_completion.items()
@@ -142,6 +143,11 @@ class BaseEvaluator(ABC):
             exit(0)
 
         if metric:
+            total, human_positive, exec_positive, tp = metric
+            human_tcr = human_positive / total
+            tcr = exec_positive / total
+            acc = tp / total
+
             stats.append(
                 f"total tasks = {total}, human positive = {human_positive}, agent positive = {exec_positive}, true positive = {tp}\n"
             )

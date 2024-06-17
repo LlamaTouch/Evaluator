@@ -1,7 +1,8 @@
+import json
 import unittest
+
 from evaluator.task_trace import EssentialStateKeyword
 from evaluator.testbed_evaluation.exact_match import _check_img_exact_match
-import json
 
 
 class TestCheckImgMatch(unittest.TestCase):

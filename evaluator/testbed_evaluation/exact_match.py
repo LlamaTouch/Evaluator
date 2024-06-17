@@ -2,9 +2,9 @@ import json
 import re
 from typing import Dict, List, Optional
 
+import imagehash
 from lxml import etree
 from PIL import Image
-import imagehash
 
 from ..common.action_type import ActionType
 from ..task_trace import EssentialStateKeyword, UIState

@@ -9,12 +9,8 @@ from evaluator.agent import MobileAgent
 from .common.action_type import Action
 from .evaluator import BaseEvaluator, FailedReason
 from .exactmatch_evaluation.action_matching import check_actions_match
-from .task_trace import (
-    TaskTrace,
-    get_all_actions,
-    get_all_screenshot_paths,
-    get_all_vh_paths,
-)
+from .task_trace import (TaskTrace, get_all_actions, get_all_screenshot_paths,
+                         get_all_vh_paths)
 from .utils.vh_simplify import extract_ui_positions_from_vh
 
 
@@ -25,9 +21,13 @@ class LCSMatchEvaluator(BaseEvaluator):
     """
 
     def __init__(
-        self, agent: MobileAgent, epi_metadata_path: str, options: Dict = None
+        self,
+        agent: MobileAgent,
+        epi_metadata_path: str,
+        gr_dataset_path: str,
+        options: Dict = None,
     ) -> None:
-        super().__init__(agent, epi_metadata_path, options)
+        super().__init__(agent, epi_metadata_path, gr_dataset_path, options)
         self.evaluator_name = self.__class__.__name__
         self.logger = logging.getLogger(self.evaluator_name)
         logging.getLogger().setLevel(logging.INFO)

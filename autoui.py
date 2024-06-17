@@ -1,6 +1,6 @@
 import argparse
 import os
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 from config import CONFIG
 from evaluator.agent import MobileAgent
@@ -41,7 +41,6 @@ class AutoUI(MobileAgent):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="Run AutoUI evaluation.")
     parser.add_argument(
         "--eval", type=str, help='Evaluation type: "testbed (t)" or "exact (e)"'
@@ -54,6 +53,7 @@ if __name__ == "__main__":
         e = ExactMatchEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -65,12 +65,17 @@ if __name__ == "__main__":
             },
         )
         e.run_evaluation()
-        e.report_stats()
+        e.report_stats(
+            human_eval_path=CONFIG.AUTOUI_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     elif args.eval == "testbed" or args.eval == "t":
         t = TestbedEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -85,11 +90,16 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.AUTOUI_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
     elif args.eval == "lcs-exact" or args.eval == "lcse":
         t = LCSMatchEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -101,7 +111,11 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.AUTOUI_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
     else:
         raise Exception(
             f"Invalid evaluation type: {args.eval}, expected: testbed/t and exact/e"

@@ -5,37 +5,30 @@ Need to set the TPU address first:
 export XRT_TPU_CONFIG="localservice;0;localhost:51011"
 """
 
-import torch.multiprocessing as mp
-import threading
-import time
-import random
-import sys
 import argparse
 import gzip
 import json
 import logging
-import tqdm
+import os
+import random
+import sys
+import threading
+import time
+from shutil import copyfile
+
 import torch
-from torch import nn
-from torch.utils.data import DataLoader
-import torch
+import torch.multiprocessing as mp
 import torch_xla
 import torch_xla.core
 import torch_xla.core.functions
 import torch_xla.core.xla_model as xm
-import torch_xla.distributed.xla_multiprocessing as xmp
 import torch_xla.distributed.parallel_loader as pl
-import os
-from shutil import copyfile
-
-
-from transformers import (
-    AdamW,
-    AutoModel,
-    AutoTokenizer,
-    get_linear_schedule_with_warmup,
-    set_seed,
-)
+import torch_xla.distributed.xla_multiprocessing as xmp
+import tqdm
+from torch import nn
+from torch.utils.data import DataLoader
+from transformers import (AdamW, AutoModel, AutoTokenizer,
+                          get_linear_schedule_with_warmup, set_seed)
 
 
 class AutoModelForSentenceEmbedding(nn.Module):

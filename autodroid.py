@@ -30,9 +30,9 @@ class AutoDroid(MobileAgent):
         if not os.path.exists(epi_folder):
             return None
 
-        return DatasetHelper(CONFIG.EPI_METADATA_PATH).load_testbed_trace_by_path(
-            epi_folder
-        )
+        return DatasetHelper(
+            CONFIG.EPI_METADATA_PATH, CONFIG.GR_DATASET_PATH
+        ).load_testbed_trace_by_path(epi_folder)
 
 
 if __name__ == "__main__":
@@ -48,6 +48,7 @@ if __name__ == "__main__":
         e = ExactMatchEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -59,12 +60,17 @@ if __name__ == "__main__":
             },
         )
         e.run_evaluation()
-        e.report_stats()
+        e.report_stats(
+            human_eval_path=CONFIG.AUTODROID_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     elif args.eval == "testbed" or args.eval == "t":
         t = TestbedEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -79,12 +85,17 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.AUTODROID_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     elif args.eval == "lcs-exact" or args.eval == "lcse":
         t = LCSMatchEvaluator(
             agent=agent,
             epi_metadata_path=CONFIG.EPI_METADATA_PATH,
+            gr_dataset_path=CONFIG.GR_DATASET_PATH,
             options={
                 "categories": [
                     TaskCategory.GENERAL,
@@ -96,7 +107,11 @@ if __name__ == "__main__":
             },
         )
         t.run_evaluation()
-        t.report_stats()
+        t.report_stats(
+            human_eval_path=CONFIG.AUTODROID_HUMANEVAL_PATH,
+            only_human_eval_positive=False,
+            suffix="only_human_success",
+        )
 
     else:
         raise Exception(
