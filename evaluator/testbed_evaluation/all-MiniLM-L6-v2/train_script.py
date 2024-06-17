@@ -27,8 +27,13 @@ import torch_xla.distributed.xla_multiprocessing as xmp
 import tqdm
 from torch import nn
 from torch.utils.data import DataLoader
-from transformers import (AdamW, AutoModel, AutoTokenizer,
-                          get_linear_schedule_with_warmup, set_seed)
+from transformers import (
+    AdamW,
+    AutoModel,
+    AutoTokenizer,
+    get_linear_schedule_with_warmup,
+    set_seed,
+)
 
 
 class AutoModelForSentenceEmbedding(nn.Module):

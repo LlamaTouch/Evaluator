@@ -9,8 +9,7 @@ from evaluator.agent import MobileAgent
 
 from .evaluator import BaseEvaluator, FailedReason
 from .exactmatch_evaluation.action_matching import check_actions_match
-from .task_trace import (get_all_actions, get_all_screenshot_paths,
-                         get_all_vh_paths)
+from .task_trace import get_all_actions, get_all_screenshot_paths, get_all_vh_paths
 from .utils.vh_simplify import extract_ui_positions_from_vh
 
 

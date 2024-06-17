@@ -11,7 +11,7 @@ class CONFIG:
     COCOAGENT_EXEC_TRACE_PATH = "/path/to/trace"
 
     # human eval result path
-    AUTOUI_HUMANEVAL_PATH    = "/path/to/human_eval_result"
+    AUTOUI_HUMANEVAL_PATH = "/path/to/human_eval_result"
     AUTODROID_HUMANEVAL_PATH = "/path/to/human_eval_result"
-    APPAGENT_HUMANEVAL_PATH  = "/path/to/human_eval_result"
+    APPAGENT_HUMANEVAL_PATH = "/path/to/human_eval_result"
     COCOAGENT_HUMANEVAL_PATH = "/path/to/human_eval_result"
