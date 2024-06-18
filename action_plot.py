@@ -27,12 +27,12 @@ Examples:
     [{
     "episode_id": "12876601525605324725",
     "actions": [
-      {
-        "action_type": "DUAL_POINT",
-        "touch_point": "[0.2279, 0.1277]",
-        "lift_point": "[0.2279, 0.1277]",
-        "typed_text": ""
-      }
+        {
+            "action_type": "DUAL_POINT",
+            "touch_point": "[0.2279, 0.1277]",
+            "lift_point": "[0.2279, 0.1277]",
+            "typed_text": ""
+        }
     ]
     }]
 """
