@@ -227,14 +227,16 @@ def check_click_match(gr_ui_state: UIState, exec_ui_state: UIState) -> bool:
     if exec_ui_state.action.touch_point_yx != exec_ui_state.action.lift_point_yx:
         return False
 
-    gr_clicked_item_xpath = str(
-        gr_ui_state.essential_state[EssentialStateKeyword.CLICK][0]
-    )
+    gr_click_id = int(gr_ui_state.essential_state[EssentialStateKeyword.CLICK][0])
+    gr_vh_simp_ui_json_path = gr_ui_state.vh_simp_ui_json_path
+    gr_click_xpath: str = json.load(
+        open(gr_vh_simp_ui_json_path, "r", encoding="utf-8")
+    )[gr_click_id]["xpath"]
 
     parser = etree.XMLParser(recover=True, encoding="utf-8")
     exec_ui_tree = etree.parse(exec_ui_state.vh_path, parser)
 
-    found_nodes = exec_ui_tree.xpath(gr_clicked_item_xpath)
+    found_nodes = exec_ui_tree.xpath(gr_click_xpath)
     if len(found_nodes) == 0:
         raise AssertionError("No corresponding nodes found in the execution UI state.")
 
